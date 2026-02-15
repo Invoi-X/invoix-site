@@ -496,6 +496,7 @@
       .slider-next { right: 0.5rem !important; }
       .slider-arrow { width: 2.25rem !important; height: 2.25rem !important; background: color-mix(in srgb, var(--surface) 95%, transparent) !important; }
       #templates { overflow: hidden; }
+      .templates-bottom-bar { flex-direction: column; gap: 0.75rem !important; text-align: center; }
 
       /* Footer */
       .footer-top { flex-direction: column !important; text-align: center; }
@@ -914,8 +915,6 @@
     <div style="font-size:6px;color:#999;">Payment due within 30 days. Thank you for your business!</div>
   </div>
 </div>
-                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Modern</h3>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Contemporary & clean</p>
               </div>
             </div>
             <div class="slider-slide" style="min-width:100%;flex-shrink:0;overflow:hidden;">
@@ -964,8 +963,6 @@
     <div style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</div>
   </div>
 </div>
-                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Classic</h3>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Traditional & formal</p>
               </div>
             </div>
             <div class="slider-slide" style="min-width:100%;flex-shrink:0;overflow:hidden;">
@@ -1019,8 +1016,6 @@
     <div style="display:flex;justify-content:flex-end;gap:20px;"><div style="font-size:8px;color:#374151;font-weight:400;">Total</div><div style="font-size:8px;color:#374151;font-weight:500;">$11,582.75</div></div>
   </div>
 </div>
-                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Minimal</h3>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Clean & spacious</p>
               </div>
             </div>
             <div class="slider-slide" style="min-width:100%;flex-shrink:0;overflow:hidden;">
@@ -1067,8 +1062,6 @@
     <div style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</div>
   </div>
 </div>
-                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Professional</h3>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Corporate & polished</p>
               </div>
             </div>
             <div class="slider-slide" style="min-width:100%;flex-shrink:0;overflow:hidden;">
@@ -1117,8 +1110,6 @@
   </div>
   <div style="margin-top:6px;"><div style="font-size:6px;color:#bbb;font-style:italic;">Thank you for your business</div></div>
 </div>
-                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Elegant</h3>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Refined & sophisticated</p>
               </div>
             </div>
             <div class="slider-slide" style="min-width:100%;flex-shrink:0;overflow:hidden;">
@@ -1171,24 +1162,14 @@
     <div style="font-size:5px;font-weight:900;color:#c026d3;letter-spacing:0.1em;text-shadow:0 0 4px rgba(192,38,211,0.5);">POWERED BY CHAOS</div>
   </div>
 </div>
-                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Wild</h3>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Bold & expressive</p>
               </div>
             </div>
           </div>
         </div>
-          <div class="slider-dots" id="sliderDots" style="display:flex;justify-content:center;gap:0.5rem;margin-top:0.75rem;">
-            <button type="button" class="slider-dot active" onclick="goToSlide(0)" aria-label="Go to Modern template"></button>
-            <button type="button" class="slider-dot" onclick="goToSlide(1)" aria-label="Go to Classic template"></button>
-            <button type="button" class="slider-dot" onclick="goToSlide(2)" aria-label="Go to Minimal template"></button>
-            <button type="button" class="slider-dot" onclick="goToSlide(3)" aria-label="Go to Professional template"></button>
-            <button type="button" class="slider-dot" onclick="goToSlide(4)" aria-label="Go to Elegant template"></button>
-            <button type="button" class="slider-dot" onclick="goToSlide(5)" aria-label="Go to Wild template"></button>
-          </div>
         </div>
 
         <!-- Live App Preview + Controls -->
-        <div class="showcase-preview-col" style="max-width:20rem;">
+        <div class="showcase-preview-col" style="max-width:24rem;">
           <div class="showcase-preview">
             <!-- Mini app chrome -->
             <div style="display:flex;align-items:center;gap:5px;margin-bottom:0.5rem;">
@@ -1256,34 +1237,41 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Theme Controls — tucked under preview -->
-          <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap;">
-            <div style="display:flex;gap:0.2rem;">
-              <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')" aria-label="Light mode">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-              </button>
-              <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')" aria-label="Dark mode">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-              </button>
-            </div>
-            <div style="width:1px;height:1rem;background:var(--border);"></div>
-            <div style="display:flex;gap:0.3rem;">
-              <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')" title="Amethyst">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
-              </button>
-              <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')" title="Ocean">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
-              </button>
-              <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')" title="Sunset">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
-              </button>
-              <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')" title="Emerald">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
-              </button>
-            </div>
+      <!-- Bottom bar: template name | controls | hint -->
+      <div class="templates-bottom-bar" style="display:flex;align-items:center;justify-content:space-between;max-width:52rem;margin:1rem auto 0;padding:0 0.5rem;">
+        <div style="min-width:0;">
+          <div id="templateName" style="font-weight:600;color:var(--text-primary);font-size:0.95rem;">Modern</div>
+          <div id="templateDesc" style="font-size:0.75rem;color:var(--text-muted);margin-top:0.1rem;">Contemporary & clean</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.4rem;">
+          <div style="display:flex;gap:0.2rem;">
+            <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')" aria-label="Light mode">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </button>
+            <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')" aria-label="Dark mode">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
+          </div>
+          <div style="width:1px;height:1rem;background:var(--border);"></div>
+          <div style="display:flex;gap:0.3rem;">
+            <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')" title="Amethyst">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
+            </button>
+            <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')" title="Ocean">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
+            </button>
+            <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')" title="Sunset">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
+            </button>
+            <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')" title="Emerald">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
+            </button>
           </div>
         </div>
+        <div style="font-size:0.7rem;color:var(--text-muted);">Click to retheme</div>
       </div>
     </div>
   </section>
@@ -1586,12 +1574,15 @@
 
     var currentSlide = 0;
     var totalSlides = 6;
+    var templateNames = ['Modern','Classic','Minimal','Professional','Elegant','Wild'];
+    var templateDescs = ['Contemporary & clean','Traditional & formal','Clean & spacious','Corporate & polished','Refined & sophisticated','Bold & expressive'];
     function goToSlide(idx) {
       currentSlide = ((idx % totalSlides) + totalSlides) % totalSlides;
       document.getElementById('sliderTrack').style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-      document.querySelectorAll('.slider-dot').forEach(function(d, i) {
-        d.classList.toggle('active', i === currentSlide);
-      });
+      var nameEl = document.getElementById('templateName');
+      var descEl = document.getElementById('templateDesc');
+      if (nameEl) nameEl.textContent = templateNames[currentSlide];
+      if (descEl) descEl.textContent = templateDescs[currentSlide];
     }
     function slideTemplate(dir) { goToSlide(currentSlide + dir); }
 
