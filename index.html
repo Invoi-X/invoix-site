@@ -514,9 +514,7 @@
       .showcase-preview { zoom: 1.35; }
 
       /* Footer */
-      .footer-top { flex-direction: column !important; text-align: center; }
-      .footer-links { justify-content: center !important; }
-      .footer-bottom { flex-direction: column !important; text-align: center; }
+      .footer-bottom { flex-direction: column !important; text-align: center; gap: 0.5rem !important; }
 
       /* Chart */
       .chart-toggles { gap: 0.25rem !important; }
@@ -1487,39 +1485,41 @@
     </div>
   </section>
 
-  <!-- Social proof bar -->
-  <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:color-mix(in srgb, var(--surface-card) 50%, transparent);padding:1.5rem 0;">
-    <div class="stats-bar" style="max-width:72rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2rem;color:var(--text-muted);font-size:0.875rem;">
-      <span>6 Invoice Templates</span>
-      <span style="color:var(--border);">|</span>
-      <span>7 Currencies Supported</span>
-      <span style="color:var(--border);">|</span>
-      <span>PDF Export</span>
-      <span style="color:var(--border);">|</span>
-      <span>Gmail & Outlook Integration</span>
-      <span style="color:var(--border);">|</span>
-      <span>100% Offline-Capable</span>
-    </div>
-  </div>
-
   <!-- Footer -->
-  <footer style="border-top:none;padding:2rem 0;">
+  <footer style="border-top:1px solid var(--border);background:color-mix(in srgb, var(--surface-card) 50%, transparent);padding:2rem 0 1.25rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div class="footer-top" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
-        <div>
-          <span class="gradient-text" style="font-size:1.125rem;font-weight:700;">Invoi.X</span>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin-top:0.25rem;">Professional invoicing, simplified.</p>
-        </div>
-        <button type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:flex;align-items:center;gap:0.4rem;background:none;border:1px solid var(--border);border-radius:8px;padding:0.5rem 1rem;cursor:pointer;color:var(--text-muted);font-size:0.8rem;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(var(--accent-rgb),0.4)';this.style.color='var(--text-primary)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-          Back to top
-        </button>
+      <!-- Features bar -->
+      <div class="stats-bar" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.6rem 1.5rem;color:var(--text-muted);font-size:0.8rem;line-height:1.6;">
+        <span>6 Invoice Templates</span>
+        <span style="color:var(--border);">·</span>
+        <span>7 Currencies</span>
+        <span style="color:var(--border);">·</span>
+        <span>PDF Export</span>
+        <span style="color:var(--border);">·</span>
+        <span>Gmail & Outlook</span>
+        <span style="color:var(--border);">·</span>
+        <span>100% Offline</span>
+        <span style="color:var(--border);">·</span>
+        <span>Light & Dark Mode</span>
+        <span style="color:var(--border);">·</span>
+        <span>Dashboard Analytics</span>
+        <span style="color:var(--border);">·</span>
+        <span>Client Management</span>
+        <span style="color:var(--border);">·</span>
+        <span>Keyboard Shortcuts</span>
+        <span style="color:var(--border);">·</span>
+        <span>Data Backup & Export</span>
       </div>
-      <div class="footer-bottom" style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
-        <p style="font-size:0.75rem;color:var(--text-muted);">&copy; 2026 Invoi.X. All rights reserved.</p>
-        <div style="display:flex;align-items:center;gap:1.5rem;">
-          <a href="#" style="font-size:0.75rem;color:var(--text-muted);text-decoration:none;">Privacy Policy</a>
-          <a href="#" style="font-size:0.75rem;color:var(--text-muted);text-decoration:none;">Terms of Service</a>
+      <!-- Bottom row -->
+      <div class="footer-bottom" style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem;">
+        <p style="font-size:0.7rem;color:var(--text-muted);">&copy; 2026 Invoi.X. All rights reserved.</p>
+        <div style="display:flex;align-items:center;gap:1.25rem;">
+          <a href="#" style="font-size:0.7rem;color:var(--text-muted);text-decoration:none;">Privacy</a>
+          <a href="#" style="font-size:0.7rem;color:var(--text-muted);text-decoration:none;">Terms</a>
+          <button type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-flex;align-items:center;gap:0.3rem;background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:0.7rem;font-family:inherit;padding:0;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            Top
+          </button>
         </div>
       </div>
     </div>
