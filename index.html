@@ -107,8 +107,6 @@
         #1a1a1a 10px,
         #1a1a1a 20px
       );
-      background-size: 28.28px 28.28px;
-      animation: tape-scroll 1.5s linear infinite;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -122,14 +120,12 @@
       font-weight: 800;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      padding: 0.125rem 1rem;
-      border-radius: 2px;
+      padding: 0.1875rem 0.875rem;
       white-space: nowrap;
       font-family: 'Inter', system-ui, sans-serif;
-    }
-    @keyframes tape-scroll {
-      0% { background-position: 0 0; }
-      100% { background-position: 28.28px 0; }
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     /* ══════════════════════════════
@@ -495,7 +491,7 @@
 
   <!-- Construction Tape -->
   <div class="construction-tape">
-    <span>Under Construction</span>
+    <span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M12 22V12"/><path d="M12 12 3 7"/><path d="m12 12 9-5"/></svg> Under Construction</span>
   </div>
 
   <!-- Navigation -->
