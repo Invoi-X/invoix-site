@@ -1675,16 +1675,21 @@
 
       // X-axis labels — flex:1 so each label occupies same width as its bar
       xAxis.innerHTML = '';
-      var isMobile = window.innerWidth <= 768;
-      // Skip labels on mobile when too many to fit
+      var chartW = document.getElementById('chartContainer').offsetWidth;
+      var slotPx = chartW / data.length;
+      // Use single-char labels when slots are narrow, skip labels when very narrow
+      var useShort = slotPx < 28;
       var skipEvery = 1;
-      if (isMobile && data.length > 12) skipEvery = 3;
-      else if (isMobile && data.length > 6) skipEvery = 2;
+      if (slotPx < 12) skipEvery = 3;
+      else if (slotPx < 20) skipEvery = 2;
+      var shortMonth = {Mar:'M',Apr:'A',May:'M',Jun:'J',Jul:'J',Aug:'A',Sep:'S',Oct:'O',Nov:'N',Dec:'D',Jan:'J',Feb:'F'};
       data.forEach(function(d, i) {
         var lbl = document.createElement('span');
         var show = (i % skipEvery === 0) || i === data.length - 1;
-        lbl.style.cssText = 'flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);min-width:0;overflow:hidden;';
-        lbl.textContent = show ? d.m : '';
+        lbl.style.cssText = 'flex:1;text-align:center;font-size:' + (useShort ? '0.45rem' : '0.55rem') + ';color:var(--text-muted);min-width:0;white-space:nowrap;';
+        if (show) {
+          lbl.textContent = useShort ? (shortMonth[d.m] || d.m.charAt(0)) : d.m;
+        }
         xAxis.appendChild(lbl);
       });
 
