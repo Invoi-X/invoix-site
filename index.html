@@ -587,30 +587,22 @@
                   <p style="font-size:0.8rem;font-weight:600;color:var(--text-primary);">Revenue Overview</p>
                   <div class="chart-toggles" style="display:flex;gap:0.375rem;">
                     <div style="display:flex;border-radius:0.25rem;overflow:hidden;border:1px solid var(--border);font-size:0.6rem;">
-                      <span style="padding:0.15rem 0.4rem;background:rgba(var(--accent-rgb),0.15);color:var(--accent-400);font-weight:600;">Bar</span>
-                      <span style="padding:0.15rem 0.4rem;color:var(--text-muted);">Line</span>
-                      <span style="padding:0.15rem 0.4rem;color:var(--text-muted);">Area</span>
+                      <span class="chart-type-btn" data-type="bar" onclick="setChartType('bar')" style="padding:0.15rem 0.4rem;cursor:pointer;transition:all 0.15s;">Bar</span>
+                      <span class="chart-type-btn" data-type="line" onclick="setChartType('line')" style="padding:0.15rem 0.4rem;cursor:pointer;transition:all 0.15s;">Line</span>
+                      <span class="chart-type-btn" data-type="area" onclick="setChartType('area')" style="padding:0.15rem 0.4rem;cursor:pointer;transition:all 0.15s;">Area</span>
                     </div>
                     <div style="display:flex;border-radius:0.25rem;overflow:hidden;border:1px solid var(--border);font-size:0.6rem;">
-                      <span style="padding:0.15rem 0.4rem;color:var(--text-muted);">6M</span>
-                      <span style="padding:0.15rem 0.4rem;background:rgba(var(--accent-rgb),0.15);color:var(--accent-400);font-weight:600;">1Y</span>
-                      <span style="padding:0.15rem 0.4rem;color:var(--text-muted);">All</span>
+                      <span class="chart-tf-btn" data-tf="6m" onclick="setChartTf('6m')" style="padding:0.15rem 0.4rem;cursor:pointer;transition:all 0.15s;">6M</span>
+                      <span class="chart-tf-btn" data-tf="1y" onclick="setChartTf('1y')" style="padding:0.15rem 0.4rem;cursor:pointer;transition:all 0.15s;">1Y</span>
+                      <span class="chart-tf-btn" data-tf="all" onclick="setChartTf('all')" style="padding:0.15rem 0.4rem;cursor:pointer;transition:all 0.15s;">All</span>
                     </div>
                   </div>
                 </div>
-                <!-- Chart with Y-axis, grid, bars, X-axis -->
+                <!-- Chart area -->
                 <div style="display:flex;gap:0.4rem;">
-                  <!-- Y-axis -->
-                  <div style="display:flex;flex-direction:column;justify-content:space-between;height:9rem;text-align:right;padding-bottom:1.25rem;">
-                    <span style="font-size:0.55rem;color:var(--text-muted);line-height:1;">£10k</span>
-                    <span style="font-size:0.55rem;color:var(--text-muted);line-height:1;">£7.5k</span>
-                    <span style="font-size:0.55rem;color:var(--text-muted);line-height:1;">£5k</span>
-                    <span style="font-size:0.55rem;color:var(--text-muted);line-height:1;">£2.5k</span>
-                    <span style="font-size:0.55rem;color:var(--text-muted);line-height:1;">£0</span>
-                  </div>
-                  <!-- Chart body -->
+                  <div id="chartYAxis" style="display:flex;flex-direction:column;justify-content:space-between;height:9rem;text-align:right;padding-bottom:1.25rem;"></div>
                   <div style="flex:1;min-width:0;">
-                    <div style="position:relative;height:9rem;padding-bottom:1.25rem;">
+                    <div id="chartContainer" style="position:relative;height:9rem;padding-bottom:1.25rem;">
                       <!-- Grid lines -->
                       <div style="position:absolute;top:0;left:0;right:0;bottom:1.25rem;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;">
                         <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.1);"></div>
@@ -619,39 +611,12 @@
                         <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.1);"></div>
                         <div style="border-bottom:1px solid var(--border);"></div>
                       </div>
-                      <!-- Bars -->
-                      <div style="position:relative;z-index:1;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;justify-content:space-around;padding:0 0.25rem;">
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.25);border-radius:3px 3px 0 0;height:15%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.3);border-radius:3px 3px 0 0;height:28%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.3);border-radius:3px 3px 0 0;height:35%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.25);border-radius:3px 3px 0 0;height:25%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.35);border-radius:3px 3px 0 0;height:42%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.4);border-radius:3px 3px 0 0;height:58%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.35);border-radius:3px 3px 0 0;height:50%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.45);border-radius:3px 3px 0 0;height:68%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.5);border-radius:3px 3px 0 0;height:75%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.4);border-radius:3px 3px 0 0;height:62%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;background:rgba(var(--accent-rgb),0.5);border-radius:3px 3px 0 0;height:82%;margin:0 1px;"></div>
-                        <div style="flex:1;max-width:2.5rem;position:relative;margin:0 1px;">
-                          <div style="position:absolute;bottom:95%;left:50%;transform:translateX(-50%);background:var(--accent-500);color:#fff;font-size:0.55rem;font-weight:600;padding:2px 6px;border-radius:3px;white-space:nowrap;box-shadow:0 2px 8px rgba(var(--accent-rgb),0.3);">£9,480</div>
-                          <div style="width:100%;background:var(--accent-500);border-radius:3px 3px 0 0;height:95%;box-shadow:0 0 12px rgba(var(--accent-rgb),0.25);"></div>
-                        </div>
-                      </div>
-                      <!-- X-axis labels -->
-                      <div style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:0.25rem 0.25rem 0;">
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Mar</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Apr</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">May</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Jun</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Jul</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Aug</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Sep</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Oct</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Nov</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Dec</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);">Jan</span>
-                        <span style="flex:1;text-align:center;font-size:0.55rem;color:var(--accent-400);font-weight:600;">Feb</span>
-                      </div>
+                      <!-- Bar layer -->
+                      <div id="chartBars" style="position:relative;z-index:1;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;justify-content:space-around;padding:0 0.25rem;"></div>
+                      <!-- SVG layer for line/area -->
+                      <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:1;display:none;overflow:visible;"></svg>
+                      <!-- X-axis -->
+                      <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:0.25rem 0.25rem 0;"></div>
                     </div>
                   </div>
                 </div>
@@ -1532,6 +1497,127 @@
         s.classList.toggle('active', s.getAttribute('data-theme-name') === theme);
       });
     }
+
+    // ─── Interactive Chart ───
+    var chartData = [
+      {m:'Mar',v:3200},{m:'Apr',v:4100},{m:'May',v:3800},{m:'Jun',v:5200},
+      {m:'Jul',v:4700},{m:'Aug',v:6100},{m:'Sep',v:5500},{m:'Oct',v:7200},
+      {m:'Nov',v:6800},{m:'Dec',v:8400},{m:'Jan',v:7900},{m:'Feb',v:9100},
+      {m:'Mar',v:8600},{m:'Apr',v:9800},{m:'May',v:9200},{m:'Jun',v:10500},
+      {m:'Jul',v:11200},{m:'Aug',v:12480}
+    ];
+    var chartType = 'bar';
+    var chartTf = '1y';
+
+    function getChartSlice() {
+      var len = chartData.length;
+      if (chartTf === '6m') return chartData.slice(len - 6);
+      if (chartTf === '1y') return chartData.slice(len - 12);
+      return chartData;
+    }
+
+    function setChartType(t) {
+      chartType = t;
+      document.querySelectorAll('.chart-type-btn').forEach(function(b) {
+        var active = b.getAttribute('data-type') === t;
+        b.style.background = active ? 'var(--accent-500)' : 'transparent';
+        b.style.color = active ? '#fff' : 'var(--text-muted)';
+      });
+      renderChart();
+    }
+
+    function setChartTf(tf) {
+      chartTf = tf;
+      document.querySelectorAll('.chart-tf-btn').forEach(function(b) {
+        var active = b.getAttribute('data-tf') === tf;
+        b.style.background = active ? 'var(--accent-500)' : 'transparent';
+        b.style.color = active ? '#fff' : 'var(--text-muted)';
+      });
+      renderChart();
+    }
+
+    function renderChart() {
+      var data = getChartSlice();
+      var max = Math.max.apply(null, data.map(function(d){return d.v;}));
+      // Round max up to nearest 2000
+      var ceil = Math.ceil(max / 2000) * 2000;
+      var barsEl = document.getElementById('chartBars');
+      var svgEl = document.getElementById('chartSvg');
+      var xAxis = document.getElementById('chartXAxis');
+      var yAxis = document.getElementById('chartYAxis');
+
+      // Y-axis labels (5 ticks from ceil down to 0)
+      yAxis.innerHTML = '';
+      for (var i = 0; i < 5; i++) {
+        var val = ceil - (ceil / 4) * i;
+        var label = document.createElement('span');
+        label.style.cssText = 'font-size:0.55rem;color:var(--text-muted);line-height:1;';
+        label.textContent = '£' + (val >= 1000 ? (val/1000) + 'k' : val);
+        yAxis.appendChild(label);
+      }
+
+      // X-axis labels
+      xAxis.innerHTML = '';
+      data.forEach(function(d) {
+        var lbl = document.createElement('span');
+        lbl.style.cssText = 'font-size:0.55rem;color:var(--text-muted);';
+        lbl.textContent = d.m;
+        xAxis.appendChild(lbl);
+      });
+
+      if (chartType === 'bar') {
+        barsEl.style.display = 'flex';
+        svgEl.style.display = 'none';
+        barsEl.innerHTML = '';
+        data.forEach(function(d, idx) {
+          var pct = (d.v / ceil) * 100;
+          var isLast = idx === data.length - 1;
+          var bar = document.createElement('div');
+          bar.style.cssText = 'width:' + (100/data.length - 1.5) + '%;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease;position:relative;min-width:4px;';
+          bar.style.background = isLast ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
+          // Tooltip on hover
+          bar.title = d.m + ': £' + d.v.toLocaleString();
+          if (isLast) {
+            var tip = document.createElement('div');
+            tip.style.cssText = 'position:absolute;top:-1.1rem;left:50%;transform:translateX(-50%);font-size:0.5rem;color:var(--accent-500);font-weight:700;white-space:nowrap;';
+            tip.textContent = '£' + (d.v >= 1000 ? (d.v/1000).toFixed(1) + 'k' : d.v);
+            bar.appendChild(tip);
+          }
+          barsEl.appendChild(bar);
+        });
+      } else {
+        barsEl.style.display = 'none';
+        svgEl.style.display = 'block';
+        var w = svgEl.getBoundingClientRect().width || 300;
+        var h = svgEl.getBoundingClientRect().height || 110;
+        var gap = w / (data.length - 1 || 1);
+        var points = data.map(function(d, i) {
+          var x = i * gap;
+          var y = h - (d.v / ceil) * h;
+          return {x: x, y: y, d: d};
+        });
+        var pointStr = points.map(function(p){return p.x+','+p.y;}).join(' ');
+
+        var svg = '';
+        if (chartType === 'area') {
+          svg += '<polygon points="0,' + h + ' ' + pointStr + ' ' + (points[points.length-1].x) + ',' + h + '" fill="rgba(var(--accent-rgb),0.15)" />';
+        }
+        svg += '<polyline points="' + pointStr + '" fill="none" stroke="var(--accent-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />';
+        // Dots
+        points.forEach(function(p, i) {
+          var isLast = i === points.length - 1;
+          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (isLast ? 4 : 2.5) + '" fill="' + (isLast ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.5)') + '" stroke="var(--surface-card)" stroke-width="1.5"><title>' + p.d.m + ': £' + p.d.v.toLocaleString() + '</title></circle>';
+          if (isLast) {
+            svg += '<text x="' + p.x + '" y="' + (p.y - 8) + '" text-anchor="middle" fill="var(--accent-500)" font-size="7" font-weight="700">£' + (p.d.v >= 1000 ? (p.d.v/1000).toFixed(1) + 'k' : p.d.v) + '</text>';
+          }
+        });
+        svgEl.innerHTML = svg;
+      }
+    }
+
+    // Initial chart render
+    setChartType('bar');
+    setChartTf('1y');
   </script>
 
 </body>
