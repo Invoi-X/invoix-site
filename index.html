@@ -163,13 +163,6 @@
     }
     .hero-gradient { background: var(--hero-bg); }
 
-    .text-heading { color: var(--text-primary); }
-    .text-body { color: var(--text-secondary); }
-    .text-muted { color: var(--text-muted); }
-    .bg-surface { background-color: var(--surface); }
-    .bg-card { background-color: var(--surface-card); }
-    .border-theme { border-color: var(--border); }
-
     .card-glow {
       background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06), rgba(var(--accent-rgb), 0.02));
       border: 1px solid rgba(var(--accent-rgb), 0.12);
@@ -218,10 +211,6 @@
       align-self: start;
     }
 
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.18), transparent);
-    }
 
     /* Template Slider */
     .slider-arrow {
@@ -249,27 +238,8 @@
     }
     .slider-prev { left: -3.25rem; }
     .slider-next { right: -3.25rem; }
-    .slider-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: none;
-      background: var(--border);
-      cursor: pointer;
-      padding: 0;
-      transition: all 0.2s;
-    }
-    .slider-dot:hover { background: rgba(var(--accent-rgb), 0.4); }
-    .slider-dot.active {
-      background: var(--accent-400);
-      transform: scale(1.25);
-    }
-
     .check-icon { color: var(--accent-400); }
-    .accent-bg { background-color: var(--accent-500); }
     .accent-text { color: var(--accent-400); }
-    .accent-bg-muted { background-color: rgba(var(--accent-rgb), 0.5); }
-    .accent-bg-subtle { background-color: rgba(var(--accent-rgb), 0.35); }
 
     /* FAQ */
     .faq-item[open] summary { color: var(--accent-400); }
@@ -280,10 +250,6 @@
       margin-right: 1rem; transition: transform 0.2s; display: inline-block;
     }
     .faq-item[open] summary::before { transform: rotate(45deg); }
-
-    /* Animations */
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    .float-animation { animation: float 6s ease-in-out infinite; }
 
     /* ══════════════════════════════
        THEME TOGGLE
@@ -370,8 +336,6 @@
     .showcase-swatch-dot {
       width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
     }
-    .showcase-swatch-name { display: none; }
-
     .showcase-mode-btn {
       padding: 0.3rem; border-radius: 6px; cursor: pointer;
       border: 1px solid var(--border); transition: all 0.25s; display: flex;
@@ -409,14 +373,7 @@
       padding: 0.25rem 0 0; margin-top: 0.2rem; border-top: 2px solid var(--accent-500);
       font-weight: 700; color: var(--text-primary); font-size: 0.7rem;
     }
-    .showcase-hint {
-      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
-      background: rgba(var(--accent-rgb), 0.08); border: 1px solid rgba(var(--accent-rgb), 0.15);
-      border-radius: 8px; font-size: 0.8rem; color: var(--accent-400); margin-top: 1.5rem;
-    }
-
     @media (max-width: 768px) {
-      .showcase-controls { order: 2; }
       .showcase-preview-col { order: 1; }
     }
 
@@ -1285,6 +1242,7 @@
         </div>
       </div>
     </div>
+  </div>
   </section>
 
   <div class="construction-tape-divider"></div>
@@ -1777,7 +1735,6 @@
       chartCeil = ceil;
       var barsEl = document.getElementById('chartBars');
       var svgEl = document.getElementById('chartSvg');
-      var xAxis = document.getElementById('chartXAxis');
       var yAxis = document.getElementById('chartYAxis');
       var sel = selectedIdx === -1 ? data.length - 1 : Math.min(selectedIdx, data.length - 1);
 
