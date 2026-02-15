@@ -160,9 +160,13 @@
 
     .dashboard-features-layout {
       display: grid;
-      grid-template-columns: 9fr 11fr;
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
       align-items: start;
+    }
+    .dashboard-col {
+      position: sticky;
+      top: 5rem;
     }
 
     .section-divider {
@@ -389,8 +393,9 @@
 
       /* Grids */
       .dashboard-features-layout { grid-template-columns: 1fr !important; }
-      .features-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
-      .features-grid > .card-glow { padding: 0.875rem !important; }
+      .dashboard-col { position: static !important; }
+      .features-grid { gap: 0.5rem !important; }
+      .features-grid > .card-glow { padding: 0.625rem 0.875rem !important; }
       .templates-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
       .pricing-grid { grid-template-columns: 1fr !important; max-width: 28rem; margin-left: auto !important; margin-right: auto !important; }
 
@@ -420,25 +425,11 @@
       #pricing > div > div:first-child,
       #faq > div > div:first-child { margin-bottom: 1.5rem !important; }
 
-      /* Feature cards — compact horizontal layout (icon left, text right) */
-      .features-grid { grid-template-columns: 1fr !important; gap: 0.375rem !important; }
-      .features-grid > .card-glow {
-        display: grid !important;
-        grid-template-columns: 2.25rem 1fr;
-        grid-template-rows: auto auto;
-        column-gap: 0.75rem;
-        row-gap: 0;
-        padding: 0.75rem 1rem !important;
-        align-items: start;
-      }
-      .features-grid .feature-icon {
-        grid-column: 1; grid-row: 1 / -1;
-        width: 2.25rem !important; height: 2.25rem !important;
-        margin-bottom: 0 !important;
-      }
-      .features-grid .feature-icon svg { width: 1rem !important; height: 1rem !important; }
-      .features-grid h3 { grid-column: 2; font-size: 0.8125rem !important; margin-bottom: 0.125rem !important; }
-      .features-grid p { grid-column: 2; font-size: 0.8rem !important; line-height: 1.5 !important; }
+      /* Feature cards — tighter on small phones */
+      .features-grid { gap: 0.375rem !important; }
+      .features-grid > .card-glow { padding: 0.625rem 0.75rem !important; gap: 0.625rem !important; }
+      .features-grid h3 { font-size: 0.8125rem !important; }
+      .features-grid p { font-size: 0.75rem !important; }
 
       /* Templates — keep 2-col with shorter previews */
       .templates-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.625rem !important; }
@@ -644,79 +635,97 @@
             </div>
         </div>
 
-        <!-- Right: Features Grid -->
+        <!-- Right: Features List -->
         <div class="features-col">
-          <div class="features-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;">
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+          <div class="features-grid" style="display:flex;flex-direction:column;gap:0.5rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Create Invoices in Seconds</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Add line items, taxes, discounts, and shipping. Auto-calculate totals.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Create Invoices in Seconds</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Add line items, taxes, discounts, and shipping. Auto-calculate totals.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">6 Stunning Templates</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Modern, Classic, Minimal, Professional, Elegant, and Wild.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">6 Stunning Templates</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Modern, Classic, Minimal, Professional, Elegant, and Wild.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">One-Click PDF Export</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Generate pixel-perfect A4 PDFs ready to send.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">One-Click PDF Export</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Generate pixel-perfect A4 PDFs ready to send.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Email Integration</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Send via Gmail or Outlook. Customise email templates.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Email Integration</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Send via Gmail or Outlook. Customise email templates.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Dashboard & Analytics</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Track revenue and trends. 5 layouts including Kanban.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Dashboard & Analytics</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Track revenue and trends. 5 layouts including Kanban.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Private & Offline</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Your data stays on your device. No cloud, no tracking.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Private & Offline</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Your data stays on your device. No cloud, no tracking.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Client Management</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Save client details and reuse across invoices.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Client Management</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Save client details and reuse across invoices.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Recurring Invoices</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Auto-generate weekly, monthly, or quarterly.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Recurring Invoices</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Auto-generate weekly, monthly, or quarterly.</p>
+              </div>
             </div>
 
-            <div class="card-glow" style="border-radius:0.75rem;padding:1rem;">
-              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:0.75rem;">
+            <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
+              <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
               </div>
-              <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.375rem;">Customise Everything</h3>
-              <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;">Logo, colours, dark/light mode. 4 themes to match your brand.</p>
+              <div>
+                <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Customise Everything</h3>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Logo, colours, dark/light mode. 4 themes to match your brand.</p>
+              </div>
             </div>
           </div>
         </div>
