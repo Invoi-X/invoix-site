@@ -319,13 +319,82 @@
     }
 
     /* ══════════════════════════════
+       MOBILE MENU
+       ══════════════════════════════ */
+    .mobile-menu-btn {
+      display: none; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(var(--accent-rgb), 0.1); border: 1px solid rgba(var(--accent-rgb), 0.2);
+      cursor: pointer; color: var(--accent-400); transition: all 0.2s; flex-shrink: 0;
+    }
+    .mobile-menu-btn:hover {
+      background: rgba(var(--accent-rgb), 0.18); border-color: rgba(var(--accent-rgb), 0.35);
+    }
+    .mobile-menu {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200;
+      background: color-mix(in srgb, var(--surface) 96%, transparent);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+      opacity: 0; visibility: hidden; transition: all 0.3s;
+    }
+    .mobile-menu.open { opacity: 1; visibility: visible; }
+    .mobile-menu a {
+      font-size: 1.25rem; font-weight: 600; color: var(--text-primary); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--accent-400); }
+    .mobile-menu-close {
+      position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none;
+      color: var(--text-primary); cursor: pointer; padding: 0.5rem;
+    }
+
+    /* ══════════════════════════════
        RESPONSIVE
        ══════════════════════════════ */
+
+    /* Tablet & small desktop */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hero-title { font-size: 2.25rem; }
-      .pricing-grid { grid-template-columns: 1fr; }
+      /* Nav */
+      .nav-links { display: none !important; }
+      .mobile-menu-btn { display: flex; }
+      .nav-cta { font-size: 0.75rem !important; padding: 0.5rem 0.875rem !important; }
+
+      /* Hero */
+      .hero-gradient { padding-top: 6rem !important; padding-bottom: 3rem !important; }
+      .hero-title { font-size: 2.25rem !important; }
+      .hero-subtitle { font-size: 1.1rem !important; margin-bottom: 2rem !important; }
+      .hero-buttons { margin-bottom: 2.5rem !important; }
+      .hero-mockup-inner { padding: 1rem !important; }
+
+      /* General sections */
+      h2 { font-size: 1.75rem !important; }
+      section:not(.hero-gradient) { padding-top: 3rem !important; padding-bottom: 4rem !important; }
+
+      /* Stats bar */
+      .stats-bar { gap: 0.75rem !important; font-size: 0.75rem !important; }
       .stats-bar > span:nth-child(even) { display: none; }
+
+      /* Grids */
+      .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .templates-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .pricing-grid { grid-template-columns: 1fr !important; max-width: 28rem; margin-left: auto !important; margin-right: auto !important; }
+
+      /* Footer */
+      .footer-top { flex-direction: column !important; text-align: center; }
+      .footer-links { justify-content: center !important; }
+      .footer-bottom { flex-direction: column !important; text-align: center; }
+    }
+
+    /* Small phones */
+    @media (max-width: 480px) {
+      .hero-gradient { padding-top: 5.5rem !important; padding-bottom: 2rem !important; }
+      .hero-title { font-size: 1.875rem !important; }
+      .hero-subtitle { font-size: 1rem !important; }
+      .hero-stats-grid { grid-template-columns: 1fr !important; }
+      h2 { font-size: 1.5rem !important; }
+      section:not(.hero-gradient) { padding-top: 2.5rem !important; padding-bottom: 3rem !important; }
+      .features-grid { grid-template-columns: 1fr !important; }
+      .templates-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
@@ -342,6 +411,9 @@
         <a href="#faq" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">FAQ</a>
       </div>
       <div style="display:flex;align-items:center;gap:0.75rem;">
+        <button type="button" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
         <!-- Theme Toggle -->
         <div class="theme-panel" id="themePanel">
           <button type="button" class="theme-toggle-btn" onclick="toggleThemePanel()" aria-label="Toggle theme">
@@ -381,10 +453,22 @@
             </div>
           </div>
         </div>
-        <a href="#pricing" class="btn-primary" style="font-size:0.875rem;font-weight:500;padding:0.625rem 1.25rem;border-radius:0.5rem;text-decoration:none;">Get Started Free</a>
+        <a href="#pricing" class="btn-primary nav-cta" style="font-size:0.875rem;font-weight:500;padding:0.625rem 1.25rem;border-radius:0.5rem;text-decoration:none;">Get Started Free</a>
       </div>
     </div>
   </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <a href="#features" onclick="toggleMobileMenu()">Features</a>
+    <a href="#templates" onclick="toggleMobileMenu()">Templates</a>
+    <a href="#pricing" onclick="toggleMobileMenu()">Pricing</a>
+    <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
+    <a href="#pricing" class="btn-primary" style="font-weight:600;padding:0.875rem 2rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;margin-top:1rem;" onclick="toggleMobileMenu()">Get Started Free</a>
+  </div>
 
   <!-- Hero -->
   <section class="hero-gradient" style="padding-top:8rem;padding-bottom:5rem;position:relative;overflow:hidden;">
@@ -402,12 +486,12 @@
         <span class="gradient-text">actually beautiful</span>
       </h1>
 
-      <p style="font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto 2.5rem;line-height:1.7;">
+      <p class="hero-subtitle" style="font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto 2.5rem;line-height:1.7;">
         Create stunning, professional invoices in seconds. 6 templates, PDF export,
         email integration, and analytics — all in one clean app.
       </p>
 
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;margin-bottom:4rem;">
+      <div class="hero-buttons" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;margin-bottom:4rem;">
         <a href="#pricing" class="btn-primary" style="font-weight:600;padding:0.875rem 2rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
           Start Free — No Card Required
         </a>
@@ -417,7 +501,7 @@
       </div>
 
       <!-- App preview mockup -->
-      <div class="float-animation" style="max-width:56rem;margin:0 auto;">
+      <div class="float-animation hero-mockup" style="max-width:56rem;margin:0 auto;">
         <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:1rem;padding:0.5rem;box-shadow:0 25px 50px rgba(var(--accent-rgb),0.06);">
           <div style="background:var(--surface);border-radius:0.75rem;overflow:hidden;">
             <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;border-bottom:1px solid var(--border);">
@@ -426,8 +510,8 @@
               <div style="width:12px;height:12px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
               <span style="font-size:0.75rem;color:var(--text-muted);margin-left:0.75rem;">Invoi.X — Dashboard</span>
             </div>
-            <div style="padding:1.5rem 2rem;">
-              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;">
+            <div class="hero-mockup-inner" style="padding:1.5rem 2rem;">
+              <div class="hero-stats-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;">
                 <div style="background:var(--surface-card);border-radius:0.5rem;padding:1rem;border:1px solid var(--border);">
                   <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Revenue</p>
                   <p style="font-size:1.25rem;font-weight:700;color:var(--text-primary);">£12,480</p>
@@ -482,7 +566,7 @@
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Built for freelancers and small businesses who want professional invoices without the complexity.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+      <div class="features-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
         <!-- Feature cards -->
         <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
           <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
@@ -569,7 +653,7 @@
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Six professionally designed templates. From clean and minimal to bold and expressive.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+      <div class="templates-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
 
         <!-- ═══ MODERN ═══ White bg, accent "INVOICE" top-left, dates top-right, accent dividers, accent labels, accent total -->
         <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
@@ -1237,19 +1321,19 @@
   <!-- Footer -->
   <footer style="border-top:1px solid var(--border);padding:3rem 0;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+      <div class="footer-top" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
         <div>
           <span class="gradient-text" style="font-size:1.125rem;font-weight:700;">Invoi.X</span>
           <p style="font-size:0.875rem;color:var(--text-muted);margin-top:0.25rem;">Professional invoicing, simplified.</p>
         </div>
-        <div style="display:flex;align-items:center;gap:2rem;">
+        <div class="footer-links" style="display:flex;align-items:center;gap:2rem;">
           <a href="#features" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">Features</a>
           <a href="#pricing" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">Pricing</a>
           <a href="#faq" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">FAQ</a>
           <a href="mailto:hello@invoix.xyz" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">Contact</a>
         </div>
       </div>
-      <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+      <div class="footer-bottom" style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
         <p style="font-size:0.75rem;color:var(--text-muted);">&copy; 2026 Invoi.X. All rights reserved.</p>
         <div style="display:flex;align-items:center;gap:1.5rem;">
           <a href="#" style="font-size:0.75rem;color:var(--text-muted);text-decoration:none;">Privacy Policy</a>
@@ -1311,6 +1395,10 @@
         sLight.classList.toggle('active', mode === 'light');
         sDark.classList.toggle('active', mode === 'dark');
       }
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
     }
 
     function updateSwatches(theme) {
