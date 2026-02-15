@@ -621,7 +621,7 @@
                       <!-- Invisible mouse tracking layer -->
                       <div id="chartMouseLayer" style="position:absolute;top:0;left:0;right:0;bottom:1.25rem;z-index:4;cursor:crosshair;"></div>
                       <!-- Bar layer -->
-                      <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;gap:2px;padding:0;"></div>
+                      <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;padding:0;"></div>
                       <!-- SVG layer for line/area -->
                       <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:2;display:none;overflow:visible;"></svg>
                       <!-- X-axis -->
@@ -1701,10 +1701,15 @@
         data.forEach(function(d, idx) {
           var pct = (d.v / ceil) * 100;
           var isSel = idx === sel;
+          // Outer wrapper: flex:1, same width as label slot
+          var slot = document.createElement('div');
+          slot.style.cssText = 'flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;padding:0 1px;';
+          // Inner bar: fills slot with small padding for visual gap
           var bar = document.createElement('div');
-          bar.style.cssText = 'flex:1;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease, background 0.2s;position:relative;min-width:0;pointer-events:none;';
+          bar.style.cssText = 'width:100%;height:' + pct + '%;border-radius:0.15rem 0.15rem 0 0;transition:height 0.4s ease, background 0.2s;pointer-events:none;';
           bar.style.background = isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
-          barsEl.appendChild(bar);
+          slot.appendChild(bar);
+          barsEl.appendChild(slot);
         });
       } else {
         barsEl.style.display = 'none';
