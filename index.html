@@ -370,13 +370,21 @@
       h2 { font-size: 1.75rem !important; }
       section:not(.hero-gradient) { padding-top: 3rem !important; padding-bottom: 4rem !important; }
 
+      /* Tighter section headers */
+      #features > div > div:first-child,
+      #templates > div > div:first-child,
+      #customise > div > div:first-child,
+      #pricing > div > div:first-child,
+      #faq > div > div:first-child { margin-bottom: 2.5rem !important; }
+
       /* Stats bar */
       .stats-bar { gap: 0.75rem !important; font-size: 0.75rem !important; }
       .stats-bar > span:nth-child(even) { display: none; }
 
       /* Grids */
-      .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      .templates-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .features-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+      .features-grid > .card-glow { padding: 1.125rem !important; }
+      .templates-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
       .pricing-grid { grid-template-columns: 1fr !important; max-width: 28rem; margin-left: auto !important; margin-right: auto !important; }
 
       /* Footer */
@@ -387,14 +395,56 @@
 
     /* Small phones */
     @media (max-width: 480px) {
+      /* Hero */
       .hero-gradient { padding-top: 5.5rem !important; padding-bottom: 2rem !important; }
       .hero-title { font-size: 1.875rem !important; }
       .hero-subtitle { font-size: 1rem !important; }
       .hero-stats-grid { grid-template-columns: 1fr !important; }
+
+      /* General */
       h2 { font-size: 1.5rem !important; }
       section:not(.hero-gradient) { padding-top: 2.5rem !important; padding-bottom: 3rem !important; }
-      .features-grid { grid-template-columns: 1fr !important; }
-      .templates-grid { grid-template-columns: 1fr !important; }
+      #features > div > div:first-child,
+      #templates > div > div:first-child,
+      #customise > div > div:first-child,
+      #pricing > div > div:first-child,
+      #faq > div > div:first-child { margin-bottom: 1.75rem !important; }
+
+      /* Feature cards — compact horizontal layout (icon left, text right) */
+      .features-grid { grid-template-columns: 1fr !important; gap: 0.375rem !important; }
+      .features-grid > .card-glow {
+        display: grid !important;
+        grid-template-columns: 2.25rem 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 0.75rem;
+        row-gap: 0;
+        padding: 0.75rem 1rem !important;
+        align-items: start;
+      }
+      .features-grid .feature-icon {
+        grid-column: 1; grid-row: 1 / -1;
+        width: 2.25rem !important; height: 2.25rem !important;
+        margin-bottom: 0 !important;
+      }
+      .features-grid .feature-icon svg { width: 1rem !important; height: 1rem !important; }
+      .features-grid h3 { grid-column: 2; font-size: 0.8125rem !important; margin-bottom: 0.125rem !important; }
+      .features-grid p { grid-column: 2; font-size: 0.8rem !important; line-height: 1.5 !important; }
+
+      /* Templates — keep 2-col with shorter previews */
+      .templates-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.625rem !important; }
+      .templates-grid > .card-glow { padding: 0.625rem !important; }
+      .templates-grid > .card-glow > div:first-child { height: 12rem !important; margin-bottom: 0.375rem !important; }
+      .templates-grid h3 { font-size: 0.75rem !important; }
+      .templates-grid p { font-size: 0.625rem !important; margin-top: 0.125rem !important; }
+
+      /* Pricing — full width on small phones */
+      .pricing-grid { max-width: none !important; }
+      .pricing-grid > .card-glow,
+      .pricing-grid > .pricing-popular { padding: 1.5rem !important; }
+
+      /* FAQ — tighter items */
+      .faq-item summary { padding: 1rem !important; font-size: 0.875rem !important; }
+      .faq-item > div { padding: 0 1rem 1rem !important; margin-left: 1.5rem !important; }
     }
   </style>
 </head>
