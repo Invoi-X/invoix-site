@@ -503,7 +503,8 @@
       .slider-next { right: 0.5rem !important; }
       .slider-arrow { width: 2.25rem !important; height: 2.25rem !important; background: color-mix(in srgb, var(--surface) 95%, transparent) !important; }
       #templates { overflow: hidden; }
-      .templates-bottom-bar { flex-direction: column; gap: 0.75rem !important; text-align: center; }
+      .templates-bottom-bar { flex-direction: column; gap: 0.75rem !important; text-align: center; order: 2; }
+      .showcase-preview-col { order: 3; }
 
       /* Scale up app preview on mobile */
       .showcase-preview { padding: 1rem !important; border-radius: 12px !important; }
@@ -1252,10 +1253,9 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Bottom bar: template name | controls | hint -->
-      <div class="templates-bottom-bar" style="display:flex;align-items:center;justify-content:space-between;max-width:52rem;margin:1rem auto 0;padding:0 0.5rem;">
+        <!-- Bottom bar: template name | controls -->
+        <div class="templates-bottom-bar" style="display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0 0;grid-column:1/-1;">
         <div style="min-width:0;">
           <div id="templateName" style="font-weight:600;color:var(--text-primary);font-size:0.95rem;">Modern</div>
           <div id="templateDesc" style="font-size:0.75rem;color:var(--text-muted);margin-top:0.1rem;">Contemporary & clean</div>
