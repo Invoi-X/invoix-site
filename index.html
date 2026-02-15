@@ -554,7 +554,7 @@
       </div>
 
       <!-- App preview mockup -->
-      <div class="float-animation hero-mockup" style="max-width:56rem;margin:0 auto;">
+      <div class="hero-mockup" style="max-width:56rem;margin:0 auto;">
         <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:1rem;padding:0.5rem;box-shadow:0 25px 50px rgba(var(--accent-rgb),0.06);">
           <div style="background:var(--surface);border-radius:0.75rem;overflow:hidden;">
             <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;border-bottom:1px solid var(--border);">
@@ -611,10 +611,15 @@
                         <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.1);"></div>
                         <div style="border-bottom:1px solid var(--border);"></div>
                       </div>
+                      <!-- Crosshair lines -->
+                      <div id="chartCrosshairH" style="position:absolute;left:0;right:0;height:0;border-top:1px dashed var(--accent-500);opacity:0.5;z-index:3;pointer-events:none;display:none;"></div>
+                      <div id="chartCrosshairV" style="position:absolute;top:0;bottom:1.25rem;width:0;border-left:1px dashed var(--accent-500);opacity:0.5;z-index:3;pointer-events:none;display:none;"></div>
+                      <!-- Selected value tooltip -->
+                      <div id="chartTooltip" style="position:absolute;z-index:4;pointer-events:none;display:none;background:var(--surface-card);border:1px solid var(--accent-500);border-radius:0.25rem;padding:0.15rem 0.35rem;font-size:0.55rem;font-weight:700;color:var(--accent-500);white-space:nowrap;"></div>
                       <!-- Bar layer -->
-                      <div id="chartBars" style="position:relative;z-index:1;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;justify-content:space-around;padding:0 0.25rem;"></div>
+                      <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;justify-content:space-around;padding:0 0.25rem;"></div>
                       <!-- SVG layer for line/area -->
-                      <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:1;display:none;overflow:visible;"></svg>
+                      <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:2;display:none;overflow:visible;"></svg>
                       <!-- X-axis -->
                       <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:0.25rem 0.25rem 0;"></div>
                     </div>
@@ -1508,6 +1513,7 @@
     ];
     var chartType = 'bar';
     var chartTf = '1y';
+    var selectedIdx = -1; // -1 means "last bar"
 
     function getChartSlice() {
       var len = chartData.length;
@@ -1528,6 +1534,7 @@
 
     function setChartTf(tf) {
       chartTf = tf;
+      selectedIdx = -1; // reset to last on timeframe change
       document.querySelectorAll('.chart-tf-btn').forEach(function(b) {
         var active = b.getAttribute('data-tf') === tf;
         b.style.background = active ? 'var(--accent-500)' : 'transparent';
@@ -1536,15 +1543,64 @@
       renderChart();
     }
 
+    function selectBar(idx) {
+      selectedIdx = idx;
+      renderChart();
+    }
+
+    function fmtVal(v) {
+      return '£' + (v >= 1000 ? (v/1000).toFixed(1) + 'k' : v);
+    }
+
+    function showCrosshairs(data, idx, ceil) {
+      var container = document.getElementById('chartContainer');
+      var hLine = document.getElementById('chartCrosshairH');
+      var vLine = document.getElementById('chartCrosshairV');
+      var tooltip = document.getElementById('chartTooltip');
+      var chartH = container.offsetHeight - 20; // subtract x-axis padding (1.25rem ≈ 20px)
+      var chartW = container.offsetWidth;
+      var d = data[idx];
+      var pct = d.v / ceil;
+      var yPos = chartH - (pct * chartH);
+
+      // Horizontal crosshair at value
+      hLine.style.display = 'block';
+      hLine.style.top = yPos + 'px';
+
+      // Vertical crosshair at bar center
+      var barSpacing = chartW / data.length;
+      var xPos = barSpacing * idx + barSpacing / 2;
+      vLine.style.display = 'block';
+      vLine.style.left = xPos + 'px';
+
+      // Tooltip above crosshair intersection
+      tooltip.style.display = 'block';
+      tooltip.textContent = d.m + ': ' + fmtVal(d.v);
+      var tipW = tooltip.offsetWidth;
+      var tipLeft = xPos - tipW / 2;
+      // Clamp tooltip within container
+      if (tipLeft < 0) tipLeft = 0;
+      if (tipLeft + tipW > chartW) tipLeft = chartW - tipW;
+      tooltip.style.left = tipLeft + 'px';
+      tooltip.style.top = Math.max(yPos - 22, -18) + 'px';
+
+      // Highlight selected x-axis label
+      var xLabels = document.getElementById('chartXAxis').children;
+      for (var i = 0; i < xLabels.length; i++) {
+        xLabels[i].style.color = i === idx ? 'var(--accent-500)' : 'var(--text-muted)';
+        xLabels[i].style.fontWeight = i === idx ? '700' : '400';
+      }
+    }
+
     function renderChart() {
       var data = getChartSlice();
       var max = Math.max.apply(null, data.map(function(d){return d.v;}));
-      // Round max up to nearest 2000
       var ceil = Math.ceil(max / 2000) * 2000;
       var barsEl = document.getElementById('chartBars');
       var svgEl = document.getElementById('chartSvg');
       var xAxis = document.getElementById('chartXAxis');
       var yAxis = document.getElementById('chartYAxis');
+      var sel = selectedIdx === -1 ? data.length - 1 : Math.min(selectedIdx, data.length - 1);
 
       // Y-axis labels (5 ticks from ceil down to 0)
       yAxis.innerHTML = '';
@@ -1571,18 +1627,13 @@
         barsEl.innerHTML = '';
         data.forEach(function(d, idx) {
           var pct = (d.v / ceil) * 100;
-          var isLast = idx === data.length - 1;
+          var isSel = idx === sel;
           var bar = document.createElement('div');
-          bar.style.cssText = 'width:' + (100/data.length - 1.5) + '%;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease;position:relative;min-width:4px;';
-          bar.style.background = isLast ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
-          // Tooltip on hover
+          bar.style.cssText = 'width:' + (100/data.length - 1.5) + '%;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease, background 0.2s;position:relative;min-width:4px;cursor:pointer;';
+          bar.style.background = isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
           bar.title = d.m + ': £' + d.v.toLocaleString();
-          if (isLast) {
-            var tip = document.createElement('div');
-            tip.style.cssText = 'position:absolute;top:-1.1rem;left:50%;transform:translateX(-50%);font-size:0.5rem;color:var(--accent-500);font-weight:700;white-space:nowrap;';
-            tip.textContent = '£' + (d.v >= 1000 ? (d.v/1000).toFixed(1) + 'k' : d.v);
-            bar.appendChild(tip);
-          }
+          bar.setAttribute('data-idx', idx);
+          bar.onclick = function() { selectBar(parseInt(this.getAttribute('data-idx'))); };
           barsEl.appendChild(bar);
         });
       } else {
@@ -1594,7 +1645,7 @@
         var points = data.map(function(d, i) {
           var x = i * gap;
           var y = h - (d.v / ceil) * h;
-          return {x: x, y: y, d: d};
+          return {x: x, y: y, d: d, i: i};
         });
         var pointStr = points.map(function(p){return p.x+','+p.y;}).join(' ');
 
@@ -1603,16 +1654,20 @@
           svg += '<polygon points="0,' + h + ' ' + pointStr + ' ' + (points[points.length-1].x) + ',' + h + '" fill="rgba(var(--accent-rgb),0.15)" />';
         }
         svg += '<polyline points="' + pointStr + '" fill="none" stroke="var(--accent-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />';
-        // Dots
+        // Dots — all clickable
         points.forEach(function(p, i) {
-          var isLast = i === points.length - 1;
-          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (isLast ? 4 : 2.5) + '" fill="' + (isLast ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.5)') + '" stroke="var(--surface-card)" stroke-width="1.5"><title>' + p.d.m + ': £' + p.d.v.toLocaleString() + '</title></circle>';
-          if (isLast) {
-            svg += '<text x="' + p.x + '" y="' + (p.y - 8) + '" text-anchor="middle" fill="var(--accent-500)" font-size="7" font-weight="700">£' + (p.d.v >= 1000 ? (p.d.v/1000).toFixed(1) + 'k' : p.d.v) + '</text>';
-          }
+          var isSel = i === sel;
+          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (isSel ? 5 : 3) + '" fill="' + (isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.5)') + '" stroke="var(--surface-card)" stroke-width="1.5" style="cursor:pointer;" onclick="selectBar(' + i + ')"><title>' + p.d.m + ': £' + p.d.v.toLocaleString() + '</title></circle>';
+        });
+        // Invisible wider hit areas for easier clicking
+        points.forEach(function(p, i) {
+          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="10" fill="transparent" style="cursor:pointer;" onclick="selectBar(' + i + ')" />';
         });
         svgEl.innerHTML = svg;
       }
+
+      // Show crosshairs on selected bar
+      showCrosshairs(data, sel, ceil);
     }
 
     // Initial chart render
