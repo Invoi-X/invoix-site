@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en" class="dark" data-theme="amethyst">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoi.X — Professional Invoice Generator</title>
+  <meta name="description" content="Create beautiful, professional invoices in seconds. 6 stunning templates, PDF export, email integration, and powerful analytics. Free to start.">
+  <meta name="keywords" content="invoice generator, invoicing software, freelance invoices, small business invoicing, PDF invoices">
+  <meta property="og:title" content="Invoi.X — Professional Invoice Generator">
+  <meta property="og:description" content="Create beautiful, professional invoices in seconds. Free to start.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://invoix.xyz">
+  <link rel="canonical" href="https://invoix.xyz">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════
+       THEME VARIABLES — mirrors the app exactly
+       ══════════════════════════════════════════ */
+
+    /* ── Amethyst (default) ── */
+    :root, [data-theme="amethyst"] {
+      --accent-300: #d8b4fe; --accent-400: #c084fc; --accent-500: #a855f7;
+      --accent-600: #9333ea; --accent-700: #7e22ce;
+      --accent-rgb: 168, 85, 247;
+      --secondary-400: #60a5fa;
+      /* Light surfaces */
+      --surface: #faf8ff; --surface-card: #ffffff; --surface-hover: #f3effd; --border: #e6e0f4;
+      /* Light text */
+      --text-primary: #1e1b2e; --text-secondary: #6b6580; --text-muted: #9892a6;
+      /* Gradient */
+      --gradient-text-from: #c084fc; --gradient-text-via: #818cf8; --gradient-text-to: #60a5fa;
+      --hero-bg: linear-gradient(135deg, #f5f0ff 0%, #ede5ff 40%, #e8e0ff 70%, #eef2ff 100%);
+    }
+    .dark[data-theme="amethyst"], .dark [data-theme="amethyst"] {
+      --surface: #0e0c1a; --surface-card: #181529; --surface-hover: #241f38; --border: #362e50;
+      --text-primary: #f1f0f5; --text-secondary: #9892a6; --text-muted: #6b6580;
+      --hero-bg: linear-gradient(135deg, #0f0a1a 0%, #1a1028 40%, #1e1145 70%, #0f172a 100%);
+    }
+
+    /* ── Ocean ── */
+    [data-theme="ocean"] {
+      --accent-300: #7dd3fc; --accent-400: #38bdf8; --accent-500: #0ea5e9;
+      --accent-600: #0284c7; --accent-700: #0369a1;
+      --accent-rgb: 14, 165, 233;
+      --secondary-400: #22d3ee;
+      --surface: #f7fcff; --surface-card: #ffffff; --surface-hover: #ebf7fe; --border: #d8eaf8;
+      --text-primary: #0c1929; --text-secondary: #4b6a85; --text-muted: #7a96ad;
+      --gradient-text-from: #38bdf8; --gradient-text-via: #22d3ee; --gradient-text-to: #06b6d4;
+      --hero-bg: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 40%, #dbeafe 70%, #ecfeff 100%);
+    }
+    .dark[data-theme="ocean"] {
+      --surface: #0a0f18; --surface-card: #111928; --surface-hover: #162436; --border: #24364e;
+      --text-primary: #f0f7ff; --text-secondary: #7a96ad; --text-muted: #4b6a85;
+      --hero-bg: linear-gradient(135deg, #0a0f18 0%, #0c1a2e 40%, #0e2145 70%, #0a1628 100%);
+    }
+
+    /* ── Sunset ── */
+    [data-theme="sunset"] {
+      --accent-300: #fdba74; --accent-400: #fb923c; --accent-500: #f97316;
+      --accent-600: #ea580c; --accent-700: #c2410c;
+      --accent-rgb: 249, 115, 22;
+      --secondary-400: #fb7185;
+      --surface: #fffbf8; --surface-card: #ffffff; --surface-hover: #fef3eb; --border: #f5e5d8;
+      --text-primary: #2e1b0c; --text-secondary: #856040; --text-muted: #a68a6e;
+      --gradient-text-from: #fb923c; --gradient-text-via: #f97316; --gradient-text-to: #e11d48;
+      --hero-bg: linear-gradient(135deg, #fff7ed 0%, #ffedd5 40%, #fee2e2 70%, #fef3c7 100%);
+    }
+    .dark[data-theme="sunset"] {
+      --surface: #140e0c; --surface-card: #221814; --surface-hover: #30211a; --border: #4a342a;
+      --text-primary: #fef3e8; --text-secondary: #a68a6e; --text-muted: #856040;
+      --hero-bg: linear-gradient(135deg, #140e0c 0%, #1e140e 40%, #281a14 70%, #1a120a 100%);
+    }
+
+    /* ── Emerald ── */
+    [data-theme="emerald"] {
+      --accent-300: #6ee7b7; --accent-400: #34d399; --accent-500: #10b981;
+      --accent-600: #059669; --accent-700: #047857;
+      --accent-rgb: 16, 185, 129;
+      --secondary-400: #2dd4bf;
+      --surface: #f7fefc; --surface-card: #ffffff; --surface-hover: #ebfaf5; --border: #d7f0e8;
+      --text-primary: #0c1e18; --text-secondary: #4b856e; --text-muted: #7aad96;
+      --gradient-text-from: #34d399; --gradient-text-via: #10b981; --gradient-text-to: #0d9488;
+      --hero-bg: linear-gradient(135deg, #f0fdf9 0%, #d1fae5 40%, #ccfbf1 70%, #ecfdf5 100%);
+    }
+    .dark[data-theme="emerald"] {
+      --surface: #0a1210; --surface-card: #101e1a; --surface-hover: #182a24; --border: #263e36;
+      --text-primary: #f0fef8; --text-secondary: #7aad96; --text-muted: #4b856e;
+      --hero-bg: linear-gradient(135deg, #0a1210 0%, #0e1e18 40%, #102a22 70%, #0a1a14 100%);
+    }
+
+    /* ══════════════════════════════
+       BASE STYLES
+       ══════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--surface);
+      color: var(--text-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* ══════════════════════════════
+       UTILITY CLASSES
+       ══════════════════════════════ */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--gradient-text-from), var(--gradient-text-via), var(--gradient-text-to));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-gradient { background: var(--hero-bg); }
+
+    .text-heading { color: var(--text-primary); }
+    .text-body { color: var(--text-secondary); }
+    .text-muted { color: var(--text-muted); }
+    .bg-surface { background-color: var(--surface); }
+    .bg-card { background-color: var(--surface-card); }
+    .border-theme { border-color: var(--border); }
+
+    .card-glow {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06), rgba(var(--accent-rgb), 0.02));
+      border: 1px solid rgba(var(--accent-rgb), 0.12);
+      transition: all 0.2s;
+    }
+    .card-glow:hover {
+      border-color: rgba(var(--accent-rgb), 0.25);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.05));
+    }
+
+    .pricing-popular {
+      border: 2px solid var(--accent-500);
+      box-shadow: 0 0 40px rgba(var(--accent-rgb), 0.12);
+      background-color: var(--surface-card);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-500), var(--accent-700));
+      color: #fff; transition: all 0.2s; display: inline-block; text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--accent-400), var(--accent-500));
+      transform: translateY(-1px); box-shadow: 0 8px 30px rgba(var(--accent-rgb), 0.25);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(var(--accent-rgb), 0.35);
+      color: var(--text-secondary); transition: all 0.2s; display: inline-block; text-decoration: none;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent-500); background: rgba(var(--accent-rgb), 0.08);
+    }
+
+    .feature-icon {
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-rgb), 0.06));
+      border: 1px solid rgba(var(--accent-rgb), 0.18);
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.18), transparent);
+    }
+
+    .check-icon { color: var(--accent-400); }
+    .accent-bg { background-color: var(--accent-500); }
+    .accent-text { color: var(--accent-400); }
+    .accent-bg-muted { background-color: rgba(var(--accent-rgb), 0.5); }
+    .accent-bg-subtle { background-color: rgba(var(--accent-rgb), 0.35); }
+
+    /* FAQ */
+    .faq-item[open] summary { color: var(--accent-400); }
+    .faq-item summary { cursor: pointer; list-style: none; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::before {
+      content: '+'; font-size: 1.25rem; font-weight: 600; color: var(--accent-500);
+      margin-right: 1rem; transition: transform 0.2s; display: inline-block;
+    }
+    .faq-item[open] summary::before { transform: rotate(45deg); }
+
+    /* Animations */
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .float-animation { animation: float 6s ease-in-out infinite; }
+
+    /* ══════════════════════════════
+       THEME TOGGLE
+       ══════════════════════════════ */
+    .theme-panel {
+      position: relative;
+    }
+    .theme-toggle-btn {
+      width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      background: rgba(var(--accent-rgb), 0.1); border: 1px solid rgba(var(--accent-rgb), 0.2);
+      cursor: pointer; transition: all 0.2s; color: var(--accent-400);
+    }
+    .theme-toggle-btn:hover {
+      background: rgba(var(--accent-rgb), 0.18); border-color: rgba(var(--accent-rgb), 0.35);
+    }
+    .theme-dropdown {
+      position: absolute; top: calc(100% + 8px); right: 0; width: 220px;
+      background: var(--surface-card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px; box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+      opacity: 0; visibility: hidden; transform: translateY(-4px);
+      transition: all 0.2s; z-index: 100;
+    }
+    .theme-panel.open .theme-dropdown {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .theme-dropdown-label {
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--text-muted); margin-bottom: 8px; padding: 0 4px;
+    }
+    .theme-dropdown-divider {
+      height: 1px; background: var(--border); margin: 10px 0;
+    }
+
+    /* Mode toggle (light/dark) */
+    .mode-toggle {
+      display: flex; border-radius: 8px; overflow: hidden; border: 1px solid var(--border);
+    }
+    .mode-toggle button {
+      flex: 1; padding: 6px 0; font-size: 12px; font-weight: 500; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      background: transparent; color: var(--text-muted); transition: all 0.2s;
+      font-family: inherit;
+    }
+    .mode-toggle button.active {
+      background: rgba(var(--accent-rgb), 0.15); color: var(--accent-400);
+    }
+    .mode-toggle button:hover:not(.active) {
+      background: var(--surface-hover);
+    }
+
+    /* Color swatches */
+    .color-swatches {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+    }
+    .swatch {
+      aspect-ratio: 1; border-radius: 8px; cursor: pointer; border: 2px solid transparent;
+      transition: all 0.2s; position: relative;
+    }
+    .swatch:hover { transform: scale(1.1); }
+    .swatch.active { border-color: var(--text-primary); }
+    .swatch.active::after {
+      content: ''; position: absolute; inset: 3px; border-radius: 5px;
+      border: 2px solid var(--surface-card);
+    }
+    .swatch-amethyst { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+    .swatch-ocean { background: linear-gradient(135deg, #0ea5e9, #06b6d4); }
+    .swatch-sunset { background: linear-gradient(135deg, #f97316, #e11d48); }
+    .swatch-emerald { background: linear-gradient(135deg, #10b981, #0d9488); }
+    .swatch-label {
+      font-size: 10px; text-align: center; color: var(--text-muted); margin-top: 3px;
+    }
+
+    /* ══════════════════════════════
+       THEME SHOWCASE
+       ══════════════════════════════ */
+    .showcase-swatch {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer;
+      border: 2px solid var(--border); transition: all 0.25s; display: flex;
+      align-items: center; gap: 0.75rem; background: var(--surface-card);
+    }
+    .showcase-swatch:hover { border-color: rgba(var(--accent-rgb), 0.4); transform: translateY(-2px); }
+    .showcase-swatch.active { border-color: var(--accent-500); box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.15); }
+    .showcase-swatch-dot {
+      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+    }
+    .showcase-swatch-name { font-weight: 600; font-size: 0.875rem; color: var(--text-primary); }
+
+    .showcase-mode-btn {
+      flex: 1; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer;
+      border: 2px solid var(--border); transition: all 0.25s; display: flex;
+      align-items: center; justify-content: center; gap: 0.5rem;
+      background: var(--surface-card); font-family: inherit;
+      font-weight: 600; font-size: 0.875rem; color: var(--text-secondary);
+    }
+    .showcase-mode-btn:hover { border-color: rgba(var(--accent-rgb), 0.4); }
+    .showcase-mode-btn.active {
+      border-color: var(--accent-500); color: var(--accent-400);
+      background: rgba(var(--accent-rgb), 0.08); box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.1);
+    }
+
+    .showcase-preview {
+      background: var(--surface-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 1.5rem; transition: all 0.3s;
+    }
+    .showcase-invoice {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; transition: all 0.3s;
+    }
+    .showcase-invoice-header {
+      background: var(--accent-500); padding: 1.25rem 1.5rem; display: flex;
+      align-items: center; justify-content: space-between; transition: background 0.3s;
+    }
+    .showcase-invoice-body { padding: 1.5rem; }
+    .showcase-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.8rem; color: var(--text-secondary);
+    }
+    .showcase-row:last-child { border-bottom: none; }
+    .showcase-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.75rem 0 0; margin-top: 0.5rem; border-top: 2px solid var(--accent-500);
+      font-weight: 700; color: var(--text-primary); font-size: 1rem;
+    }
+    .showcase-hint {
+      display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
+      background: rgba(var(--accent-rgb), 0.08); border: 1px solid rgba(var(--accent-rgb), 0.15);
+      border-radius: 8px; font-size: 0.8rem; color: var(--accent-400); margin-top: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .showcase-grid { grid-template-columns: 1fr !important; }
+      .showcase-controls { order: 2; }
+      .showcase-preview-col { order: 1; }
+    }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+       ══════════════════════════════ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.25rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .stats-bar > span:nth-child(even) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav style="position:fixed;top:0;width:100%;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:color-mix(in srgb, var(--surface) 80%, transparent);border-bottom:1px solid var(--border);">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;height:4rem;display:flex;align-items:center;justify-content:space-between;">
+      <a href="#" class="gradient-text" style="font-size:1.25rem;font-weight:700;text-decoration:none;letter-spacing:-0.025em;">Invoi.X</a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:2rem;">
+        <a href="#features" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Features</a>
+        <a href="#templates" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Templates</a>
+        <a href="#pricing" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Pricing</a>
+        <a href="#faq" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">FAQ</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <!-- Theme Toggle -->
+        <div class="theme-panel" id="themePanel">
+          <button type="button" class="theme-toggle-btn" onclick="toggleThemePanel()" aria-label="Toggle theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </button>
+          <div class="theme-dropdown">
+            <div class="theme-dropdown-label">Mode</div>
+            <div class="mode-toggle">
+              <button type="button" id="lightBtn" onclick="setMode('light')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                Light
+              </button>
+              <button type="button" id="darkBtn" onclick="setMode('dark')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                Dark
+              </button>
+            </div>
+            <div class="theme-dropdown-divider"></div>
+            <div class="theme-dropdown-label">Colour Theme</div>
+            <div class="color-swatches">
+              <div style="text-align:center">
+                <div class="swatch swatch-amethyst" onclick="setTheme('amethyst')" title="Amethyst"></div>
+                <div class="swatch-label">Amethyst</div>
+              </div>
+              <div style="text-align:center">
+                <div class="swatch swatch-ocean" onclick="setTheme('ocean')" title="Ocean"></div>
+                <div class="swatch-label">Ocean</div>
+              </div>
+              <div style="text-align:center">
+                <div class="swatch swatch-sunset" onclick="setTheme('sunset')" title="Sunset"></div>
+                <div class="swatch-label">Sunset</div>
+              </div>
+              <div style="text-align:center">
+                <div class="swatch swatch-emerald" onclick="setTheme('emerald')" title="Emerald"></div>
+                <div class="swatch-label">Emerald</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#pricing" class="btn-primary" style="font-size:0.875rem;font-weight:500;padding:0.625rem 1.25rem;border-radius:0.5rem;text-decoration:none;">Get Started Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-gradient" style="padding-top:8rem;padding-bottom:5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:5rem;left:25%;width:24rem;height:24rem;background:rgba(var(--accent-rgb),0.08);border-radius:50%;filter:blur(80px);"></div>
+    <div style="position:absolute;bottom:2rem;right:25%;width:20rem;height:20rem;background:rgba(var(--accent-rgb),0.05);border-radius:50%;filter:blur(80px);"></div>
+
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;text-align:center;position:relative;z-index:10;">
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(var(--accent-rgb),0.06);border:1px solid rgba(var(--accent-rgb),0.12);border-radius:9999px;padding:0.375rem 1rem;margin-bottom:2rem;">
+        <span style="width:8px;height:8px;background:#4ade80;border-radius:50%;display:inline-block;"></span>
+        <span style="font-size:0.875rem;color:var(--text-muted);">v1.0 — Now Available</span>
+      </div>
+
+      <h1 class="hero-title" style="font-size:3.75rem;font-weight:800;letter-spacing:-0.025em;line-height:1.1;margin-bottom:1.5rem;color:var(--text-primary);">
+        Invoicing that's<br>
+        <span class="gradient-text">actually beautiful</span>
+      </h1>
+
+      <p style="font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto 2.5rem;line-height:1.7;">
+        Create stunning, professional invoices in seconds. 6 templates, PDF export,
+        email integration, and analytics — all in one clean app.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;margin-bottom:4rem;">
+        <a href="#pricing" class="btn-primary" style="font-weight:600;padding:0.875rem 2rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
+          Start Free — No Card Required
+        </a>
+        <a href="#features" class="btn-secondary" style="font-weight:500;padding:0.875rem 2rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
+          See Features
+        </a>
+      </div>
+
+      <!-- App preview mockup -->
+      <div class="float-animation" style="max-width:56rem;margin:0 auto;">
+        <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:1rem;padding:0.5rem;box-shadow:0 25px 50px rgba(var(--accent-rgb),0.06);">
+          <div style="background:var(--surface);border-radius:0.75rem;overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;border-bottom:1px solid var(--border);">
+              <div style="width:12px;height:12px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
+              <span style="font-size:0.75rem;color:var(--text-muted);margin-left:0.75rem;">Invoi.X — Dashboard</span>
+            </div>
+            <div style="padding:1.5rem 2rem;">
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;">
+                <div style="background:var(--surface-card);border-radius:0.5rem;padding:1rem;border:1px solid var(--border);">
+                  <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Revenue</p>
+                  <p style="font-size:1.25rem;font-weight:700;color:var(--text-primary);">£12,480</p>
+                  <p style="font-size:0.75rem;color:#4ade80;margin-top:0.25rem;">+23% this month</p>
+                </div>
+                <div style="background:var(--surface-card);border-radius:0.5rem;padding:1rem;border:1px solid var(--border);">
+                  <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Outstanding</p>
+                  <p style="font-size:1.25rem;font-weight:700;color:var(--text-primary);">£3,240</p>
+                  <p style="font-size:0.75rem;color:#facc15;margin-top:0.25rem;">4 invoices pending</p>
+                </div>
+                <div style="background:var(--surface-card);border-radius:0.5rem;padding:1rem;border:1px solid var(--border);">
+                  <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Paid</p>
+                  <p style="font-size:1.25rem;font-weight:700;color:var(--text-primary);">£9,240</p>
+                  <p class="accent-text" style="font-size:0.75rem;margin-top:0.25rem;">18 invoices</p>
+                </div>
+              </div>
+              <div style="background:var(--surface-card);border-radius:0.5rem;border:1px solid var(--border);padding:1rem;height:10rem;display:flex;align-items:flex-end;gap:0.5rem;justify-content:space-around;">
+                <div style="width:2rem;background:rgba(var(--accent-rgb),0.5);border-radius:4px 4px 0 0;height:40%"></div>
+                <div style="width:2rem;background:rgba(var(--accent-rgb),0.5);border-radius:4px 4px 0 0;height:65%"></div>
+                <div style="width:2rem;background:rgba(var(--accent-rgb),0.5);border-radius:4px 4px 0 0;height:45%"></div>
+                <div style="width:2rem;background:rgba(var(--accent-rgb),0.5);border-radius:4px 4px 0 0;height:80%"></div>
+                <div style="width:2rem;background:rgba(var(--accent-rgb),0.5);border-radius:4px 4px 0 0;height:55%"></div>
+                <div style="width:2rem;background:var(--accent-500);border-radius:4px 4px 0 0;height:95%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof bar -->
+  <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:color-mix(in srgb, var(--surface-card) 50%, transparent);padding:1.5rem 0;">
+    <div class="stats-bar" style="max-width:72rem;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2rem;color:var(--text-muted);font-size:0.875rem;">
+      <span>6 Invoice Templates</span>
+      <span style="color:var(--border);">|</span>
+      <span>7 Currencies Supported</span>
+      <span style="color:var(--border);">|</span>
+      <span>PDF Export</span>
+      <span style="color:var(--border);">|</span>
+      <span>Gmail & Outlook Integration</span>
+      <span style="color:var(--border);">|</span>
+      <span>100% Offline-Capable</span>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section id="features" style="padding:5rem 0 7rem;">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Everything you need to <span class="gradient-text">get paid faster</span></h2>
+        <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Built for freelancers and small businesses who want professional invoices without the complexity.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+        <!-- Feature cards -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Create Invoices in Seconds</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Add line items, taxes, discounts, and shipping. Auto-calculate totals. Save and reuse client details.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">6 Stunning Templates</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Modern, Classic, Minimal, Professional, Elegant, and Wild. Each designed to make your business look premium.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">One-Click PDF Export</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Generate pixel-perfect A4 PDFs ready to send. Every template looks exactly as you see it in the preview.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Email Integration</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Send invoices directly from the app via Gmail or Outlook. Customise email templates with smart variables.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Dashboard & Analytics</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Track revenue, outstanding payments, and trends. 5 dashboard layouts including Kanban view. Built-in charts.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Private & Offline</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Your data stays on your device. No accounts, no tracking, no cloud. Works completely offline.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Client Management</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Save client details and reuse them across invoices. Built-in address book keeps everything organised.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Recurring Invoices</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Set invoices to auto-generate weekly, monthly, or quarterly. Never forget to bill a retainer client again.</p>
+        </div>
+
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;">
+          <div class="feature-icon" style="width:2.5rem;height:2.5rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <svg style="width:1.25rem;height:1.25rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);margin-bottom:0.5rem;">Customise Everything</h3>
+          <p style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Upload your logo, pick accent colours, switch between dark and light mode. 4 colour themes to match your brand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
+
+  <!-- Templates -->
+  <section id="templates" style="padding:5rem 0 7rem;">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Templates that <span class="gradient-text">make you look good</span></h2>
+        <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Six professionally designed templates. From clean and minimal to bold and expressive.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+
+        <!-- ═══ MODERN ═══ White bg, accent "INVOICE" top-left, dates top-right, accent dividers, accent labels, accent total -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+          <div style="background:#fff;border-radius:0.5rem;height:16rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0.6rem 0.7rem;display:flex;flex-direction:column;">
+            <!-- Header: INVOICE + inv# left, dates right -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.3rem;">
+              <div>
+                <div style="font-size:10px;font-weight:800;color:var(--accent-500);letter-spacing:0.02em;">INVOICE</div>
+                <div style="font-size:4px;color:#999;margin-top:1px;">INV-20260208-0041</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:4px;color:#666;">Date: 08/02/2026</div>
+                <div style="font-size:4px;color:#666;margin-top:1px;">Due: 10/03/2026</div>
+              </div>
+            </div>
+            <!-- Accent divider -->
+            <div style="height:1.5px;background:var(--accent-500);margin-bottom:0.35rem;"></div>
+            <!-- FROM / BILL TO -->
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.35rem;">
+              <div style="flex:1;"><div style="font-size:4px;color:var(--accent-500);font-weight:700;margin-bottom:2px;">FROM</div><div style="height:3px;background:#ddd;width:80%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:65%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:var(--accent-500);width:50%;border-radius:1px;opacity:0.3;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div></div>
+              <div style="flex:1;"><div style="font-size:4px;color:var(--accent-500);font-weight:700;margin-bottom:2px;">BILL TO</div><div style="height:3px;background:#ddd;width:70%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:55%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div></div>
+            </div>
+            <!-- Accent divider -->
+            <div style="height:1px;background:var(--accent-500);opacity:0.4;margin-bottom:0.25rem;"></div>
+            <!-- Table header -->
+            <div style="display:flex;border-bottom:1.5px solid var(--accent-500);padding-bottom:2px;margin-bottom:2px;">
+              <div style="flex:3;font-size:3.5px;font-weight:700;color:var(--accent-500);">DESCRIPTION</div>
+              <div style="flex:0.5;font-size:3.5px;font-weight:700;color:#999;text-align:center;">QTY</div>
+              <div style="flex:1;font-size:3.5px;font-weight:700;color:#999;text-align:right;">RATE</div>
+              <div style="flex:1;font-size:3.5px;font-weight:700;color:var(--accent-500);text-align:right;">AMOUNT</div>
+            </div>
+            <!-- Item rows with accent description text -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
+              <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding-bottom:2px;"><div style="flex:3;height:3px;background:var(--accent-500);width:65%;border-radius:1px;opacity:0.5;"></div><div style="flex:0.5;font-size:4px;color:#999;text-align:center;">1</div><div style="flex:1;height:3px;background:#ccc;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
+              <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding-bottom:2px;"><div style="flex:3;height:3px;background:var(--accent-500);width:55%;border-radius:1px;opacity:0.5;"></div><div style="flex:0.5;font-size:4px;color:#999;text-align:center;">1</div><div style="flex:1;height:3px;background:#ccc;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:50%;border-radius:1px;margin-left:auto;"></div></div>
+              <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding-bottom:2px;"><div style="flex:3;height:3px;background:var(--accent-500);width:45%;border-radius:1px;opacity:0.5;"></div><div style="flex:0.5;font-size:4px;color:#999;text-align:center;">1</div><div style="flex:1;height:3px;background:#ccc;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
+            </div>
+            <!-- Totals right-aligned -->
+            <div style="margin-top:auto;padding-top:3px;">
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:1.5px;"><div style="font-size:4px;color:#999;">Subtotal</div><div style="font-size:4px;color:#666;">$3,418.00</div></div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:2px;"><div style="font-size:4px;color:#999;">Tax (8.25%)</div><div style="font-size:4px;color:#666;">$281.99</div></div>
+              <div style="height:1.5px;background:var(--accent-500);margin-bottom:2px;"></div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;"><div style="font-size:5px;font-weight:700;color:var(--accent-500);">Total</div><div style="font-size:5px;font-weight:800;color:var(--accent-500);">$3,699.99</div></div>
+            </div>
+            <!-- Notes hint -->
+            <div style="margin-top:4px;border-top:1px solid #f0f0f0;padding-top:3px;">
+              <div style="font-size:3.5px;color:var(--accent-500);font-weight:700;margin-bottom:1px;">NOTES</div>
+              <div style="height:2px;background:#eee;width:70%;border-radius:1px;"></div>
+            </div>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:0.875rem;">Modern</h3>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">Contemporary & clean</p>
+        </div>
+
+        <!-- ═══ CLASSIC ═══ Company top-left, big centered INVOICE, bordered info boxes, dark table header, alternating rows, dark total bar -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+          <div style="background:#fff;border-radius:0.5rem;height:16rem;margin-bottom:1rem;overflow:hidden;border:1px solid #d1d5db;padding:0;position:relative;display:flex;flex-direction:column;">
+            <!-- Header: company left, centered INVOICE -->
+            <div style="padding:0.4rem 0.5rem 0.3rem;border-bottom:1px solid #d1d5db;display:flex;justify-content:space-between;align-items:center;">
+              <div style="font-size:4px;color:#666;">Pixel &amp; Flow Studio</div>
+              <div style="font-size:11px;font-weight:800;color:#1f2937;letter-spacing:0.02em;position:absolute;left:50%;transform:translateX(-50%);">INVOICE</div>
+              <div></div>
+            </div>
+            <!-- Info boxes: Invoice #, Date, Due Date -->
+            <div style="display:flex;border-bottom:1px solid #d1d5db;">
+              <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 5px;"><div style="font-size:3.5px;font-weight:700;color:#374151;">INVOICE #</div><div style="font-size:4px;color:#666;margin-top:1px;">INV-20260208-0041</div></div>
+              <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 5px;"><div style="font-size:3.5px;font-weight:700;color:#374151;">DATE</div><div style="font-size:4px;color:#666;margin-top:1px;">08/02/2026</div></div>
+              <div style="flex:1;padding:3px 5px;"><div style="font-size:3.5px;font-weight:700;color:#374151;">DUE DATE</div><div style="font-size:4px;color:#666;margin-top:1px;">10/03/2026</div></div>
+            </div>
+            <!-- FROM / BILL TO bordered -->
+            <div style="display:flex;border-bottom:1px solid #d1d5db;">
+              <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 5px;">
+                <div style="font-size:3.5px;font-weight:700;color:#374151;margin-bottom:2px;">FROM</div>
+                <div style="height:3px;background:#ccc;width:70%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#ddd;width:55%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div>
+              </div>
+              <div style="flex:1;padding:3px 5px;">
+                <div style="font-size:3.5px;font-weight:700;color:#374151;margin-bottom:2px;">BILL TO</div>
+                <div style="height:3px;background:#ccc;width:65%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#ddd;width:50%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div>
+              </div>
+            </div>
+            <!-- Dark table header -->
+            <div style="display:flex;background:#374151;padding:3px 5px;">
+              <div style="flex:3;font-size:3.5px;font-weight:700;color:#fff;">DESCRIPTION</div>
+              <div style="flex:0.5;font-size:3.5px;font-weight:700;color:#fff;text-align:center;">QTY</div>
+              <div style="flex:1;font-size:3.5px;font-weight:700;color:#fff;text-align:right;">RATE</div>
+              <div style="flex:1;font-size:3.5px;font-weight:700;color:#fff;text-align:right;">AMOUNT</div>
+            </div>
+            <!-- Alternating rows -->
+            <div style="display:flex;padding:3px 5px;background:#fff;border-bottom:1px solid #e5e7eb;"><div style="flex:3;height:3px;background:#ccc;width:55%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:50%;border-radius:1px;margin-left:auto;"></div></div>
+            <div style="display:flex;padding:3px 5px;background:#f9fafb;border-bottom:1px solid #e5e7eb;"><div style="flex:3;height:3px;background:#ccc;width:60%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:40%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:45%;border-radius:1px;margin-left:auto;"></div></div>
+            <div style="display:flex;padding:3px 5px;background:#fff;border-bottom:1px solid #e5e7eb;"><div style="flex:3;height:3px;background:#ccc;width:42%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
+            <!-- Subtotal/Tax rows -->
+            <div style="padding:2px 5px;">
+              <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:1px;"><div style="font-size:4px;color:#666;font-weight:600;">SUBTOTAL</div><div style="font-size:4px;color:#374151;font-weight:600;">$3,418.00</div></div>
+              <div style="display:flex;justify-content:flex-end;gap:8px;"><div style="font-size:4px;color:#666;">TAX (8.25%)</div><div style="font-size:4px;color:#374151;">$281.99</div></div>
+            </div>
+            <!-- Dark TOTAL bar at bottom -->
+            <div style="background:#374151;margin-top:auto;padding:4px 6px;display:flex;justify-content:space-between;">
+              <div style="font-size:5px;font-weight:800;color:#fff;">TOTAL</div>
+              <div style="font-size:5px;font-weight:800;color:#fff;">$3,699.99</div>
+            </div>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:0.875rem;">Classic</h3>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">Traditional & formal</p>
+        </div>
+
+        <!-- ═══ MINIMAL ═══ Thin "Invoice" title left, inv#/dates right, minimal labels, qty×rate subtext, lots of whitespace -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+          <div style="background:#fff;border-radius:0.5rem;height:16rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0.75rem 0.8rem;display:flex;flex-direction:column;">
+            <!-- Header: "Invoice" left, inv# + dates right -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div style="font-size:14px;font-weight:300;color:#374151;letter-spacing:-0.02em;line-height:1;">Invoice</div>
+              <div style="text-align:right;">
+                <div style="font-size:4px;color:#999;">INV-20260208-0041</div>
+                <div style="font-size:4px;color:#999;margin-top:1px;">08/02/2026</div>
+                <div style="font-size:4px;color:#999;margin-top:1px;">Due: 10/03/2026</div>
+              </div>
+            </div>
+            <!-- Thin separator -->
+            <div style="height:1px;background:#e5e7eb;margin-bottom:6px;"></div>
+            <!-- FROM / TO very minimal -->
+            <div style="display:flex;gap:1rem;margin-bottom:8px;">
+              <div style="flex:1;">
+                <div style="font-size:3px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px;">FROM</div>
+                <div style="font-size:4px;color:#555;font-weight:500;margin-bottom:1px;">Pixel &amp; Flow Studio</div>
+                <div style="height:2px;background:#eee;width:65%;border-radius:1px;margin-bottom:1px;"></div>
+                <div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:3px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px;">TO</div>
+                <div style="font-size:4px;color:#555;font-weight:500;margin-bottom:1px;">Tyler Brooks</div>
+                <div style="height:2px;background:#eee;width:60%;border-radius:1px;margin-bottom:1px;"></div>
+                <div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div>
+              </div>
+            </div>
+            <!-- Items: description + qty x rate subtext, amount right -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:5px;border-bottom:1px solid #f3f4f6;">
+                <div><div style="height:3px;background:#bbb;width:3.2rem;border-radius:1px;margin-bottom:2px;"></div><div style="font-size:3px;color:#ccc;">1 &times; $1,053.00</div></div>
+                <div style="font-size:4px;color:#555;">$1,053.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:5px;border-bottom:1px solid #f3f4f6;">
+                <div><div style="height:3px;background:#bbb;width:3.6rem;border-radius:1px;margin-bottom:2px;"></div><div style="font-size:3px;color:#ccc;">1 &times; $596.00</div></div>
+                <div style="font-size:4px;color:#555;">$596.00</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:5px;border-bottom:1px solid #f3f4f6;">
+                <div><div style="height:3px;background:#bbb;width:2.8rem;border-radius:1px;margin-bottom:2px;"></div><div style="font-size:3px;color:#ccc;">1 &times; $1,769.00</div></div>
+                <div style="font-size:4px;color:#555;">$1,769.00</div>
+              </div>
+            </div>
+            <!-- Totals: very clean, right-aligned -->
+            <div style="margin-top:auto;padding-top:4px;">
+              <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:1.5px;"><div style="font-size:4px;color:#bbb;">Subtotal</div><div style="font-size:4px;color:#666;">$3,418.00</div></div>
+              <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:2px;"><div style="font-size:4px;color:#bbb;">Tax 8.25%</div><div style="font-size:4px;color:#666;">$281.99</div></div>
+              <div style="height:1px;background:#e5e7eb;margin-bottom:3px;"></div>
+              <div style="display:flex;justify-content:flex-end;gap:12px;"><div style="font-size:5px;color:#374151;font-weight:400;">Total</div><div style="font-size:5px;color:#374151;font-weight:500;">$3,699.99</div></div>
+            </div>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:0.875rem;">Minimal</h3>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">Clean & spacious</p>
+        </div>
+
+        <!-- ═══ PROFESSIONAL ═══ Company details left, big INVOICE right, Due Date in accent, BILL TO box, accent-tint table header, full accent total bar -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+          <div style="background:#fff;border-radius:0.5rem;height:16rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0;display:flex;flex-direction:column;">
+            <!-- 4px accent top stripe -->
+            <div style="height:3px;background:var(--accent-500);flex-shrink:0;"></div>
+            <!-- Header: company info left, INVOICE + details right -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:0.4rem 0.5rem;">
+              <div>
+                <div style="font-size:5px;font-weight:700;color:#374151;">Pixel &amp; Flow Studio</div>
+                <div style="height:2px;background:#ddd;width:2.5rem;border-radius:1px;margin:2px 0;"></div>
+                <div style="height:2px;background:#eee;width:2rem;border-radius:1px;margin-bottom:1px;"></div>
+                <div style="height:2px;background:#eee;width:1.5rem;border-radius:1px;"></div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:10px;font-weight:800;color:#374151;">INVOICE</div>
+                <div style="font-size:3.5px;color:#666;margin-top:1px;">Invoice #: INV-20260208-0041</div>
+                <div style="font-size:3.5px;color:#666;margin-top:1px;">Date: 08/02/2026</div>
+                <div style="font-size:3.5px;color:var(--accent-500);font-weight:600;margin-top:1px;">Due Date: 10/03/2026</div>
+              </div>
+            </div>
+            <!-- BILL TO section -->
+            <div style="margin:0 0.5rem 0.3rem;border:1px solid #e5e7eb;border-radius:2px;padding:3px 5px;">
+              <div style="font-size:3.5px;font-weight:700;color:#374151;margin-bottom:2px;">BILL TO:</div>
+              <div style="font-size:4px;color:#555;font-weight:500;">Tyler Brooks</div>
+              <div style="height:2px;background:#eee;width:55%;border-radius:1px;margin-top:1px;"></div>
+            </div>
+            <!-- Table with accent-tinted header -->
+            <div style="margin:0 0.5rem;flex:1;display:flex;flex-direction:column;">
+              <div style="display:flex;background:rgba(var(--accent-rgb),0.08);padding:3px 4px;border-bottom:1px solid #e5e7eb;">
+                <div style="flex:3;font-size:3.5px;font-weight:700;color:#374151;">DESCRIPTION</div>
+                <div style="flex:0.5;font-size:3.5px;font-weight:700;color:#374151;text-align:center;">QTY</div>
+                <div style="flex:1;font-size:3.5px;font-weight:700;color:#374151;text-align:right;">RATE</div>
+                <div style="flex:1;font-size:3.5px;font-weight:700;color:#374151;text-align:right;">AMOUNT</div>
+              </div>
+              <div style="display:flex;padding:3px 4px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:58%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;font-size:4px;color:#374151;text-align:right;font-weight:600;">$1,053</div></div>
+              <div style="display:flex;padding:3px 4px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:65%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:38%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;font-size:4px;color:#374151;text-align:right;font-weight:600;">$596</div></div>
+              <div style="display:flex;padding:3px 4px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:45%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;font-size:4px;color:#374151;text-align:right;font-weight:600;">$1,769</div></div>
+              <!-- Subtotal / Tax -->
+              <div style="margin-top:auto;padding:3px 0;">
+                <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:1px;"><div style="font-size:4px;color:#666;">Subtotal</div><div style="font-size:4px;color:#374151;">$3,418.00</div></div>
+                <div style="display:flex;justify-content:flex-end;gap:8px;"><div style="font-size:4px;color:#666;">Tax (8.25%)</div><div style="font-size:4px;color:#374151;">$281.99</div></div>
+              </div>
+            </div>
+            <!-- Full-width accent TOTAL bar -->
+            <div style="background:var(--accent-500);padding:4px 8px;display:flex;justify-content:space-between;flex-shrink:0;">
+              <div style="font-size:5px;font-weight:800;color:#fff;">TOTAL</div>
+              <div style="font-size:5px;font-weight:800;color:#fff;">$3,699.99</div>
+            </div>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:0.875rem;">Professional</h3>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">Corporate & polished</p>
+        </div>
+
+        <!-- ═══ ELEGANT ═══ Light gradient bg, centered layout, large thin INVOICE in accent, letter-spaced, FROM/TO, bordered date section, accent table headers, "Thank you" footer -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+          <div style="background:linear-gradient(180deg, #f9fafb, #fff);border-radius:0.5rem;height:16rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0.6rem 0.7rem;display:flex;flex-direction:column;align-items:center;">
+            <!-- Centered large thin INVOICE -->
+            <div style="font-size:12px;font-weight:300;color:var(--accent-500);letter-spacing:0.2em;margin-bottom:2px;">INVOICE</div>
+            <div style="font-size:4px;color:#999;margin-bottom:4px;">INV-20260208-0041</div>
+            <!-- FROM / TO side by side -->
+            <div style="display:flex;gap:0.75rem;width:100%;margin-bottom:4px;">
+              <div style="flex:1;text-align:left;">
+                <div style="font-size:3.5px;color:var(--accent-500);font-weight:600;letter-spacing:0.1em;margin-bottom:2px;">FROM</div>
+                <div style="font-size:4px;color:#555;font-weight:500;">Pixel &amp; Flow Studio</div>
+                <div style="height:2px;background:#ddd;width:60%;border-radius:1px;margin-top:1px;margin-bottom:1px;"></div>
+                <div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div>
+              </div>
+              <div style="flex:1;text-align:left;">
+                <div style="font-size:3.5px;color:var(--accent-500);font-weight:600;letter-spacing:0.1em;margin-bottom:2px;">TO</div>
+                <div style="font-size:4px;color:#555;font-weight:500;">Tyler Brooks</div>
+                <div style="height:2px;background:#ddd;width:55%;border-radius:1px;margin-top:1px;margin-bottom:1px;"></div>
+                <div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div>
+              </div>
+            </div>
+            <!-- Bordered date/due/po section -->
+            <div style="display:flex;width:100%;background:#fff;border:1px solid rgba(var(--accent-rgb),0.15);border-radius:3px;margin-bottom:5px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+              <div style="flex:1;padding:3px 4px;text-align:center;border-right:1px solid rgba(var(--accent-rgb),0.1);"><div style="font-size:3px;color:#999;letter-spacing:0.05em;">DATE</div><div style="font-size:4px;color:#374151;font-weight:600;">08/02/2026</div></div>
+              <div style="flex:1;padding:3px 4px;text-align:center;border-right:1px solid rgba(var(--accent-rgb),0.1);"><div style="font-size:3px;color:#999;letter-spacing:0.05em;">DUE DATE</div><div style="font-size:4px;color:#374151;font-weight:600;">10/03/2026</div></div>
+              <div style="flex:1;padding:3px 4px;text-align:center;"><div style="font-size:3px;color:#999;letter-spacing:0.05em;">PO NUMBER</div><div style="font-size:4px;color:#999;">—</div></div>
+            </div>
+            <!-- Table with accent headers -->
+            <div style="width:100%;flex:1;">
+              <div style="display:flex;border-bottom:1.5px solid var(--accent-500);padding-bottom:2px;margin-bottom:2px;">
+                <div style="flex:3;font-size:3.5px;font-weight:600;color:var(--accent-500);letter-spacing:0.05em;">DESCRIPTION</div>
+                <div style="flex:0.5;font-size:3.5px;font-weight:600;color:var(--accent-500);text-align:center;">QTY</div>
+                <div style="flex:1;font-size:3.5px;font-weight:600;color:var(--accent-500);text-align:right;">RATE</div>
+                <div style="flex:1;font-size:3.5px;font-weight:600;color:var(--accent-500);text-align:right;">AMOUNT</div>
+              </div>
+              <div style="display:flex;padding:2px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:58%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:50%;border-radius:1px;margin-left:auto;"></div></div>
+              <div style="display:flex;padding:2px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:48%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:38%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:42%;border-radius:1px;margin-left:auto;"></div></div>
+              <div style="display:flex;padding:2px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:42%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
+            </div>
+            <!-- Totals -->
+            <div style="width:100%;padding-top:2px;">
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:1px;"><div style="font-size:4px;color:#999;">Subtotal</div><div style="font-size:4px;color:#555;">$3,418.00</div></div>
+              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:2px;"><div style="font-size:4px;color:#999;">Tax (8.25%)</div><div style="font-size:4px;color:#555;">$281.99</div></div>
+              <div style="border-top:1.5px solid var(--accent-500);padding-top:2px;display:flex;justify-content:flex-end;gap:10px;">
+                <div style="font-size:5px;font-weight:600;color:var(--accent-500);">TOTAL</div>
+                <div style="font-size:5px;font-weight:600;color:var(--accent-500);">$3,699.99</div>
+              </div>
+            </div>
+            <!-- Thank you footer -->
+            <div style="margin-top:4px;"><div style="font-size:3.5px;color:#bbb;font-style:italic;">Thank you for your business</div></div>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:0.875rem;">Elegant</h3>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">Refined & sophisticated</p>
+        </div>
+
+        <!-- ═══ WILD ═══ Dark gradient bg, neon pink/cyan, huge skewed INVOICE, colored date box, neon bordered sections, gradient total bar, POWERED BY CHAOS -->
+        <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+          <div style="background:linear-gradient(135deg, #1a0a2e, #0a1628, #0e2a1a);border-radius:0.5rem;height:16rem;margin-bottom:1rem;overflow:hidden;border:3px solid #c026d3;padding:0.5rem;display:flex;flex-direction:column;box-shadow:0 0 20px rgba(192,38,211,0.3);">
+            <!-- Header: huge INVOICE skewed + date box top-right -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.3rem;">
+              <div>
+                <div style="font-size:10px;font-weight:900;font-style:italic;background:linear-gradient(135deg,#c026d3,#06b6d4,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-6deg);filter:drop-shadow(0 0 4px rgba(192,38,211,0.6));line-height:1;">INVOICE</div>
+                <div style="font-size:3.5px;color:#c026d3;font-family:monospace;margin-top:1px;">INV-20260208-0041</div>
+              </div>
+              <!-- Date info box with neon bg -->
+              <div style="background:linear-gradient(135deg,rgba(192,38,211,0.3),rgba(6,182,212,0.3));border:1px solid #c026d3;border-radius:2px;padding:2px 4px;box-shadow:0 0 4px rgba(192,38,211,0.3);">
+                <div style="font-size:3px;color:#22d3ee;font-weight:700;">INVOICE DATE &amp;</div>
+                <div style="font-size:3.5px;color:#fff;font-weight:600;">08/02/2026</div>
+                <div style="font-size:3px;color:#c026d3;">Due: 10/03/2026</div>
+              </div>
+            </div>
+            <!-- Neon FROM / TO boxes -->
+            <div style="display:flex;gap:3px;margin-bottom:0.3rem;">
+              <div style="flex:1;border:1.5px solid #c026d3;border-radius:2px;padding:2px 4px;background:linear-gradient(135deg,rgba(192,38,211,0.12),rgba(6,182,212,0.08));box-shadow:0 0 5px rgba(192,38,211,0.2);">
+                <div style="font-size:3px;font-weight:900;color:#c026d3;">&#x1F4E4; FROM</div>
+                <div style="font-size:3.5px;color:rgba(255,255,255,0.8);font-weight:600;margin-top:1px;">Pixel &amp; Flow Studio</div>
+                <div style="height:2px;background:rgba(255,255,255,0.2);width:65%;border-radius:1px;margin-top:1px;"></div>
+              </div>
+              <div style="flex:1;border:1.5px solid #06b6d4;border-radius:2px;padding:2px 4px;background:linear-gradient(135deg,rgba(6,182,212,0.12),rgba(192,38,211,0.08));box-shadow:0 0 5px rgba(6,182,212,0.2);">
+                <div style="font-size:3px;font-weight:900;color:#06b6d4;">&#x1F4E5; TO</div>
+                <div style="font-size:3.5px;color:rgba(255,255,255,0.8);font-weight:600;margin-top:1px;">Tyler Brooks</div>
+                <div style="height:2px;background:rgba(255,255,255,0.2);width:60%;border-radius:1px;margin-top:1px;"></div>
+              </div>
+            </div>
+            <!-- Neon table -->
+            <div style="border:2px solid #c026d3;border-radius:2px;overflow:hidden;flex:1;box-shadow:0 0 6px rgba(192,38,211,0.2);">
+              <div style="display:flex;background:linear-gradient(90deg,rgba(192,38,211,0.25),rgba(26,10,46,0.8));padding:2px 4px;border-bottom:2px solid #c026d3;">
+                <div style="flex:3;font-size:3px;font-weight:900;color:#c026d3;">&#x1F4CB; DESCRIPTION</div>
+                <div style="flex:0.5;font-size:3px;font-weight:900;color:#06b6d4;text-align:center;">QTY</div>
+                <div style="flex:1;font-size:3px;font-weight:900;color:#22d3ee;text-align:right;">RATE</div>
+                <div style="flex:1;font-size:3px;font-weight:900;color:#c026d3;text-align:right;">AMOUNT</div>
+              </div>
+              <div style="display:flex;padding:2px 4px;border-bottom:1px solid rgba(192,38,211,0.25);background:rgba(26,10,46,0.5);"><div style="flex:3;height:2px;background:rgba(255,255,255,0.25);width:58%;border-radius:1px;"></div><div style="flex:0.5;font-size:3.5px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:3.5px;color:#06b6d4;text-align:right;">$1,053</div><div style="flex:1;font-size:3.5px;color:#c026d3;text-align:right;font-weight:700;">$1,053</div></div>
+              <div style="display:flex;padding:2px 4px;border-bottom:1px solid rgba(6,182,212,0.25);background:rgba(10,22,40,0.5);"><div style="flex:3;height:2px;background:rgba(255,255,255,0.25);width:65%;border-radius:1px;"></div><div style="flex:0.5;font-size:3.5px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:3.5px;color:#06b6d4;text-align:right;">$596</div><div style="flex:1;font-size:3.5px;color:#c026d3;text-align:right;font-weight:700;">$596</div></div>
+              <div style="display:flex;padding:2px 4px;background:rgba(26,10,46,0.5);"><div style="flex:3;height:2px;background:rgba(255,255,255,0.25);width:42%;border-radius:1px;"></div><div style="flex:0.5;font-size:3.5px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:3.5px;color:#06b6d4;text-align:right;">$1,769</div><div style="flex:1;font-size:3.5px;color:#c026d3;text-align:right;font-weight:700;">$1,769</div></div>
+            </div>
+            <!-- Subtotal/Tax -->
+            <div style="padding:2px 2px 0;">
+              <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:1px;"><div style="font-size:3.5px;color:#c026d3;">Subtotal</div><div style="font-size:3.5px;color:#22d3ee;font-weight:600;">$3,418.00</div></div>
+              <div style="display:flex;justify-content:flex-end;gap:6px;"><div style="font-size:3.5px;color:#c026d3;">&#x1F4B0; Tax (8.25%)</div><div style="font-size:3.5px;color:#22d3ee;font-weight:600;">$281.99</div></div>
+            </div>
+            <!-- Neon gradient TOTAL bar -->
+            <div style="margin-top:3px;background:linear-gradient(90deg,#c026d3,#06b6d4,#22d3ee);border-radius:2px;padding:3px 5px;display:flex;justify-content:center;gap:8px;box-shadow:0 0 10px rgba(192,38,211,0.4);">
+              <div style="font-size:4px;font-weight:900;color:#000;">&#x2728; TOTAL</div>
+              <div style="font-size:4px;font-weight:900;color:#000;">$3,699.99</div>
+            </div>
+            <!-- POWERED BY CHAOS -->
+            <div style="margin-top:3px;text-align:center;">
+              <div style="font-size:3px;font-weight:900;color:#c026d3;letter-spacing:0.1em;text-shadow:0 0 4px rgba(192,38,211,0.5);">POWERED BY CHAOS</div>
+            </div>
+          </div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:0.875rem;">Wild</h3>
+          <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;">Bold & expressive</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
+
+  <!-- Theme Showcase -->
+  <section id="customise" style="padding:5rem 0 7rem;">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
+      <div style="text-align:center;margin-bottom:3.5rem;">
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Make it <span class="gradient-text">yours</span></h2>
+        <p style="color:var(--text-secondary);max-width:36rem;margin:0 auto;">4 colour themes and light/dark mode. Click around below and watch the entire page transform in real time.</p>
+      </div>
+
+      <div class="showcase-grid" style="display:grid;grid-template-columns:1fr 1.4fr;gap:2.5rem;align-items:start;max-width:60rem;margin:0 auto;">
+        <!-- Controls -->
+        <div class="showcase-controls" style="display:flex;flex-direction:column;gap:1.25rem;">
+          <!-- Mode -->
+          <div>
+            <p style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.625rem;">Mode</p>
+            <div style="display:flex;gap:0.625rem;">
+              <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                Light
+              </button>
+              <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                Dark
+              </button>
+            </div>
+          </div>
+
+          <!-- Colour themes -->
+          <div>
+            <p style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.625rem;">Colour Theme</p>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;">
+              <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')">
+                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
+                <span class="showcase-swatch-name">Amethyst</span>
+              </button>
+              <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')">
+                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
+                <span class="showcase-swatch-name">Ocean</span>
+              </button>
+              <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')">
+                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
+                <span class="showcase-swatch-name">Sunset</span>
+              </button>
+              <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')">
+                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
+                <span class="showcase-swatch-name">Emerald</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="showcase-hint">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+            Try clicking — the whole page changes
+          </div>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="showcase-preview-col">
+          <div class="showcase-preview">
+            <!-- Mini app chrome -->
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:1rem;">
+              <div style="width:10px;height:10px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
+              <span style="font-size:0.7rem;color:var(--text-muted);margin-left:0.5rem;">Invoi.X — Invoice Preview</span>
+            </div>
+
+            <!-- Mock invoice -->
+            <div class="showcase-invoice">
+              <div class="showcase-invoice-header">
+                <div>
+                  <div style="font-size:1.1rem;font-weight:700;color:#fff;">INVOICE</div>
+                  <div style="font-size:0.7rem;color:rgba(255,255,255,0.75);margin-top:2px;">INV-20260215-0042</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:0.75rem;font-weight:600;color:#fff;">Pixel & Flow Studio</div>
+                  <div style="font-size:0.65rem;color:rgba(255,255,255,0.7);">Austin, TX</div>
+                </div>
+              </div>
+              <div class="showcase-invoice-body">
+                <div style="display:flex;justify-content:space-between;margin-bottom:1rem;">
+                  <div>
+                    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Bill To</div>
+                    <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary);margin-top:2px;">Lumina Startups Ltd</div>
+                    <div style="font-size:0.7rem;color:var(--text-secondary);">London, UK</div>
+                  </div>
+                  <div style="text-align:right;">
+                    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Due Date</div>
+                    <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary);margin-top:2px;">15 Mar 2026</div>
+                    <div style="font-size:0.7rem;color:var(--text-secondary);">Net 30</div>
+                  </div>
+                </div>
+
+                <!-- Line items header -->
+                <div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:2px solid var(--border);font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);">
+                  <span>Description</span>
+                  <span>Amount</span>
+                </div>
+
+                <div class="showcase-row">
+                  <span>Brand Identity Package</span>
+                  <span style="font-weight:600;color:var(--text-primary);">£2,400.00</span>
+                </div>
+                <div class="showcase-row">
+                  <span>UI/UX Design — Mobile App</span>
+                  <span style="font-weight:600;color:var(--text-primary);">£3,800.00</span>
+                </div>
+                <div class="showcase-row">
+                  <span>Frontend Development</span>
+                  <span style="font-weight:600;color:var(--text-primary);">£1,950.00</span>
+                </div>
+
+                <!-- Totals -->
+                <div style="margin-top:0.75rem;padding-top:0.5rem;">
+                  <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-secondary);padding:0.2rem 0;">
+                    <span>Subtotal</span><span>£8,150.00</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-secondary);padding:0.2rem 0;">
+                    <span>VAT (20%)</span><span>£1,630.00</span>
+                  </div>
+                  <div class="showcase-total">
+                    <span>Total</span><span>£9,780.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
+
+  <!-- Pricing -->
+  <section id="pricing" style="padding:5rem 0 7rem;">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Simple, <span class="gradient-text">honest pricing</span></h2>
+        <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Start free. Upgrade when you're ready. No hidden fees, no surprises.</p>
+      </div>
+
+      <div class="pricing-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:64rem;margin:0 auto;">
+        <!-- Free -->
+        <div class="card-glow" style="border-radius:1rem;padding:2rem;display:flex;flex-direction:column;">
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Free</h3>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem;">Try it out, no commitment</p>
+          <div style="margin-bottom:1.5rem;">
+            <span style="font-size:2.5rem;font-weight:700;color:var(--text-primary);">£0</span>
+            <span style="font-size:0.875rem;color:var(--text-muted);"> / forever</span>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;flex:1;">
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              5 invoices per month
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              All 6 templates
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              PDF export
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Invoi.X watermark
+            </li>
+          </ul>
+          <a href="#" class="btn-secondary" style="text-align:center;font-weight:500;padding:0.75rem 1.5rem;border-radius:0.75rem;text-decoration:none;">Get Started</a>
+        </div>
+
+        <!-- Desktop -->
+        <div class="pricing-popular" style="border-radius:1rem;padding:2rem;display:flex;flex-direction:column;position:relative;">
+          <div style="position:absolute;top:-0.75rem;left:50%;transform:translateX(-50%);background:var(--accent-500);color:#fff;font-size:0.75rem;font-weight:600;padding:0.25rem 1rem;border-radius:9999px;">Most Popular</div>
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Desktop</h3>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem;">Own it forever</p>
+          <div style="margin-bottom:1.5rem;">
+            <span style="font-size:2.5rem;font-weight:700;color:var(--text-primary);">£29.99</span>
+            <span style="font-size:0.875rem;color:var(--text-muted);"> / one-time</span>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;flex:1;">
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Unlimited invoices
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              All 6 templates
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              No watermark
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Windows desktop app
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Email integration
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Analytics dashboard
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              1 year of free updates
+            </li>
+          </ul>
+          <a href="#" class="btn-primary" style="text-align:center;font-weight:600;padding:0.75rem 1.5rem;border-radius:0.75rem;text-decoration:none;">Buy Now — £29.99</a>
+        </div>
+
+        <!-- Cloud Pro -->
+        <div class="card-glow" style="border-radius:1rem;padding:2rem;display:flex;flex-direction:column;">
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Cloud Pro</h3>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem;">Access from anywhere</p>
+          <div style="margin-bottom:0.25rem;">
+            <span style="font-size:2.5rem;font-weight:700;color:var(--text-primary);">£4.99</span>
+            <span style="font-size:0.875rem;color:var(--text-muted);"> / month</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:1.5rem;">or £49.99/year (save 17%)</p>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;flex:1;">
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Everything in Desktop
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Cloud storage & sync
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Works on any device
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Automatic backups
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              All future updates
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Priority support
+            </li>
+          </ul>
+          <a href="#" class="btn-secondary" style="text-align:center;font-weight:500;padding:0.75rem 1.5rem;border-radius:0.75rem;text-decoration:none;">Start Free Trial</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding:5rem 0 7rem;">
+    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Frequently asked <span class="gradient-text">questions</span></h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">What's the difference between Desktop and Cloud Pro?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            The Desktop plan is a one-time purchase that installs on your Windows PC. All your data is stored locally on your computer. Cloud Pro is a monthly subscription that lets you access your invoices from any device — your phone, tablet, laptop, or any browser. Your data is securely stored in the cloud and synced automatically.
+          </div>
+        </details>
+
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">Can I try before I buy?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            Yes! The Free plan lets you create up to 5 invoices per month with all 6 templates. No credit card required. When you're ready for unlimited invoices and extra features, you can upgrade anytime.
+          </div>
+        </details>
+
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">Is my data safe?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            Absolutely. With the Desktop version, your data never leaves your computer. With Cloud Pro, all data is encrypted in transit and at rest. We never sell your data, and you can export or delete everything at any time.
+          </div>
+        </details>
+
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">What currencies do you support?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            Invoi.X supports USD, EUR, GBP, CAD, AUD, JPY, and INR. You can set a default currency or choose per invoice.
+          </div>
+        </details>
+
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">Do I get updates with the Desktop version?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            Yes — the Desktop plan includes 1 year of free updates. After that, you can continue using the version you have forever, or renew updates for a discounted price. Cloud Pro always includes the latest version.
+          </div>
+        </details>
+
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">Can I switch from Desktop to Cloud Pro later?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            Yes! You can export your data from the Desktop app and import it into Cloud Pro. We make it easy to move between plans.
+          </div>
+        </details>
+
+        <details class="faq-item card-glow" style="border-radius:0.75rem;">
+          <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">Do you offer refunds?</summary>
+          <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
+            Yes. If you're not happy with your purchase, contact us within 14 days for a full refund — no questions asked.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
+
+  <!-- CTA -->
+  <section style="padding:5rem 0 7rem;">
+    <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
+      <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Ready to send your first invoice?</h2>
+      <p style="color:var(--text-secondary);margin-bottom:2.5rem;font-size:1.125rem;">Join freelancers and small businesses who've made invoicing effortless.</p>
+      <a href="#pricing" class="btn-primary" style="font-weight:600;padding:1rem 2.5rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
+        Get Started Free
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="border-top:1px solid var(--border);padding:3rem 0;">
+    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+        <div>
+          <span class="gradient-text" style="font-size:1.125rem;font-weight:700;">Invoi.X</span>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-top:0.25rem;">Professional invoicing, simplified.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:2rem;">
+          <a href="#features" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">Features</a>
+          <a href="#pricing" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">Pricing</a>
+          <a href="#faq" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">FAQ</a>
+          <a href="mailto:hello@invoix.xyz" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;">Contact</a>
+        </div>
+      </div>
+      <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+        <p style="font-size:0.75rem;color:var(--text-muted);">&copy; 2026 Invoi.X. All rights reserved.</p>
+        <div style="display:flex;align-items:center;gap:1.5rem;">
+          <a href="#" style="font-size:0.75rem;color:var(--text-muted);text-decoration:none;">Privacy Policy</a>
+          <a href="#" style="font-size:0.75rem;color:var(--text-muted);text-decoration:none;">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    // Load saved preferences
+    const savedMode = localStorage.getItem('ix-mode') || 'dark';
+    const savedTheme = localStorage.getItem('ix-theme') || 'amethyst';
+    setMode(savedMode, true);
+    setTheme(savedTheme, true);
+
+    function toggleThemePanel() {
+      document.getElementById('themePanel').classList.toggle('open');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const panel = document.getElementById('themePanel');
+      if (!panel.contains(e.target)) {
+        panel.classList.remove('open');
+      }
+    });
+
+    function setMode(mode, init) {
+      const html = document.documentElement;
+      if (mode === 'dark') {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
+      localStorage.setItem('ix-mode', mode);
+      updateModeButtons(mode);
+    }
+
+    function setTheme(theme, init) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('ix-theme', theme);
+      updateSwatches(theme);
+    }
+
+    function updateModeButtons(mode) {
+      // Nav dropdown buttons
+      var lightBtn = document.getElementById('lightBtn');
+      var darkBtn = document.getElementById('darkBtn');
+      if (lightBtn && darkBtn) {
+        lightBtn.classList.toggle('active', mode === 'light');
+        darkBtn.classList.toggle('active', mode === 'dark');
+      }
+      // Showcase buttons
+      var sLight = document.getElementById('showcaseLight');
+      var sDark = document.getElementById('showcaseDark');
+      if (sLight && sDark) {
+        sLight.classList.toggle('active', mode === 'light');
+        sDark.classList.toggle('active', mode === 'dark');
+      }
+    }
+
+    function updateSwatches(theme) {
+      // Nav dropdown swatches
+      document.querySelectorAll('.swatch').forEach(function(s) {
+        var t = s.className.replace('swatch swatch-', '').replace(' active', '');
+        s.classList.toggle('active', t === theme);
+      });
+      // Showcase swatches
+      document.querySelectorAll('.showcase-swatch').forEach(function(s) {
+        s.classList.toggle('active', s.getAttribute('data-theme-name') === theme);
+      });
+    }
+  </script>
+
+</body>
+</html>
