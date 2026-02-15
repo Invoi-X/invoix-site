@@ -854,7 +854,7 @@
 
       <div class="templates-themes-grid" style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:start;max-width:52rem;margin:0 auto;">
         <!-- Template Slider -->
-        <div style="position:relative;min-width:0;">
+        <div id="sliderCol" style="position:relative;min-width:0;overflow:hidden;">
           <button type="button" class="slider-arrow slider-prev" onclick="slideTemplate(-1)" aria-label="Previous template" style="left:-1rem;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           </button>
@@ -1586,9 +1586,9 @@
     function slideTemplate(dir) { goToSlide(currentSlide + dir); }
 
     function syncSliderHeight() {
-      var preview = document.querySelector('.showcase-preview');
-      var slider = document.getElementById('sliderOverflow');
-      if (preview && slider) slider.style.height = preview.offsetHeight + 'px';
+      var previewCol = document.querySelector('.showcase-preview-col');
+      var sliderCol = document.getElementById('sliderCol');
+      if (previewCol && sliderCol) sliderCol.style.height = previewCol.offsetHeight + 'px';
     }
     window.addEventListener('load', syncSliderHeight);
     window.addEventListener('resize', syncSliderHeight);
