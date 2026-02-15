@@ -611,11 +611,15 @@
                         <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.1);"></div>
                         <div style="border-bottom:1px solid var(--border);"></div>
                       </div>
-                      <!-- Crosshair lines -->
-                      <div id="chartCrosshairH" style="position:absolute;left:0;right:0;height:0;border-top:1px dashed var(--accent-500);opacity:0.5;z-index:3;pointer-events:none;display:none;"></div>
-                      <div id="chartCrosshairV" style="position:absolute;top:0;bottom:1.25rem;width:0;border-left:1px dashed var(--accent-500);opacity:0.5;z-index:3;pointer-events:none;display:none;"></div>
-                      <!-- Selected value tooltip -->
-                      <div id="chartTooltip" style="position:absolute;z-index:4;pointer-events:none;display:none;background:var(--surface-card);border:1px solid var(--accent-500);border-radius:0.25rem;padding:0.15rem 0.35rem;font-size:0.55rem;font-weight:700;color:var(--accent-500);white-space:nowrap;"></div>
+                      <!-- Mouse-following crosshair lines -->
+                      <div id="chartCrosshairH" style="position:absolute;left:0;right:0;height:0;border-top:1px dashed var(--text-muted);opacity:0.4;z-index:5;pointer-events:none;display:none;transition:top 0.05s linear;"></div>
+                      <div id="chartCrosshairV" style="position:absolute;top:0;bottom:1.25rem;width:0;border-left:1px dashed var(--text-muted);opacity:0.4;z-index:5;pointer-events:none;display:none;transition:left 0.05s linear;"></div>
+                      <!-- Mouse hover value label (follows nearest bar) -->
+                      <div id="chartHoverTip" style="position:absolute;z-index:6;pointer-events:none;display:none;background:var(--surface-card);border:1px solid var(--border);border-radius:0.25rem;padding:0.1rem 0.3rem;font-size:0.5rem;color:var(--text-secondary);white-space:nowrap;"></div>
+                      <!-- Selected value tooltip (pinned on click) -->
+                      <div id="chartTooltip" style="position:absolute;z-index:7;pointer-events:none;display:none;background:var(--surface-card);border:1px solid var(--accent-500);border-radius:0.25rem;padding:0.15rem 0.35rem;font-size:0.55rem;font-weight:700;color:var(--accent-500);white-space:nowrap;"></div>
+                      <!-- Invisible mouse tracking layer -->
+                      <div id="chartMouseLayer" style="position:absolute;top:0;left:0;right:0;bottom:1.25rem;z-index:4;cursor:crosshair;"></div>
                       <!-- Bar layer -->
                       <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;justify-content:space-around;padding:0 0.25rem;"></div>
                       <!-- SVG layer for line/area -->
@@ -1514,6 +1518,7 @@
     var chartType = 'bar';
     var chartTf = '1y';
     var selectedIdx = -1; // -1 means "last bar"
+    var chartCeil = 14000; // current y-axis ceiling, updated on render
 
     function getChartSlice() {
       var len = chartData.length;
@@ -1534,7 +1539,7 @@
 
     function setChartTf(tf) {
       chartTf = tf;
-      selectedIdx = -1; // reset to last on timeframe change
+      selectedIdx = -1;
       document.querySelectorAll('.chart-tf-btn').forEach(function(b) {
         var active = b.getAttribute('data-tf') === tf;
         b.style.background = active ? 'var(--accent-500)' : 'transparent';
@@ -1552,33 +1557,23 @@
       return '£' + (v >= 1000 ? (v/1000).toFixed(1) + 'k' : v);
     }
 
-    function showCrosshairs(data, idx, ceil) {
+    // Pinned selection tooltip + highlighted bar/x-label
+    function showSelection(data, idx, ceil) {
       var container = document.getElementById('chartContainer');
-      var hLine = document.getElementById('chartCrosshairH');
-      var vLine = document.getElementById('chartCrosshairV');
       var tooltip = document.getElementById('chartTooltip');
-      var chartH = container.offsetHeight - 20; // subtract x-axis padding (1.25rem ≈ 20px)
+      var chartH = container.offsetHeight - 20;
       var chartW = container.offsetWidth;
       var d = data[idx];
       var pct = d.v / ceil;
       var yPos = chartH - (pct * chartH);
-
-      // Horizontal crosshair at value
-      hLine.style.display = 'block';
-      hLine.style.top = yPos + 'px';
-
-      // Vertical crosshair at bar center
       var barSpacing = chartW / data.length;
       var xPos = barSpacing * idx + barSpacing / 2;
-      vLine.style.display = 'block';
-      vLine.style.left = xPos + 'px';
 
-      // Tooltip above crosshair intersection
+      // Show pinned tooltip above selected bar
       tooltip.style.display = 'block';
       tooltip.textContent = d.m + ': ' + fmtVal(d.v);
       var tipW = tooltip.offsetWidth;
       var tipLeft = xPos - tipW / 2;
-      // Clamp tooltip within container
       if (tipLeft < 0) tipLeft = 0;
       if (tipLeft + tipW > chartW) tipLeft = chartW - tipW;
       tooltip.style.left = tipLeft + 'px';
@@ -1592,10 +1587,76 @@
       }
     }
 
+    // Mouse-following crosshairs
+    (function() {
+      var mouseLayer = document.getElementById('chartMouseLayer');
+      var hLine = document.getElementById('chartCrosshairH');
+      var vLine = document.getElementById('chartCrosshairV');
+      var hoverTip = document.getElementById('chartHoverTip');
+
+      mouseLayer.addEventListener('mousemove', function(e) {
+        var container = document.getElementById('chartContainer');
+        var rect = container.getBoundingClientRect();
+        var chartH = container.offsetHeight - 20;
+        var chartW = container.offsetWidth;
+        var mx = e.clientX - rect.left;
+        var my = e.clientY - rect.top;
+
+        // Clamp within chart area
+        if (mx < 0) mx = 0;
+        if (mx > chartW) mx = chartW;
+        if (my < 0) my = 0;
+        if (my > chartH) my = chartH;
+
+        hLine.style.display = 'block';
+        hLine.style.top = my + 'px';
+        vLine.style.display = 'block';
+        vLine.style.left = mx + 'px';
+
+        // Find nearest data point for hover label
+        var data = getChartSlice();
+        var barSpacing = chartW / data.length;
+        var nearIdx = Math.floor(mx / barSpacing);
+        if (nearIdx >= data.length) nearIdx = data.length - 1;
+        if (nearIdx < 0) nearIdx = 0;
+        var d = data[nearIdx];
+
+        // Show small hover label near cursor
+        hoverTip.style.display = 'block';
+        hoverTip.textContent = d.m + ': ' + fmtVal(d.v);
+        var tipW = hoverTip.offsetWidth;
+        var tipLeft = mx + 10;
+        if (tipLeft + tipW > chartW) tipLeft = mx - tipW - 10;
+        hoverTip.style.left = tipLeft + 'px';
+        hoverTip.style.top = Math.max(my - 16, 0) + 'px';
+      });
+
+      mouseLayer.addEventListener('mouseleave', function() {
+        hLine.style.display = 'none';
+        vLine.style.display = 'none';
+        hoverTip.style.display = 'none';
+      });
+
+      // Click on mouse layer to select nearest bar
+      mouseLayer.addEventListener('click', function(e) {
+        var container = document.getElementById('chartContainer');
+        var rect = container.getBoundingClientRect();
+        var mx = e.clientX - rect.left;
+        var chartW = container.offsetWidth;
+        var data = getChartSlice();
+        var barSpacing = chartW / data.length;
+        var nearIdx = Math.floor(mx / barSpacing);
+        if (nearIdx >= data.length) nearIdx = data.length - 1;
+        if (nearIdx < 0) nearIdx = 0;
+        selectBar(nearIdx);
+      });
+    })();
+
     function renderChart() {
       var data = getChartSlice();
       var max = Math.max.apply(null, data.map(function(d){return d.v;}));
       var ceil = Math.ceil(max / 2000) * 2000;
+      chartCeil = ceil;
       var barsEl = document.getElementById('chartBars');
       var svgEl = document.getElementById('chartSvg');
       var xAxis = document.getElementById('chartXAxis');
@@ -1629,11 +1690,8 @@
           var pct = (d.v / ceil) * 100;
           var isSel = idx === sel;
           var bar = document.createElement('div');
-          bar.style.cssText = 'width:' + (100/data.length - 1.5) + '%;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease, background 0.2s;position:relative;min-width:4px;cursor:pointer;';
+          bar.style.cssText = 'width:' + (100/data.length - 1.5) + '%;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease, background 0.2s;position:relative;min-width:4px;pointer-events:none;';
           bar.style.background = isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
-          bar.title = d.m + ': £' + d.v.toLocaleString();
-          bar.setAttribute('data-idx', idx);
-          bar.onclick = function() { selectBar(parseInt(this.getAttribute('data-idx'))); };
           barsEl.appendChild(bar);
         });
       } else {
@@ -1654,20 +1712,15 @@
           svg += '<polygon points="0,' + h + ' ' + pointStr + ' ' + (points[points.length-1].x) + ',' + h + '" fill="rgba(var(--accent-rgb),0.15)" />';
         }
         svg += '<polyline points="' + pointStr + '" fill="none" stroke="var(--accent-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />';
-        // Dots — all clickable
         points.forEach(function(p, i) {
           var isSel = i === sel;
-          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (isSel ? 5 : 3) + '" fill="' + (isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.5)') + '" stroke="var(--surface-card)" stroke-width="1.5" style="cursor:pointer;" onclick="selectBar(' + i + ')"><title>' + p.d.m + ': £' + p.d.v.toLocaleString() + '</title></circle>';
-        });
-        // Invisible wider hit areas for easier clicking
-        points.forEach(function(p, i) {
-          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="10" fill="transparent" style="cursor:pointer;" onclick="selectBar(' + i + ')" />';
+          svg += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (isSel ? 5 : 3) + '" fill="' + (isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.5)') + '" stroke="var(--surface-card)" stroke-width="1.5" style="pointer-events:none;" />';
         });
         svgEl.innerHTML = svg;
       }
 
-      // Show crosshairs on selected bar
-      showCrosshairs(data, sel, ceil);
+      // Show pinned selection
+      showSelection(data, sel, ceil);
     }
 
     // Initial chart render
