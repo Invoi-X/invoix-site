@@ -387,7 +387,7 @@
 
     .showcase-preview {
       background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px;
-      padding: 0.75rem; transition: all 0.3s; flex: 1;
+      padding: 0.75rem; transition: all 0.3s;
     }
     .showcase-invoice {
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
@@ -852,7 +852,7 @@
         <p style="color:var(--text-secondary);max-width:40rem;margin:0 auto;">Six professionally designed templates, 4 colour themes, and light/dark mode. Click around and watch everything transform.</p>
       </div>
 
-      <div class="templates-themes-grid" style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:stretch;max-width:52rem;margin:0 auto;">
+      <div class="templates-themes-grid" style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:start;max-width:52rem;margin:0 auto;">
         <!-- Template Slider -->
         <div style="position:relative;min-width:0;">
           <button type="button" class="slider-arrow slider-prev" onclick="slideTemplate(-1)" aria-label="Previous template" style="left:-1rem;">
@@ -1169,7 +1169,7 @@
         </div>
 
         <!-- Live App Preview + Controls -->
-        <div class="showcase-preview-col" style="max-width:24rem;display:flex;">
+        <div class="showcase-preview-col" style="max-width:24rem;">
           <div class="showcase-preview">
             <!-- Mini app chrome -->
             <div style="display:flex;align-items:center;gap:5px;margin-bottom:0.5rem;">
@@ -1196,10 +1196,12 @@
                   <div>
                     <div style="font-size:0.5rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Bill To</div>
                     <div style="font-size:0.65rem;font-weight:600;color:var(--text-primary);margin-top:1px;">Bright Co Ltd</div>
+                    <div style="font-size:0.45rem;color:var(--text-secondary);">200 Main St, London, UK</div>
                   </div>
                   <div style="text-align:right;">
                     <div style="font-size:0.5rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Due Date</div>
                     <div style="font-size:0.65rem;font-weight:600;color:var(--text-primary);margin-top:1px;">15 Mar 2026</div>
+                    <div style="font-size:0.45rem;color:var(--text-secondary);">Net 30</div>
                   </div>
                 </div>
 
@@ -1221,18 +1223,28 @@
                   <span>Social Media Mgmt</span>
                   <span style="font-weight:600;color:var(--text-primary);">£1,950</span>
                 </div>
+                <div class="showcase-row">
+                  <span>Consulting Call (2 hrs)</span>
+                  <span style="font-weight:600;color:var(--text-primary);">£300</span>
+                </div>
 
                 <!-- Totals -->
                 <div style="margin-top:0.3rem;padding-top:0.2rem;">
                   <div style="display:flex;justify-content:space-between;font-size:0.55rem;color:var(--text-secondary);padding:0.1rem 0;">
-                    <span>Subtotal</span><span>£8,150</span>
+                    <span>Subtotal</span><span>£8,450</span>
                   </div>
                   <div style="display:flex;justify-content:space-between;font-size:0.55rem;color:var(--text-secondary);padding:0.1rem 0;">
-                    <span>VAT (20%)</span><span>£1,630</span>
+                    <span>VAT (20%)</span><span>£1,690</span>
                   </div>
                   <div class="showcase-total">
-                    <span>Total</span><span>£9,780</span>
+                    <span>Total</span><span>£10,140</span>
                   </div>
+                </div>
+
+                <!-- Notes -->
+                <div style="margin-top:0.4rem;padding-top:0.3rem;border-top:1px solid var(--border);text-align:center;">
+                  <div style="font-size:0.45rem;font-weight:600;color:var(--accent-500);text-transform:uppercase;letter-spacing:0.05em;">Notes</div>
+                  <div style="font-size:0.4rem;color:var(--text-muted);margin-top:0.1rem;">Payment due within 30 days. Thank you for your business!</div>
                 </div>
               </div>
             </div>
