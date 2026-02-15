@@ -620,12 +620,10 @@
                       <div id="chartTooltip" style="position:absolute;z-index:7;pointer-events:none;display:none;background:var(--surface-card);border:1px solid var(--accent-500);border-radius:0.25rem;padding:0.15rem 0.35rem;font-size:0.55rem;font-weight:700;color:var(--accent-500);white-space:nowrap;"></div>
                       <!-- Invisible mouse tracking layer -->
                       <div id="chartMouseLayer" style="position:absolute;top:0;left:0;right:0;bottom:1.25rem;z-index:4;cursor:crosshair;"></div>
-                      <!-- Bar layer -->
-                      <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;padding:0;"></div>
+                      <!-- Bars + Labels combined: each column = bar on top, label on bottom -->
+                      <div id="chartBars" style="position:relative;z-index:2;height:100%;display:flex;"></div>
                       <!-- SVG layer for line/area -->
                       <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:2;display:none;overflow:visible;"></svg>
-                      <!-- X-axis -->
-                      <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;height:1.25rem;"></div>
                     </div>
                   </div>
                 </div>
@@ -1580,7 +1578,7 @@
       tooltip.style.top = Math.max(yPos - 22, -18) + 'px';
 
       // Highlight selected x-axis label
-      document.querySelectorAll('#chartXAxis span').forEach(function(lbl) {
+      document.querySelectorAll('#chartBars [data-idx]').forEach(function(lbl) {
         var li = parseInt(lbl.getAttribute('data-idx'));
         lbl.style.color = li === idx ? 'var(--accent-500)' : 'var(--text-muted)';
         lbl.style.fontWeight = li === idx ? '700' : '400';
@@ -1673,25 +1671,62 @@
         yAxis.appendChild(label);
       }
 
-      // Render bars/SVG first, then measure positions for x-axis labels
+      // Decide label density based on container width
+      var containerW = document.getElementById('chartContainer').offsetWidth;
+      var avgSlot = containerW / data.length;
+      var every = 1;
+      if (avgSlot < 14) every = 3;
+      else if (avgSlot < 22) every = 2;
+      var useShort = avgSlot < 30;
+      var fontSize = useShort ? '0.45rem' : '0.55rem';
+
+      // Render columns: each column = bar area + label, in one flex container
+      barsEl.style.display = 'flex';
+      barsEl.innerHTML = '';
+
       if (chartType === 'bar') {
-        barsEl.style.display = 'flex';
         svgEl.style.display = 'none';
-        barsEl.innerHTML = '';
         data.forEach(function(d, idx) {
           var pct = (d.v / ceil) * 100;
           var isSel = idx === sel;
-          var slot = document.createElement('div');
-          slot.style.cssText = 'flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;padding:0 1px;';
+          var show = (idx % every === 0) || idx === data.length - 1;
+          // Column: flex:1, stacks bar area + label vertically
+          var col = document.createElement('div');
+          col.style.cssText = 'flex:1;min-width:0;display:flex;flex-direction:column;';
+          // Bar area
+          var barArea = document.createElement('div');
+          barArea.style.cssText = 'flex:1;display:flex;align-items:flex-end;padding:0 1px;';
           var bar = document.createElement('div');
-          bar.style.cssText = 'width:100%;height:' + pct + '%;border-radius:0.15rem 0.15rem 0 0;transition:height 0.4s ease, background 0.2s;pointer-events:none;';
+          bar.style.cssText = 'width:100%;height:' + pct + '%;border-radius:0.15rem 0.15rem 0 0;transition:height 0.4s ease,background 0.2s;pointer-events:none;';
           bar.style.background = isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
-          slot.appendChild(bar);
-          barsEl.appendChild(slot);
+          barArea.appendChild(bar);
+          col.appendChild(barArea);
+          // Label
+          var lbl = document.createElement('div');
+          lbl.style.cssText = 'height:1.25rem;line-height:1.25rem;text-align:center;font-size:' + fontSize + ';color:var(--text-muted);pointer-events:none;overflow:visible;';
+          lbl.setAttribute('data-idx', idx);
+          lbl.textContent = show ? (useShort ? d.m.charAt(0) : d.m) : '';
+          col.appendChild(lbl);
+          barsEl.appendChild(col);
         });
       } else {
-        barsEl.style.display = 'none';
+        // For line/area: render invisible columns for labels, SVG overlays the chart
         svgEl.style.display = 'block';
+        data.forEach(function(d, idx) {
+          var show = (idx % every === 0) || idx === data.length - 1;
+          var col = document.createElement('div');
+          col.style.cssText = 'flex:1;min-width:0;display:flex;flex-direction:column;';
+          var spacer = document.createElement('div');
+          spacer.style.cssText = 'flex:1;';
+          col.appendChild(spacer);
+          var lbl = document.createElement('div');
+          lbl.style.cssText = 'height:1.25rem;line-height:1.25rem;text-align:center;font-size:' + fontSize + ';color:var(--text-muted);pointer-events:none;overflow:visible;';
+          lbl.setAttribute('data-idx', idx);
+          lbl.textContent = show ? (useShort ? d.m.charAt(0) : d.m) : '';
+          col.appendChild(lbl);
+          barsEl.appendChild(col);
+        });
+        // SVG line/area on top
         var w = svgEl.getBoundingClientRect().width || 300;
         var h = svgEl.getBoundingClientRect().height || 110;
         var slotW = w / data.length;
@@ -1701,7 +1736,6 @@
           return {x: x, y: y, d: d, i: i};
         });
         var pointStr = points.map(function(p){return p.x+','+p.y;}).join(' ');
-
         var svg = '';
         if (chartType === 'area') {
           svg += '<polygon points="0,' + h + ' ' + pointStr + ' ' + (points[points.length-1].x) + ',' + h + '" fill="rgba(var(--accent-rgb),0.15)" />';
@@ -1713,42 +1747,6 @@
         });
         svgEl.innerHTML = svg;
       }
-
-      // X-axis labels — measure actual bar/dot positions, place labels at their centers
-      xAxis.innerHTML = '';
-      var containerRect = document.getElementById('chartContainer').getBoundingClientRect();
-      var containerW = containerRect.width;
-      // Measure center of each bar slot
-      var centers = [];
-      if (chartType === 'bar') {
-        var slots = barsEl.children;
-        for (var li = 0; li < slots.length; li++) {
-          var r = slots[li].getBoundingClientRect();
-          centers.push(r.left + r.width / 2 - containerRect.left);
-        }
-      } else {
-        // For line/area, dots are evenly spaced
-        var sw = containerW / data.length;
-        for (var li = 0; li < data.length; li++) {
-          centers.push(sw * li + sw / 2);
-        }
-      }
-      // Decide skip & size based on average gap between labels
-      var avgGap = containerW / data.length;
-      var every = 1;
-      if (avgGap < 14) every = 3;
-      else if (avgGap < 22) every = 2;
-      var useShort = avgGap < 30;
-      var fontSize = useShort ? '0.45rem' : '0.55rem';
-      data.forEach(function(d, i) {
-        var show = (i % every === 0) || i === data.length - 1;
-        if (!show) return;
-        var lbl = document.createElement('span');
-        lbl.style.cssText = 'position:absolute;left:' + centers[i].toFixed(1) + 'px;transform:translateX(-50%);font-size:' + fontSize + ';color:var(--text-muted);white-space:nowrap;top:0.2rem;';
-        lbl.setAttribute('data-idx', i);
-        lbl.textContent = useShort ? d.m.charAt(0) : d.m;
-        xAxis.appendChild(lbl);
-      });
 
       // Show pinned selection
       showSelection(data, sel, ceil);
