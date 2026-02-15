@@ -1673,27 +1673,7 @@
         yAxis.appendChild(label);
       }
 
-      // X-axis labels — absolutely positioned at bar centers
-      xAxis.innerHTML = '';
-      var n = data.length;
-      var containerW = document.getElementById('chartContainer').offsetWidth;
-      var slotPx = containerW / n;
-      // Decide how many labels to show based on pixel space
-      var every = 1;
-      if (slotPx < 14) every = 3;
-      else if (slotPx < 22) every = 2;
-      var useShort = slotPx < 30;
-      data.forEach(function(d, i) {
-        var show = (i % every === 0) || i === n - 1;
-        if (!show) return;
-        var lbl = document.createElement('span');
-        var pct = ((i + 0.5) / n * 100).toFixed(2);
-        lbl.style.cssText = 'position:absolute;left:' + pct + '%;transform:translateX(-50%);font-size:' + (useShort ? '0.45rem' : '0.55rem') + ';color:var(--text-muted);white-space:nowrap;top:0.2rem;';
-        lbl.setAttribute('data-idx', i);
-        lbl.textContent = useShort ? d.m.charAt(0) : d.m;
-        xAxis.appendChild(lbl);
-      });
-
+      // Render bars/SVG first, then measure positions for x-axis labels
       if (chartType === 'bar') {
         barsEl.style.display = 'flex';
         svgEl.style.display = 'none';
@@ -1701,10 +1681,8 @@
         data.forEach(function(d, idx) {
           var pct = (d.v / ceil) * 100;
           var isSel = idx === sel;
-          // Outer wrapper: flex:1, same width as label slot
           var slot = document.createElement('div');
           slot.style.cssText = 'flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;padding:0 1px;';
-          // Inner bar: fills slot with small padding for visual gap
           var bar = document.createElement('div');
           bar.style.cssText = 'width:100%;height:' + pct + '%;border-radius:0.15rem 0.15rem 0 0;transition:height 0.4s ease, background 0.2s;pointer-events:none;';
           bar.style.background = isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
@@ -1735,6 +1713,42 @@
         });
         svgEl.innerHTML = svg;
       }
+
+      // X-axis labels — measure actual bar/dot positions, place labels at their centers
+      xAxis.innerHTML = '';
+      var containerRect = document.getElementById('chartContainer').getBoundingClientRect();
+      var containerW = containerRect.width;
+      // Measure center of each bar slot
+      var centers = [];
+      if (chartType === 'bar') {
+        var slots = barsEl.children;
+        for (var li = 0; li < slots.length; li++) {
+          var r = slots[li].getBoundingClientRect();
+          centers.push(r.left + r.width / 2 - containerRect.left);
+        }
+      } else {
+        // For line/area, dots are evenly spaced
+        var sw = containerW / data.length;
+        for (var li = 0; li < data.length; li++) {
+          centers.push(sw * li + sw / 2);
+        }
+      }
+      // Decide skip & size based on average gap between labels
+      var avgGap = containerW / data.length;
+      var every = 1;
+      if (avgGap < 14) every = 3;
+      else if (avgGap < 22) every = 2;
+      var useShort = avgGap < 30;
+      var fontSize = useShort ? '0.45rem' : '0.55rem';
+      data.forEach(function(d, i) {
+        var show = (i % every === 0) || i === data.length - 1;
+        if (!show) return;
+        var lbl = document.createElement('span');
+        lbl.style.cssText = 'position:absolute;left:' + centers[i].toFixed(1) + 'px;transform:translateX(-50%);font-size:' + fontSize + ';color:var(--text-muted);white-space:nowrap;top:0.2rem;';
+        lbl.setAttribute('data-idx', i);
+        lbl.textContent = useShort ? d.m.charAt(0) : d.m;
+        xAxis.appendChild(lbl);
+      });
 
       // Show pinned selection
       showSelection(data, sel, ceil);
