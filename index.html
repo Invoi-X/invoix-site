@@ -360,29 +360,30 @@
        THEME SHOWCASE
        ══════════════════════════════ */
     .showcase-swatch {
-      width: 100%; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer;
-      border: 2px solid var(--border); transition: all 0.25s; display: flex;
-      align-items: center; gap: 0.75rem; background: var(--surface-card);
+      width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+      border: 2px solid var(--border); transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface-card); padding: 0;
     }
-    .showcase-swatch:hover { border-color: rgba(var(--accent-rgb), 0.4); transform: translateY(-2px); }
-    .showcase-swatch.active { border-color: var(--accent-500); box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.15); }
+    .showcase-swatch:hover { border-color: rgba(var(--accent-rgb), 0.4); transform: scale(1.1); }
+    .showcase-swatch.active { border-color: var(--accent-500); box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.25); }
     .showcase-swatch-dot {
-      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+      width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
     }
-    .showcase-swatch-name { font-weight: 600; font-size: 0.875rem; color: var(--text-primary); }
+    .showcase-swatch-name { display: none; }
 
     .showcase-mode-btn {
-      flex: 1; padding: 0.75rem 1rem; border-radius: 10px; cursor: pointer;
-      border: 2px solid var(--border); transition: all 0.25s; display: flex;
-      align-items: center; justify-content: center; gap: 0.5rem;
-      background: var(--surface-card); font-family: inherit;
-      font-weight: 600; font-size: 0.875rem; color: var(--text-secondary);
+      padding: 0.5rem; border-radius: 8px; cursor: pointer;
+      border: 1px solid var(--border); transition: all 0.25s; display: flex;
+      align-items: center; justify-content: center;
+      background: var(--surface-card); color: var(--text-secondary);
     }
     .showcase-mode-btn:hover { border-color: rgba(var(--accent-rgb), 0.4); }
     .showcase-mode-btn.active {
       border-color: var(--accent-500); color: var(--accent-400);
-      background: rgba(var(--accent-rgb), 0.08); box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.1);
+      background: rgba(var(--accent-rgb), 0.08);
     }
+    .showcase-mode-btn svg { width: 14px; height: 14px; }
 
     .showcase-preview {
       background: var(--surface-card); border: 1px solid var(--border); border-radius: 16px;
@@ -1188,49 +1189,30 @@
         </div>
 
         <!-- Theme Controls -->
-        <div class="showcase-controls" style="display:flex;flex-direction:column;gap:1.25rem;">
-          <!-- Mode -->
-          <div>
-            <p style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.625rem;">Mode</p>
-            <div style="display:flex;gap:0.625rem;">
-              <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                Light
-              </button>
-              <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-                Dark
-              </button>
-            </div>
+        <div class="showcase-controls" style="display:flex;flex-direction:column;gap:1rem;align-items:center;padding-top:1rem;">
+          <div style="display:flex;gap:0.375rem;">
+            <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </button>
+            <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+            </button>
           </div>
-
-          <!-- Colour themes -->
-          <div>
-            <p style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.625rem;">Colour Theme</p>
-            <div style="display:flex;flex-direction:column;gap:0.5rem;">
-              <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
-                <span class="showcase-swatch-name">Amethyst</span>
-              </button>
-              <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
-                <span class="showcase-swatch-name">Ocean</span>
-              </button>
-              <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
-                <span class="showcase-swatch-name">Sunset</span>
-              </button>
-              <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')">
-                <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
-                <span class="showcase-swatch-name">Emerald</span>
-              </button>
-            </div>
+          <div style="display:flex;gap:0.5rem;">
+            <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')" title="Amethyst">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
+            </button>
+            <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')" title="Ocean">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
+            </button>
+            <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')" title="Sunset">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
+            </button>
+            <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')" title="Emerald">
+              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
+            </button>
           </div>
-
-          <div class="showcase-hint">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
-            Try clicking — the whole page changes
-          </div>
+          <p style="font-size:0.65rem;color:var(--text-muted);text-align:center;line-height:1.4;">Click to change<br>the whole page</p>
         </div>
 
         <!-- Live App Preview -->
