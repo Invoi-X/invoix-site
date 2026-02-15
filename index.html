@@ -474,8 +474,8 @@
       #pricing > div > div:first-child,
       #faq > div > div:first-child { margin-bottom: 1.5rem !important; }
 
-      /* Feature cards — tighter on small phones */
-      .features-grid { gap: 0.375rem !important; }
+      /* Feature cards — single column on small phones */
+      .features-grid { grid-template-columns: 1fr !important; gap: 0.375rem !important; }
       .features-grid > .card-glow { padding: 0.625rem 0.75rem !important; gap: 0.625rem !important; }
       .features-grid h3 { font-size: 0.8125rem !important; }
       .features-grid p { font-size: 0.75rem !important; }
@@ -691,7 +691,7 @@
 
         <!-- Right: Features List -->
         <div class="features-col">
-          <div class="features-grid" style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div class="features-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
             <div class="card-glow" style="border-radius:0.625rem;padding:0.75rem 1rem;display:flex;gap:0.75rem;align-items:flex-start;">
               <div class="feature-icon" style="width:2rem;height:2rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg style="width:1rem;height:1rem;color:var(--accent-400);" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
