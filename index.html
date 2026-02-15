@@ -625,7 +625,7 @@
                       <!-- SVG layer for line/area -->
                       <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:2;display:none;overflow:visible;"></svg>
                       <!-- X-axis -->
-                      <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;display:flex;gap:2px;padding:0.25rem 0 0;"></div>
+                      <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;height:1.25rem;"></div>
                     </div>
                   </div>
                 </div>
@@ -1580,11 +1580,11 @@
       tooltip.style.top = Math.max(yPos - 22, -18) + 'px';
 
       // Highlight selected x-axis label
-      var xLabels = document.getElementById('chartXAxis').children;
-      for (var i = 0; i < xLabels.length; i++) {
-        xLabels[i].style.color = i === idx ? 'var(--accent-500)' : 'var(--text-muted)';
-        xLabels[i].style.fontWeight = i === idx ? '700' : '400';
-      }
+      document.querySelectorAll('#chartXAxis span').forEach(function(lbl) {
+        var li = parseInt(lbl.getAttribute('data-idx'));
+        lbl.style.color = li === idx ? 'var(--accent-500)' : 'var(--text-muted)';
+        lbl.style.fontWeight = li === idx ? '700' : '400';
+      });
     }
 
     // Mouse-following crosshairs
@@ -1673,23 +1673,24 @@
         yAxis.appendChild(label);
       }
 
-      // X-axis labels — flex:1 so each label occupies same width as its bar
+      // X-axis labels — absolutely positioned at bar centers
       xAxis.innerHTML = '';
-      var chartW = document.getElementById('chartContainer').offsetWidth;
-      var slotPx = chartW / data.length;
-      // Use single-char labels when slots are narrow, skip labels when very narrow
-      var useShort = slotPx < 28;
-      var skipEvery = 1;
-      if (slotPx < 12) skipEvery = 3;
-      else if (slotPx < 20) skipEvery = 2;
-      var shortMonth = {Mar:'M',Apr:'A',May:'M',Jun:'J',Jul:'J',Aug:'A',Sep:'S',Oct:'O',Nov:'N',Dec:'D',Jan:'J',Feb:'F'};
+      var n = data.length;
+      var containerW = document.getElementById('chartContainer').offsetWidth;
+      var slotPx = containerW / n;
+      // Decide how many labels to show based on pixel space
+      var every = 1;
+      if (slotPx < 14) every = 3;
+      else if (slotPx < 22) every = 2;
+      var useShort = slotPx < 30;
       data.forEach(function(d, i) {
+        var show = (i % every === 0) || i === n - 1;
+        if (!show) return;
         var lbl = document.createElement('span');
-        var show = (i % skipEvery === 0) || i === data.length - 1;
-        lbl.style.cssText = 'flex:1;text-align:center;font-size:' + (useShort ? '0.45rem' : '0.55rem') + ';color:var(--text-muted);min-width:0;white-space:nowrap;';
-        if (show) {
-          lbl.textContent = useShort ? (shortMonth[d.m] || d.m.charAt(0)) : d.m;
-        }
+        var pct = ((i + 0.5) / n * 100).toFixed(2);
+        lbl.style.cssText = 'position:absolute;left:' + pct + '%;transform:translateX(-50%);font-size:' + (useShort ? '0.45rem' : '0.55rem') + ';color:var(--text-muted);white-space:nowrap;top:0.2rem;';
+        lbl.setAttribute('data-idx', i);
+        lbl.textContent = useShort ? d.m.charAt(0) : d.m;
         xAxis.appendChild(lbl);
       });
 
