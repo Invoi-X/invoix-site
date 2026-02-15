@@ -367,22 +367,21 @@
       .nav-cta { font-size: 0.75rem !important; padding: 0.5rem 0.875rem !important; }
 
       /* Hero */
-      .hero-gradient { padding-top: 6rem !important; padding-bottom: 3rem !important; }
+      .hero-gradient { padding-top: 6rem !important; padding-bottom: 2rem !important; }
       .hero-title { font-size: 2.25rem !important; }
-      .hero-subtitle { font-size: 1.1rem !important; margin-bottom: 2rem !important; }
-      .hero-buttons { margin-bottom: 2.5rem !important; }
+      .hero-subtitle { font-size: 1.1rem !important; }
       .hero-mockup-inner { padding: 1rem !important; }
 
       /* General sections */
       h2 { font-size: 1.75rem !important; }
-      section:not(.hero-gradient) { padding-top: 3rem !important; padding-bottom: 4rem !important; }
+      section:not(.hero-gradient) { padding-top: 2.5rem !important; padding-bottom: 3rem !important; }
 
       /* Tighter section headers */
       #features > div > div:first-child,
       #templates > div > div:first-child,
       #customise > div > div:first-child,
       #pricing > div > div:first-child,
-      #faq > div > div:first-child { margin-bottom: 2.5rem !important; }
+      #faq > div > div:first-child { margin-bottom: 2rem !important; }
 
       /* Stats bar */
       .stats-bar { gap: 0.75rem !important; font-size: 0.75rem !important; }
@@ -407,19 +406,19 @@
     /* Small phones */
     @media (max-width: 480px) {
       /* Hero */
-      .hero-gradient { padding-top: 5.5rem !important; padding-bottom: 2rem !important; }
+      .hero-gradient { padding-top: 5.5rem !important; padding-bottom: 1.5rem !important; }
       .hero-title { font-size: 1.875rem !important; }
       .hero-subtitle { font-size: 1rem !important; }
       .hero-stats-grid { grid-template-columns: 1fr !important; }
 
       /* General */
       h2 { font-size: 1.5rem !important; }
-      section:not(.hero-gradient) { padding-top: 2.5rem !important; padding-bottom: 3rem !important; }
+      section:not(.hero-gradient) { padding-top: 2rem !important; padding-bottom: 2.5rem !important; }
       #features > div > div:first-child,
       #templates > div > div:first-child,
       #customise > div > div:first-child,
       #pricing > div > div:first-child,
-      #faq > div > div:first-child { margin-bottom: 1.75rem !important; }
+      #faq > div > div:first-child { margin-bottom: 1.5rem !important; }
 
       /* Feature cards — compact horizontal layout (icon left, text right) */
       .features-grid { grid-template-columns: 1fr !important; gap: 0.375rem !important; }
@@ -532,12 +531,12 @@
   </div>
 
   <!-- Hero -->
-  <section class="hero-gradient" style="padding-top:8rem;padding-bottom:5rem;position:relative;overflow:hidden;">
+  <section class="hero-gradient" style="padding-top:8rem;padding-bottom:3rem;position:relative;overflow:hidden;">
     <div style="position:absolute;top:5rem;left:25%;width:24rem;height:24rem;background:rgba(var(--accent-rgb),0.08);border-radius:50%;filter:blur(80px);"></div>
     <div style="position:absolute;bottom:2rem;right:25%;width:20rem;height:20rem;background:rgba(var(--accent-rgb),0.05);border-radius:50%;filter:blur(80px);"></div>
 
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;text-align:center;position:relative;z-index:10;">
-      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(var(--accent-rgb),0.06);border:1px solid rgba(var(--accent-rgb),0.12);border-radius:9999px;padding:0.375rem 1rem;margin-bottom:2rem;">
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(var(--accent-rgb),0.06);border:1px solid rgba(var(--accent-rgb),0.12);border-radius:9999px;padding:0.375rem 1rem;margin-bottom:1.5rem;">
         <span style="width:8px;height:8px;background:#4ade80;border-radius:50%;display:inline-block;"></span>
         <span style="font-size:0.875rem;color:var(--text-muted);">v1.0 — Now Available</span>
       </div>
@@ -547,29 +546,20 @@
         <span class="gradient-text">actually beautiful</span>
       </h1>
 
-      <p class="hero-subtitle" style="font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto 2.5rem;line-height:1.7;">
+      <p class="hero-subtitle" style="font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto;line-height:1.7;">
         Create stunning, professional invoices in seconds. 6 templates, PDF export,
         email integration, and analytics — all in one clean app.
       </p>
-
-      <div class="hero-buttons" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;">
-        <a href="#pricing" class="btn-primary" style="font-weight:600;padding:0.875rem 2rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
-          Start Free — No Card Required
-        </a>
-        <a href="#templates" class="btn-secondary" style="font-weight:500;padding:0.875rem 2rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
-          See Templates
-        </a>
-      </div>
     </div>
   </section>
 
   <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
 
   <!-- Dashboard + Features -->
-  <section id="features" style="padding:5rem 0 7rem;">
+  <section id="features" style="padding:3.5rem 0 4.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:3rem;">
-        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Everything you need to <span class="gradient-text">get paid faster</span></h2>
+      <div style="text-align:center;margin-bottom:2rem;">
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:0.75rem;color:var(--text-primary);">Everything you need to <span class="gradient-text">get paid faster</span></h2>
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Built for freelancers and small businesses who want professional invoices without the complexity.</p>
       </div>
 
@@ -737,9 +727,9 @@
   <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
 
   <!-- Templates -->
-  <section id="templates" style="padding:5rem 0 7rem;">
+  <section id="templates" style="padding:3.5rem 0 4.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:4rem;">
+      <div style="text-align:center;margin-bottom:2.5rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Templates that <span class="gradient-text">make you look good</span></h2>
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Six professionally designed templates. From clean and minimal to bold and expressive.</p>
       </div>
@@ -1081,9 +1071,9 @@
   <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
 
   <!-- Theme Showcase -->
-  <section id="customise" style="padding:5rem 0 7rem;">
+  <section id="customise" style="padding:3.5rem 0 4.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:3.5rem;">
+      <div style="text-align:center;margin-bottom:2.5rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Make it <span class="gradient-text">yours</span></h2>
         <p style="color:var(--text-secondary);max-width:36rem;margin:0 auto;">4 colour themes and light/dark mode. Click around below and watch the entire page transform in real time.</p>
       </div>
@@ -1214,9 +1204,9 @@
   <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
 
   <!-- Pricing -->
-  <section id="pricing" style="padding:5rem 0 7rem;">
+  <section id="pricing" style="padding:3.5rem 0 4.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:4rem;">
+      <div style="text-align:center;margin-bottom:2.5rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Simple, <span class="gradient-text">honest pricing</span></h2>
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Start free. Upgrade when you're ready. No hidden fees, no surprises.</p>
       </div>
@@ -1337,9 +1327,9 @@
   <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
 
   <!-- FAQ -->
-  <section id="faq" style="padding:5rem 0 7rem;">
+  <section id="faq" style="padding:3.5rem 0 4.5rem;">
     <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:4rem;">
+      <div style="text-align:center;margin-bottom:2.5rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Frequently asked <span class="gradient-text">questions</span></h2>
       </div>
 
@@ -1399,10 +1389,10 @@
   <div class="section-divider" style="max-width:56rem;margin:0 auto;"></div>
 
   <!-- CTA -->
-  <section style="padding:5rem 0 7rem;">
+  <section style="padding:3.5rem 0 4.5rem;">
     <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
       <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Ready to send your first invoice?</h2>
-      <p style="color:var(--text-secondary);margin-bottom:2.5rem;font-size:1.125rem;">Join freelancers and small businesses who've made invoicing effortless.</p>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:1.125rem;">Join freelancers and small businesses who've made invoicing effortless.</p>
       <a href="#pricing" class="btn-primary" style="font-weight:600;padding:1rem 2.5rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
         Get Started Free
       </a>
@@ -1425,7 +1415,7 @@
   </div>
 
   <!-- Footer -->
-  <footer style="border-top:none;padding:3rem 0;">
+  <footer style="border-top:none;padding:2rem 0;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
       <div class="footer-top" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
         <div>
