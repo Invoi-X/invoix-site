@@ -386,28 +386,28 @@
     .showcase-mode-btn svg { width: 14px; height: 14px; }
 
     .showcase-preview {
-      background: var(--surface-card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 1.5rem; transition: all 0.3s;
+      background: var(--surface-card); border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.5rem; transition: all 0.3s;
     }
     .showcase-invoice {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
       overflow: hidden; transition: all 0.3s;
     }
     .showcase-invoice-header {
-      background: var(--accent-500); padding: 1.25rem 1.5rem; display: flex;
+      background: var(--accent-500); padding: 0.35rem 0.5rem; display: flex;
       align-items: center; justify-content: space-between; transition: background 0.3s;
     }
-    .showcase-invoice-body { padding: 1.5rem; }
+    .showcase-invoice-body { padding: 0.5rem; }
     .showcase-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 0.5rem 0; border-bottom: 1px solid var(--border);
-      font-size: 0.8rem; color: var(--text-secondary);
+      padding: 0.15rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.5rem; color: var(--text-secondary);
     }
     .showcase-row:last-child { border-bottom: none; }
     .showcase-total {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 0.75rem 0 0; margin-top: 0.5rem; border-top: 2px solid var(--accent-500);
-      font-weight: 700; color: var(--text-primary); font-size: 1rem;
+      padding: 0.2rem 0 0; margin-top: 0.15rem; border-top: 1px solid var(--accent-500);
+      font-weight: 700; color: var(--text-primary); font-size: 0.55rem;
     }
     .showcase-hint {
       display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
@@ -850,7 +850,7 @@
         <p style="color:var(--text-secondary);max-width:40rem;margin:0 auto;">Six professionally designed templates, 4 colour themes, and light/dark mode. Click around and watch everything transform.</p>
       </div>
 
-      <div class="templates-themes-grid" style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:1.5rem;align-items:start;">
+      <div class="templates-themes-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;max-width:52rem;margin:0 auto;">
         <!-- Template Slider -->
         <div style="position:relative;min-width:0;">
           <button type="button" class="slider-arrow slider-prev" onclick="slideTemplate(-1)" aria-label="Previous template" style="left:-1rem;">
@@ -1188,73 +1188,45 @@
           </div>
         </div>
 
-        <!-- Theme Controls -->
-        <div class="showcase-controls" style="display:flex;flex-direction:column;gap:1rem;align-items:center;padding-top:1rem;">
-          <div style="display:flex;gap:0.375rem;">
-            <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-            </button>
-            <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-            </button>
-          </div>
-          <div style="display:flex;gap:0.5rem;">
-            <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')" title="Amethyst">
-              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
-            </button>
-            <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')" title="Ocean">
-              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
-            </button>
-            <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')" title="Sunset">
-              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
-            </button>
-            <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')" title="Emerald">
-              <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
-            </button>
-          </div>
-          <p style="font-size:0.65rem;color:var(--text-muted);text-align:center;line-height:1.4;">Click to change<br>the whole page</p>
-        </div>
-
         <!-- Live App Preview -->
-        <!-- Live Preview -->
         <div class="showcase-preview-col">
           <div class="showcase-preview">
             <!-- Mini app chrome -->
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:1rem;">
-              <div style="width:10px;height:10px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
-              <div style="width:10px;height:10px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
-              <div style="width:10px;height:10px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
-              <span style="font-size:0.7rem;color:var(--text-muted);margin-left:0.5rem;">Invoi.X — Invoice Preview</span>
+            <div style="display:flex;align-items:center;gap:4px;margin-bottom:0.5rem;">
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
+              <span style="font-size:0.5rem;color:var(--text-muted);margin-left:0.35rem;">Invoi.X — Invoice Preview</span>
             </div>
 
             <!-- Mock invoice -->
             <div class="showcase-invoice">
               <div class="showcase-invoice-header">
                 <div>
-                  <div style="font-size:1.1rem;font-weight:700;color:#fff;">INVOICE</div>
-                  <div style="font-size:0.7rem;color:rgba(255,255,255,0.75);margin-top:2px;">INV-20260215-0042</div>
+                  <div style="font-size:0.7rem;font-weight:700;color:#fff;">INVOICE</div>
+                  <div style="font-size:0.45rem;color:rgba(255,255,255,0.75);margin-top:1px;">INV-20260215-0042</div>
                 </div>
                 <div style="text-align:right;">
-                  <div style="font-size:0.75rem;font-weight:600;color:#fff;">Pixel & Flow Studio</div>
-                  <div style="font-size:0.65rem;color:rgba(255,255,255,0.7);">Austin, TX</div>
+                  <div style="font-size:0.5rem;font-weight:600;color:#fff;">Pixel & Flow Studio</div>
+                  <div style="font-size:0.45rem;color:rgba(255,255,255,0.7);">Austin, TX</div>
                 </div>
               </div>
               <div class="showcase-invoice-body">
-                <div style="display:flex;justify-content:space-between;margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
                   <div>
-                    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Bill To</div>
-                    <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary);margin-top:2px;">Bright Co Ltd</div>
-                    <div style="font-size:0.7rem;color:var(--text-secondary);">London, UK</div>
+                    <div style="font-size:0.4rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Bill To</div>
+                    <div style="font-size:0.55rem;font-weight:600;color:var(--text-primary);margin-top:1px;">Bright Co Ltd</div>
+                    <div style="font-size:0.45rem;color:var(--text-secondary);">London, UK</div>
                   </div>
                   <div style="text-align:right;">
-                    <div style="font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Due Date</div>
-                    <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary);margin-top:2px;">15 Mar 2026</div>
-                    <div style="font-size:0.7rem;color:var(--text-secondary);">Net 30</div>
+                    <div style="font-size:0.4rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Due Date</div>
+                    <div style="font-size:0.55rem;font-weight:600;color:var(--text-primary);margin-top:1px;">15 Mar 2026</div>
+                    <div style="font-size:0.45rem;color:var(--text-secondary);">Net 30</div>
                   </div>
                 </div>
 
                 <!-- Line items header -->
-                <div style="display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:2px solid var(--border);font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);">
+                <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border);font-size:0.4rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);">
                   <span>Description</span>
                   <span>Amount</span>
                 </div>
@@ -1273,11 +1245,11 @@
                 </div>
 
                 <!-- Totals -->
-                <div style="margin-top:0.75rem;padding-top:0.5rem;">
-                  <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-secondary);padding:0.2rem 0;">
+                <div style="margin-top:0.35rem;padding-top:0.25rem;">
+                  <div style="display:flex;justify-content:space-between;font-size:0.5rem;color:var(--text-secondary);padding:0.1rem 0;">
                     <span>Subtotal</span><span>£8,150.00</span>
                   </div>
-                  <div style="display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-secondary);padding:0.2rem 0;">
+                  <div style="display:flex;justify-content:space-between;font-size:0.5rem;color:var(--text-secondary);padding:0.1rem 0;">
                     <span>VAT (20%)</span><span>£1,630.00</span>
                   </div>
                   <div class="showcase-total">
@@ -1288,6 +1260,34 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Theme Controls -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1.25rem;flex-wrap:wrap;">
+        <div style="display:flex;gap:0.25rem;">
+          <button type="button" class="showcase-mode-btn" id="showcaseLight" onclick="setMode('light')" aria-label="Light mode">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+          <button type="button" class="showcase-mode-btn" id="showcaseDark" onclick="setMode('dark')" aria-label="Dark mode">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+        </div>
+        <div style="width:1px;height:1.25rem;background:var(--border);"></div>
+        <div style="display:flex;gap:0.375rem;">
+          <button type="button" class="showcase-swatch" data-theme-name="amethyst" onclick="setTheme('amethyst')" title="Amethyst">
+            <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #a855f7, #7c3aed);"></div>
+          </button>
+          <button type="button" class="showcase-swatch" data-theme-name="ocean" onclick="setTheme('ocean')" title="Ocean">
+            <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #0ea5e9, #06b6d4);"></div>
+          </button>
+          <button type="button" class="showcase-swatch" data-theme-name="sunset" onclick="setTheme('sunset')" title="Sunset">
+            <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #f97316, #e11d48);"></div>
+          </button>
+          <button type="button" class="showcase-swatch" data-theme-name="emerald" onclick="setTheme('emerald')" title="Emerald">
+            <div class="showcase-swatch-dot" style="background:linear-gradient(135deg, #10b981, #0d9488);"></div>
+          </button>
+        </div>
+        <span style="font-size:0.65rem;color:var(--text-muted);">Click to retheme the page</span>
       </div>
     </div>
   </section>
