@@ -388,18 +388,16 @@
     .showcase-preview {
       background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px;
       padding: 0.75rem; transition: all 0.3s;
-      flex: 1; display: flex; flex-direction: column;
     }
     .showcase-invoice {
       background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
       overflow: hidden; transition: all 0.3s;
-      flex: 1; display: flex; flex-direction: column;
     }
     .showcase-invoice-header {
       background: var(--accent-500); padding: 0.5rem 0.75rem; display: flex;
       align-items: center; justify-content: space-between; transition: background 0.3s;
     }
-    .showcase-invoice-body { padding: 0.6rem 0.75rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .showcase-invoice-body { padding: 0.6rem 0.75rem; }
     .showcase-row {
       display: flex; justify-content: space-between; align-items: center;
       padding: 0.2rem 0; border-bottom: 1px solid var(--border);
@@ -854,7 +852,7 @@
         <p style="color:var(--text-secondary);max-width:40rem;margin:0 auto;">Six professionally designed templates, 4 colour themes, and light/dark mode. Click around and watch everything transform.</p>
       </div>
 
-      <div class="templates-themes-grid" style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:stretch;max-width:52rem;margin:0 auto;">
+      <div class="templates-themes-grid" style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center;max-width:52rem;margin:0 auto;">
         <!-- Template Slider -->
         <div style="position:relative;min-width:0;">
           <button type="button" class="slider-arrow slider-prev" onclick="slideTemplate(-1)" aria-label="Previous template" style="left:-1rem;">
@@ -1171,7 +1169,7 @@
         </div>
 
         <!-- Live App Preview + Controls -->
-        <div class="showcase-preview-col" style="max-width:24rem;display:flex;flex-direction:column;">
+        <div class="showcase-preview-col" style="max-width:24rem;">
           <div class="showcase-preview">
             <!-- Mini app chrome -->
             <div style="display:flex;align-items:center;gap:5px;margin-bottom:0.5rem;">
