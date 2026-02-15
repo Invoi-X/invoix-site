@@ -1507,11 +1507,11 @@
 
     // ─── Interactive Chart ───
     var chartData = [
-      {m:'Mar',v:3200},{m:'Apr',v:4100},{m:'May',v:3800},{m:'Jun',v:5200},
-      {m:'Jul',v:4700},{m:'Aug',v:6100},{m:'Sep',v:5500},{m:'Oct',v:7200},
-      {m:'Nov',v:6800},{m:'Dec',v:8400},{m:'Jan',v:7900},{m:'Feb',v:9100},
-      {m:'Mar',v:8600},{m:'Apr',v:9800},{m:'May',v:9200},{m:'Jun',v:10500},
-      {m:'Jul',v:11200},{m:'Aug',v:12480}
+      {m:'Sep',v:3200},{m:'Oct',v:4100},{m:'Nov',v:3800},{m:'Dec',v:5200},
+      {m:'Jan',v:4700},{m:'Feb',v:6100},{m:'Mar',v:5500},{m:'Apr',v:7200},
+      {m:'May',v:6800},{m:'Jun',v:8400},{m:'Jul',v:7900},{m:'Aug',v:9100},
+      {m:'Sep',v:8600},{m:'Oct',v:9800},{m:'Nov',v:9200},{m:'Dec',v:10500},
+      {m:'Jan',v:11200},{m:'Feb',v:12480}
     ];
     var chartType = 'bar';
     var chartTf = '1y';
@@ -1671,14 +1671,11 @@
         yAxis.appendChild(label);
       }
 
-      // Decide label density based on container width
+      // Label sizing — always show all labels, use single char when narrow
       var containerW = document.getElementById('chartContainer').offsetWidth;
       var avgSlot = containerW / data.length;
-      var every = 1;
-      if (avgSlot < 14) every = 3;
-      else if (avgSlot < 22) every = 2;
       var useShort = avgSlot < 30;
-      var fontSize = useShort ? '0.45rem' : '0.55rem';
+      var fontSize = useShort ? '0.4rem' : '0.55rem';
 
       // Render columns: each column = bar area + label, in one flex container
       barsEl.style.display = 'flex';
@@ -1689,7 +1686,6 @@
         data.forEach(function(d, idx) {
           var pct = (d.v / ceil) * 100;
           var isSel = idx === sel;
-          var show = (idx % every === 0) || idx === data.length - 1;
           // Column: flex:1, stacks bar area + label vertically
           var col = document.createElement('div');
           col.style.cssText = 'flex:1;min-width:0;display:flex;flex-direction:column;';
@@ -1705,7 +1701,7 @@
           var lbl = document.createElement('div');
           lbl.style.cssText = 'height:1.25rem;line-height:1.25rem;text-align:center;font-size:' + fontSize + ';color:var(--text-muted);pointer-events:none;overflow:visible;';
           lbl.setAttribute('data-idx', idx);
-          lbl.textContent = show ? (useShort ? d.m.charAt(0) : d.m) : '';
+          lbl.textContent = useShort ? d.m.charAt(0) : d.m;
           col.appendChild(lbl);
           barsEl.appendChild(col);
         });
@@ -1713,7 +1709,6 @@
         // For line/area: render invisible columns for labels, SVG overlays the chart
         svgEl.style.display = 'block';
         data.forEach(function(d, idx) {
-          var show = (idx % every === 0) || idx === data.length - 1;
           var col = document.createElement('div');
           col.style.cssText = 'flex:1;min-width:0;display:flex;flex-direction:column;';
           var spacer = document.createElement('div');
@@ -1722,7 +1717,7 @@
           var lbl = document.createElement('div');
           lbl.style.cssText = 'height:1.25rem;line-height:1.25rem;text-align:center;font-size:' + fontSize + ';color:var(--text-muted);pointer-events:none;overflow:visible;';
           lbl.setAttribute('data-idx', idx);
-          lbl.textContent = show ? (useShort ? d.m.charAt(0) : d.m) : '';
+          lbl.textContent = useShort ? d.m.charAt(0) : d.m;
           col.appendChild(lbl);
           barsEl.appendChild(col);
         });
