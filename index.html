@@ -223,28 +223,46 @@
       background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.18), transparent);
     }
 
-    /* Template Tabs */
-    .template-tab {
-      padding: 0.5rem 1.25rem;
-      border-radius: 9999px;
+    /* Template Slider */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
       border: 1px solid var(--border);
-      background: transparent;
+      background: color-mix(in srgb, var(--surface) 90%, transparent);
+      backdrop-filter: blur(8px);
       color: var(--text-muted);
-      font-size: 0.8125rem;
-      font-weight: 500;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s;
-      font-family: inherit;
     }
-    .template-tab:hover {
+    .slider-arrow:hover {
       color: var(--text-primary);
-      border-color: rgba(var(--accent-rgb), 0.3);
-    }
-    .template-tab.active {
-      background: rgba(var(--accent-rgb), 0.1);
       border-color: rgba(var(--accent-rgb), 0.4);
-      color: var(--accent-400);
-      font-weight: 600;
+      background: rgba(var(--accent-rgb), 0.08);
+    }
+    .slider-prev { left: -3.25rem; }
+    .slider-next { right: -3.25rem; }
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: var(--border);
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s;
+    }
+    .slider-dot:hover { background: rgba(var(--accent-rgb), 0.4); }
+    .slider-dot.active {
+      background: var(--accent-400);
+      transform: scale(1.25);
     }
 
     .check-icon { color: var(--accent-400); }
@@ -503,9 +521,10 @@
       .features-grid h3 { font-size: 0.8125rem !important; }
       .features-grid p { font-size: 0.75rem !important; }
 
-      /* Template tabs — smaller on phones */
-      .template-tab { padding: 0.375rem 0.875rem !important; font-size: 0.75rem !important; }
-      .template-panel .card-glow > div:first-child { height: 22rem !important; }
+      /* Slider arrows inside on small screens */
+      .slider-prev { left: 0.5rem !important; }
+      .slider-next { right: 0.5rem !important; }
+      .slider-arrow { width: 2rem !important; height: 2rem !important; background: color-mix(in srgb, var(--surface) 95%, transparent) !important; }
 
       /* Pricing — full width on small phones */
       .pricing-grid { max-width: none !important; }
@@ -827,353 +846,345 @@
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Six professionally designed templates. From clean and minimal to bold and expressive.</p>
       </div>
 
-      <!-- Template Tabs -->
-      <div style="display:flex;justify-content:center;gap:0.375rem;margin-bottom:2rem;flex-wrap:wrap;" id="templateTabs">
-        <button type="button" class="template-tab active" onclick="switchTemplate(0)" aria-label="Show Modern template">Modern</button>
-        <button type="button" class="template-tab" onclick="switchTemplate(1)" aria-label="Show Classic template">Classic</button>
-        <button type="button" class="template-tab" onclick="switchTemplate(2)" aria-label="Show Minimal template">Minimal</button>
-        <button type="button" class="template-tab" onclick="switchTemplate(3)" aria-label="Show Professional template">Professional</button>
-        <button type="button" class="template-tab" onclick="switchTemplate(4)" aria-label="Show Elegant template">Elegant</button>
-        <button type="button" class="template-tab" onclick="switchTemplate(5)" aria-label="Show Wild template">Wild</button>
-      </div>
+      <!-- Template Slider -->
+      <div class="template-slider" style="position:relative;max-width:22rem;margin:0 auto;">
+        <!-- Prev/Next arrows -->
+        <button type="button" class="slider-arrow slider-prev" onclick="slideTemplate(-1)" aria-label="Previous template">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="slider-arrow slider-next" onclick="slideTemplate(1)" aria-label="Next template">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
 
-      <!-- Template Previews -->
-      <div style="max-width:32rem;margin:0 auto;position:relative;">
-        <div class="template-panel" id="templatePanel0" style="display:block;">
-          <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;text-align:center;">
-          <div style="background:#fff;border-radius:0.5rem;height:28rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0.6rem 0.7rem;display:flex;flex-direction:column;">
-            <!-- Header: INVOICE + inv# left, dates right -->
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.3rem;">
-              <div>
-                <div style="font-size:10px;font-weight:800;color:var(--accent-500);letter-spacing:0.02em;">INVOICE</div>
-                <div style="font-size:4px;color:#999;margin-top:1px;">INV-20260208-0041</div>
+        <!-- Slides container -->
+        <div style="overflow:hidden;border-radius:0.75rem;">
+          <div class="slider-track" id="sliderTrack" style="display:flex;transition:transform 0.4s ease;">
+            <div class="slider-slide" style="min-width:100%;flex-shrink:0;">
+              <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+                <div style="background:#fff;border-radius:0.5rem;aspect-ratio:1/1.414;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:1.2rem 1.4rem;display:flex;flex-direction:column;font-family:'Inter',system-ui,sans-serif;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+    <div>
+      <div style="font-size:16px;font-weight:800;color:var(--accent-500);letter-spacing:0.02em;">INVOICE</div>
+      <div style="font-size:7px;color:#999;margin-top:2px;">INV-2026-0041</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:7px;color:#666;">Date: Feb 8, 2026</div>
+      <div style="font-size:7px;color:#666;margin-top:2px;">Due: Mar 10, 2026</div>
+    </div>
+  </div>
+  <div style="height:2px;background:var(--accent-500);margin-bottom:0.6rem;"></div>
+  <div style="display:flex;gap:1rem;margin-bottom:0.6rem;">
+    <div style="flex:1;">
+      <div style="font-size:6px;color:var(--accent-500);font-weight:700;margin-bottom:3px;">FROM</div>
+      <div style="font-size:7px;color:#333;font-weight:600;">Pixel &amp; Flow Studio</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">742 Evergreen Terrace, Austin TX 78701</div>
+      <div style="font-size:6px;color:var(--accent-500);margin-top:1px;opacity:0.7;">hello@pixelflow.studio</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:6px;color:var(--accent-500);font-weight:700;margin-bottom:3px;">BILL TO</div>
+      <div style="font-size:7px;color:#333;font-weight:600;">Sarah Chen</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">Lumina Startups</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">1200 Innovation Dr, San Francisco CA 94107</div>
+    </div>
+  </div>
+  <div style="height:1px;background:var(--accent-500);opacity:0.4;margin-bottom:0.4rem;"></div>
+  <div style="display:flex;border-bottom:2px solid var(--accent-500);padding-bottom:3px;margin-bottom:3px;">
+    <div style="flex:3;font-size:6px;font-weight:700;color:var(--accent-500);">DESCRIPTION</div>
+    <div style="flex:0.5;font-size:6px;font-weight:700;color:#999;text-align:center;">QTY</div>
+    <div style="flex:1;font-size:6px;font-weight:700;color:#999;text-align:right;">RATE</div>
+    <div style="flex:1;font-size:6px;font-weight:700;color:var(--accent-500);text-align:right;">AMOUNT</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:1px;">
+    <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding:3px 0;"><div style="flex:3;font-size:6.5px;color:#555;">Brand Identity Package</div><div style="flex:0.5;font-size:6.5px;color:#999;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$2,400.00</div><div style="flex:1;font-size:6.5px;color:#444;text-align:right;font-weight:600;">$2,400.00</div></div>
+    <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding:3px 0;"><div style="flex:3;font-size:6.5px;color:#555;">UI/UX Design — Website Redesign</div><div style="flex:0.5;font-size:6.5px;color:#999;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$3,200.00</div><div style="flex:1;font-size:6.5px;color:#444;text-align:right;font-weight:600;">$3,200.00</div></div>
+    <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding:3px 0;"><div style="flex:3;font-size:6.5px;color:#555;">Frontend Development</div><div style="flex:0.5;font-size:6.5px;color:#999;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$4,800.00</div><div style="flex:1;font-size:6.5px;color:#444;text-align:right;font-weight:600;">$4,800.00</div></div>
+    <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding:3px 0;"><div style="flex:3;font-size:6.5px;color:#555;">Design Consultation (2 hrs)</div><div style="flex:0.5;font-size:6.5px;color:#999;text-align:center;">2</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$150.00</div><div style="flex:1;font-size:6.5px;color:#444;text-align:right;font-weight:600;">$300.00</div></div>
+  </div>
+  <div style="margin-top:auto;padding-top:6px;">
+    <div style="display:flex;justify-content:flex-end;gap:16px;margin-bottom:2px;"><div style="font-size:7px;color:#999;">Subtotal</div><div style="font-size:7px;color:#666;">$10,700.00</div></div>
+    <div style="display:flex;justify-content:flex-end;gap:16px;margin-bottom:3px;"><div style="font-size:7px;color:#999;">Tax (8.25%)</div><div style="font-size:7px;color:#666;">$882.75</div></div>
+    <div style="height:2px;background:var(--accent-500);margin-bottom:3px;"></div>
+    <div style="display:flex;justify-content:flex-end;gap:16px;"><div style="font-size:8px;font-weight:700;color:var(--accent-500);">Total</div><div style="font-size:8px;font-weight:800;color:var(--accent-500);">$11,582.75</div></div>
+  </div>
+  <div style="margin-top:6px;border-top:1px solid #f0f0f0;padding-top:4px;">
+    <div style="font-size:6px;color:var(--accent-500);font-weight:700;margin-bottom:2px;">NOTES</div>
+    <div style="font-size:6px;color:#999;">Payment due within 30 days. Thank you for your business!</div>
+  </div>
+</div>
+                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Modern</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Contemporary & clean</p>
               </div>
-              <div style="text-align:right;">
-                <div style="font-size:4px;color:#666;">Date: 08/02/2026</div>
-                <div style="font-size:4px;color:#666;margin-top:1px;">Due: 10/03/2026</div>
+            </div>
+            <div class="slider-slide" style="min-width:100%;flex-shrink:0;">
+              <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+                <div style="background:#fff;border-radius:0.5rem;aspect-ratio:1/1.414;margin-bottom:1rem;overflow:hidden;border:1px solid #d1d5db;padding:0;display:flex;flex-direction:column;font-family:'Inter',system-ui,sans-serif;">
+  <div style="padding:0.6rem 0.8rem 0.4rem;border-bottom:1px solid #d1d5db;display:flex;align-items:center;">
+    <div style="font-size:7px;color:#666;flex:1;">Pixel &amp; Flow Studio</div>
+    <div style="font-size:16px;font-weight:800;color:#1f2937;letter-spacing:0.02em;">INVOICE</div>
+    <div style="flex:1;"></div>
+  </div>
+  <div style="display:flex;border-bottom:1px solid #d1d5db;">
+    <div style="flex:1;border-right:1px solid #d1d5db;padding:4px 8px;"><div style="font-size:5px;font-weight:700;color:#374151;">INVOICE #</div><div style="font-size:6.5px;color:#666;margin-top:2px;">INV-2026-0041</div></div>
+    <div style="flex:1;border-right:1px solid #d1d5db;padding:4px 8px;"><div style="font-size:5px;font-weight:700;color:#374151;">DATE</div><div style="font-size:6.5px;color:#666;margin-top:2px;">Feb 8, 2026</div></div>
+    <div style="flex:1;padding:4px 8px;"><div style="font-size:5px;font-weight:700;color:#374151;">DUE DATE</div><div style="font-size:6.5px;color:#666;margin-top:2px;">Mar 10, 2026</div></div>
+  </div>
+  <div style="display:flex;border-bottom:1px solid #d1d5db;">
+    <div style="flex:1;border-right:1px solid #d1d5db;padding:5px 8px;">
+      <div style="font-size:5px;font-weight:700;color:#374151;margin-bottom:3px;">FROM</div>
+      <div style="font-size:6.5px;color:#555;font-weight:500;">Pixel &amp; Flow Studio</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">742 Evergreen Terrace, Austin TX 78701</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">(512) 555-0147</div>
+    </div>
+    <div style="flex:1;padding:5px 8px;">
+      <div style="font-size:5px;font-weight:700;color:#374151;margin-bottom:3px;">BILL TO</div>
+      <div style="font-size:6.5px;color:#555;font-weight:500;">Sarah Chen — Lumina Startups</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">1200 Innovation Dr, San Francisco CA 94107</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">sarah@luminastartups.com</div>
+    </div>
+  </div>
+  <div style="display:flex;background:#374151;padding:4px 8px;">
+    <div style="flex:3;font-size:6px;font-weight:700;color:#fff;">DESCRIPTION</div>
+    <div style="flex:0.5;font-size:6px;font-weight:700;color:#fff;text-align:center;">QTY</div>
+    <div style="flex:1;font-size:6px;font-weight:700;color:#fff;text-align:right;">RATE</div>
+    <div style="flex:1;font-size:6px;font-weight:700;color:#fff;text-align:right;">AMOUNT</div>
+  </div>
+  <div style="display:flex;padding:4px 8px;background:#fff;border-bottom:1px solid #e5e7eb;"><div style="flex:3;font-size:6.5px;color:#555;">Brand Identity Package</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$2,400.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$2,400.00</div></div>
+  <div style="display:flex;padding:4px 8px;background:#f9fafb;border-bottom:1px solid #e5e7eb;"><div style="flex:3;font-size:6.5px;color:#555;">UI/UX Design — Website Redesign</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$3,200.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$3,200.00</div></div>
+  <div style="display:flex;padding:4px 8px;background:#fff;border-bottom:1px solid #e5e7eb;"><div style="flex:3;font-size:6.5px;color:#555;">Frontend Development</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$4,800.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$4,800.00</div></div>
+  <div style="display:flex;padding:4px 8px;background:#f9fafb;border-bottom:1px solid #e5e7eb;"><div style="flex:3;font-size:6.5px;color:#555;">Design Consultation (2 hrs)</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">2</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$150.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$300.00</div></div>
+  <div style="flex:1;"></div>
+  <div style="padding:4px 8px;">
+    <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:2px;"><div style="font-size:6.5px;color:#666;font-weight:600;">SUBTOTAL</div><div style="font-size:6.5px;color:#374151;font-weight:600;">$10,700.00</div></div>
+    <div style="display:flex;justify-content:flex-end;gap:12px;"><div style="font-size:6.5px;color:#666;">TAX (8.25%)</div><div style="font-size:6.5px;color:#374151;">$882.75</div></div>
+  </div>
+  <div style="background:#374151;margin-top:auto;padding:6px 10px;display:flex;justify-content:space-between;">
+    <div style="font-size:8px;font-weight:800;color:#fff;">TOTAL</div>
+    <div style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</div>
+  </div>
+</div>
+                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Classic</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Traditional & formal</p>
               </div>
             </div>
-            <!-- Accent divider -->
-            <div style="height:1.5px;background:var(--accent-500);margin-bottom:0.35rem;"></div>
-            <!-- FROM / BILL TO -->
-            <div style="display:flex;gap:0.5rem;margin-bottom:0.35rem;">
-              <div style="flex:1;"><div style="font-size:4px;color:var(--accent-500);font-weight:700;margin-bottom:2px;">FROM</div><div style="height:3px;background:#ddd;width:80%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:65%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:var(--accent-500);width:50%;border-radius:1px;opacity:0.3;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div></div>
-              <div style="flex:1;"><div style="font-size:4px;color:var(--accent-500);font-weight:700;margin-bottom:2px;">BILL TO</div><div style="height:3px;background:#ddd;width:70%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:55%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div></div>
+            <div class="slider-slide" style="min-width:100%;flex-shrink:0;">
+              <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+                <div style="background:#fff;border-radius:0.5rem;aspect-ratio:1/1.414;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:1.4rem 1.6rem;display:flex;flex-direction:column;font-family:'Inter',system-ui,sans-serif;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+    <div style="font-size:20px;font-weight:300;color:#374151;letter-spacing:-0.02em;line-height:1;">Invoice</div>
+    <div style="text-align:right;">
+      <div style="font-size:6.5px;color:#999;">INV-2026-0041</div>
+      <div style="font-size:6.5px;color:#999;margin-top:2px;">Feb 8, 2026</div>
+      <div style="font-size:6.5px;color:#999;margin-top:2px;">Due: Mar 10, 2026</div>
+    </div>
+  </div>
+  <div style="height:1px;background:#e5e7eb;margin-bottom:10px;"></div>
+  <div style="display:flex;gap:2rem;margin-bottom:14px;">
+    <div style="flex:1;">
+      <div style="font-size:5px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:3px;">FROM</div>
+      <div style="font-size:7px;color:#555;font-weight:500;">Pixel &amp; Flow Studio</div>
+      <div style="font-size:6px;color:#999;margin-top:2px;">742 Evergreen Terrace, Austin TX 78701</div>
+      <div style="font-size:6px;color:#999;margin-top:1px;">hello@pixelflow.studio</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-size:5px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:3px;">TO</div>
+      <div style="font-size:7px;color:#555;font-weight:500;">Sarah Chen</div>
+      <div style="font-size:6px;color:#999;margin-top:2px;">Lumina Startups</div>
+      <div style="font-size:6px;color:#999;margin-top:1px;">1200 Innovation Dr, San Francisco CA 94107</div>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:8px;border-bottom:1px solid #f3f4f6;">
+      <div><div style="font-size:7px;color:#444;">Brand Identity Package</div><div style="font-size:5.5px;color:#ccc;margin-top:2px;">1 &times; $2,400.00</div></div>
+      <div style="font-size:7px;color:#555;">$2,400.00</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:8px;border-bottom:1px solid #f3f4f6;">
+      <div><div style="font-size:7px;color:#444;">UI/UX Design — Website Redesign</div><div style="font-size:5.5px;color:#ccc;margin-top:2px;">1 &times; $3,200.00</div></div>
+      <div style="font-size:7px;color:#555;">$3,200.00</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:8px;border-bottom:1px solid #f3f4f6;">
+      <div><div style="font-size:7px;color:#444;">Frontend Development</div><div style="font-size:5.5px;color:#ccc;margin-top:2px;">1 &times; $4,800.00</div></div>
+      <div style="font-size:7px;color:#555;">$4,800.00</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:8px;border-bottom:1px solid #f3f4f6;">
+      <div><div style="font-size:7px;color:#444;">Design Consultation (2 hrs)</div><div style="font-size:5.5px;color:#ccc;margin-top:2px;">2 &times; $150.00</div></div>
+      <div style="font-size:7px;color:#555;">$300.00</div>
+    </div>
+  </div>
+  <div style="margin-top:auto;padding-top:6px;">
+    <div style="display:flex;justify-content:flex-end;gap:20px;margin-bottom:2px;"><div style="font-size:7px;color:#bbb;">Subtotal</div><div style="font-size:7px;color:#666;">$10,700.00</div></div>
+    <div style="display:flex;justify-content:flex-end;gap:20px;margin-bottom:4px;"><div style="font-size:7px;color:#bbb;">Tax 8.25%</div><div style="font-size:7px;color:#666;">$882.75</div></div>
+    <div style="height:1px;background:#e5e7eb;margin-bottom:4px;"></div>
+    <div style="display:flex;justify-content:flex-end;gap:20px;"><div style="font-size:8px;color:#374151;font-weight:400;">Total</div><div style="font-size:8px;color:#374151;font-weight:500;">$11,582.75</div></div>
+  </div>
+</div>
+                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Minimal</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Clean & spacious</p>
+              </div>
             </div>
-            <!-- Accent divider -->
-            <div style="height:1px;background:var(--accent-500);opacity:0.4;margin-bottom:0.25rem;"></div>
-            <!-- Table header -->
-            <div style="display:flex;border-bottom:1.5px solid var(--accent-500);padding-bottom:2px;margin-bottom:2px;">
-              <div style="flex:3;font-size:3.5px;font-weight:700;color:var(--accent-500);">DESCRIPTION</div>
-              <div style="flex:0.5;font-size:3.5px;font-weight:700;color:#999;text-align:center;">QTY</div>
-              <div style="flex:1;font-size:3.5px;font-weight:700;color:#999;text-align:right;">RATE</div>
-              <div style="flex:1;font-size:3.5px;font-weight:700;color:var(--accent-500);text-align:right;">AMOUNT</div>
+            <div class="slider-slide" style="min-width:100%;flex-shrink:0;">
+              <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+                <div style="background:#fff;border-radius:0.5rem;aspect-ratio:1/1.414;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0;display:flex;flex-direction:column;font-family:'Inter',system-ui,sans-serif;">
+  <div style="height:4px;background:var(--accent-500);flex-shrink:0;"></div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:0.6rem 0.8rem;">
+    <div>
+      <div style="font-size:8px;font-weight:700;color:#374151;">Pixel &amp; Flow Studio</div>
+      <div style="font-size:6px;color:#888;margin-top:2px;">742 Evergreen Terrace, Austin TX 78701</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">(512) 555-0147</div>
+      <div style="font-size:6px;color:#888;margin-top:1px;">hello@pixelflow.studio</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:16px;font-weight:800;color:#374151;">INVOICE</div>
+      <div style="font-size:6px;color:#666;margin-top:2px;"># INV-2026-0041</div>
+      <div style="font-size:6px;color:#666;margin-top:1px;">Date: Feb 8, 2026</div>
+      <div style="font-size:6px;color:var(--accent-500);font-weight:600;margin-top:1px;">Due: Mar 10, 2026</div>
+    </div>
+  </div>
+  <div style="margin:0 0.8rem 0.4rem;border:1px solid #e5e7eb;border-radius:3px;padding:5px 8px;">
+    <div style="font-size:5px;font-weight:700;color:#374151;margin-bottom:3px;">BILL TO:</div>
+    <div style="font-size:7px;color:#555;font-weight:500;">Sarah Chen — Lumina Startups</div>
+    <div style="font-size:6px;color:#888;margin-top:2px;">1200 Innovation Dr, San Francisco CA 94107</div>
+  </div>
+  <div style="margin:0 0.8rem;flex:1;display:flex;flex-direction:column;">
+    <div style="display:flex;background:rgba(var(--accent-rgb),0.08);padding:4px 6px;border-bottom:1px solid #e5e7eb;">
+      <div style="flex:3;font-size:6px;font-weight:700;color:#374151;">DESCRIPTION</div>
+      <div style="flex:0.5;font-size:6px;font-weight:700;color:#374151;text-align:center;">QTY</div>
+      <div style="flex:1;font-size:6px;font-weight:700;color:#374151;text-align:right;">RATE</div>
+      <div style="flex:1;font-size:6px;font-weight:700;color:#374151;text-align:right;">AMOUNT</div>
+    </div>
+    <div style="display:flex;padding:4px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">Brand Identity Package</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$2,400.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$2,400.00</div></div>
+    <div style="display:flex;padding:4px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">UI/UX Design — Website Redesign</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$3,200.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$3,200.00</div></div>
+    <div style="display:flex;padding:4px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">Frontend Development</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$4,800.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$4,800.00</div></div>
+    <div style="display:flex;padding:4px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">Design Consultation (2 hrs)</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">2</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$150.00</div><div style="flex:1;font-size:6.5px;color:#374151;text-align:right;font-weight:600;">$300.00</div></div>
+    <div style="margin-top:auto;padding:4px 0;">
+      <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:2px;"><div style="font-size:6.5px;color:#666;">Subtotal</div><div style="font-size:6.5px;color:#374151;">$10,700.00</div></div>
+      <div style="display:flex;justify-content:flex-end;gap:12px;"><div style="font-size:6.5px;color:#666;">Tax (8.25%)</div><div style="font-size:6.5px;color:#374151;">$882.75</div></div>
+    </div>
+  </div>
+  <div style="background:var(--accent-500);padding:6px 12px;display:flex;justify-content:space-between;flex-shrink:0;">
+    <div style="font-size:8px;font-weight:800;color:#fff;">TOTAL</div>
+    <div style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</div>
+  </div>
+</div>
+                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Professional</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Corporate & polished</p>
+              </div>
             </div>
-            <!-- Item rows with accent description text -->
-            <div style="flex:1;display:flex;flex-direction:column;gap:2px;">
-              <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding-bottom:2px;"><div style="flex:3;height:3px;background:var(--accent-500);width:65%;border-radius:1px;opacity:0.5;"></div><div style="flex:0.5;font-size:4px;color:#999;text-align:center;">1</div><div style="flex:1;height:3px;background:#ccc;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
-              <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding-bottom:2px;"><div style="flex:3;height:3px;background:var(--accent-500);width:55%;border-radius:1px;opacity:0.5;"></div><div style="flex:0.5;font-size:4px;color:#999;text-align:center;">1</div><div style="flex:1;height:3px;background:#ccc;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:50%;border-radius:1px;margin-left:auto;"></div></div>
-              <div style="display:flex;align-items:center;border-bottom:1px solid #f0f0f0;padding-bottom:2px;"><div style="flex:3;height:3px;background:var(--accent-500);width:45%;border-radius:1px;opacity:0.5;"></div><div style="flex:0.5;font-size:4px;color:#999;text-align:center;">1</div><div style="flex:1;height:3px;background:#ccc;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
+            <div class="slider-slide" style="min-width:100%;flex-shrink:0;">
+              <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+                <div style="background:linear-gradient(180deg, #f9fafb, #fff);border-radius:0.5rem;aspect-ratio:1/1.414;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:1.2rem 1.4rem;display:flex;flex-direction:column;align-items:center;font-family:'Inter',system-ui,sans-serif;">
+  <div style="font-size:18px;font-weight:300;color:var(--accent-500);letter-spacing:0.2em;margin-bottom:3px;">INVOICE</div>
+  <div style="font-size:6.5px;color:#999;margin-bottom:8px;">INV-2026-0041</div>
+  <div style="display:flex;gap:1.5rem;width:100%;margin-bottom:6px;">
+    <div style="flex:1;text-align:left;">
+      <div style="font-size:5px;color:var(--accent-500);font-weight:600;letter-spacing:0.1em;margin-bottom:3px;">FROM</div>
+      <div style="font-size:7px;color:#555;font-weight:500;">Pixel &amp; Flow Studio</div>
+      <div style="font-size:6px;color:#999;margin-top:2px;">742 Evergreen Terrace, Austin TX 78701</div>
+      <div style="font-size:6px;color:#999;margin-top:1px;">hello@pixelflow.studio</div>
+    </div>
+    <div style="flex:1;text-align:left;">
+      <div style="font-size:5px;color:var(--accent-500);font-weight:600;letter-spacing:0.1em;margin-bottom:3px;">TO</div>
+      <div style="font-size:7px;color:#555;font-weight:500;">Sarah Chen</div>
+      <div style="font-size:6px;color:#999;margin-top:2px;">Lumina Startups</div>
+      <div style="font-size:6px;color:#999;margin-top:1px;">1200 Innovation Dr, San Francisco CA 94107</div>
+    </div>
+  </div>
+  <div style="display:flex;width:100%;background:#fff;border:1px solid rgba(var(--accent-rgb),0.15);border-radius:3px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+    <div style="flex:1;padding:4px 6px;text-align:center;border-right:1px solid rgba(var(--accent-rgb),0.1);"><div style="font-size:4.5px;color:#999;letter-spacing:0.05em;">DATE</div><div style="font-size:6.5px;color:#374151;font-weight:600;">Feb 8, 2026</div></div>
+    <div style="flex:1;padding:4px 6px;text-align:center;border-right:1px solid rgba(var(--accent-rgb),0.1);"><div style="font-size:4.5px;color:#999;letter-spacing:0.05em;">DUE DATE</div><div style="font-size:6.5px;color:#374151;font-weight:600;">Mar 10, 2026</div></div>
+    <div style="flex:1;padding:4px 6px;text-align:center;"><div style="font-size:4.5px;color:#999;letter-spacing:0.05em;">PO NUMBER</div><div style="font-size:6.5px;color:#999;">&mdash;</div></div>
+  </div>
+  <div style="width:100%;flex:1;">
+    <div style="display:flex;border-bottom:2px solid var(--accent-500);padding-bottom:3px;margin-bottom:3px;">
+      <div style="flex:3;font-size:6px;font-weight:600;color:var(--accent-500);letter-spacing:0.05em;">DESCRIPTION</div>
+      <div style="flex:0.5;font-size:6px;font-weight:600;color:var(--accent-500);text-align:center;">QTY</div>
+      <div style="flex:1;font-size:6px;font-weight:600;color:var(--accent-500);text-align:right;">RATE</div>
+      <div style="flex:1;font-size:6px;font-weight:600;color:var(--accent-500);text-align:right;">AMOUNT</div>
+    </div>
+    <div style="display:flex;padding:3px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">Brand Identity Package</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$2,400.00</div><div style="flex:1;font-size:6.5px;color:#555;text-align:right;">$2,400.00</div></div>
+    <div style="display:flex;padding:3px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">UI/UX Design — Website Redesign</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$3,200.00</div><div style="flex:1;font-size:6.5px;color:#555;text-align:right;">$3,200.00</div></div>
+    <div style="display:flex;padding:3px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">Frontend Development</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">1</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$4,800.00</div><div style="flex:1;font-size:6.5px;color:#555;text-align:right;">$4,800.00</div></div>
+    <div style="display:flex;padding:3px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;font-size:6.5px;color:#555;">Design Consultation (2 hrs)</div><div style="flex:0.5;font-size:6.5px;color:#666;text-align:center;">2</div><div style="flex:1;font-size:6.5px;color:#888;text-align:right;">$150.00</div><div style="flex:1;font-size:6.5px;color:#555;text-align:right;">$300.00</div></div>
+  </div>
+  <div style="width:100%;padding-top:4px;">
+    <div style="display:flex;justify-content:flex-end;gap:16px;margin-bottom:2px;"><div style="font-size:7px;color:#999;">Subtotal</div><div style="font-size:7px;color:#555;">$10,700.00</div></div>
+    <div style="display:flex;justify-content:flex-end;gap:16px;margin-bottom:3px;"><div style="font-size:7px;color:#999;">Tax (8.25%)</div><div style="font-size:7px;color:#555;">$882.75</div></div>
+    <div style="border-top:2px solid var(--accent-500);padding-top:3px;display:flex;justify-content:flex-end;gap:16px;">
+      <div style="font-size:8px;font-weight:600;color:var(--accent-500);">TOTAL</div>
+      <div style="font-size:8px;font-weight:600;color:var(--accent-500);">$11,582.75</div>
+    </div>
+  </div>
+  <div style="margin-top:6px;"><div style="font-size:6px;color:#bbb;font-style:italic;">Thank you for your business</div></div>
+</div>
+                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Elegant</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Refined & sophisticated</p>
+              </div>
             </div>
-            <!-- Totals right-aligned -->
-            <div style="margin-top:auto;padding-top:3px;">
-              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:1.5px;"><div style="font-size:4px;color:#999;">Subtotal</div><div style="font-size:4px;color:#666;">$3,418.00</div></div>
-              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:2px;"><div style="font-size:4px;color:#999;">Tax (8.25%)</div><div style="font-size:4px;color:#666;">$281.99</div></div>
-              <div style="height:1.5px;background:var(--accent-500);margin-bottom:2px;"></div>
-              <div style="display:flex;justify-content:flex-end;gap:10px;"><div style="font-size:5px;font-weight:700;color:var(--accent-500);">Total</div><div style="font-size:5px;font-weight:800;color:var(--accent-500);">$3,699.99</div></div>
+            <div class="slider-slide" style="min-width:100%;flex-shrink:0;">
+              <div class="card-glow" style="border-radius:0.75rem;padding:1.25rem;text-align:center;">
+                <div style="background:linear-gradient(135deg, #1a0a2e, #0a1628, #0e2a1a);border-radius:0.5rem;aspect-ratio:1/1.414;margin-bottom:1rem;overflow:hidden;border:3px solid #c026d3;padding:0.8rem;display:flex;flex-direction:column;box-shadow:0 0 20px rgba(192,38,211,0.3);font-family:'Inter',system-ui,sans-serif;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem;">
+    <div>
+      <div style="font-size:16px;font-weight:900;font-style:italic;background:linear-gradient(135deg,#c026d3,#06b6d4,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-6deg);filter:drop-shadow(0 0 4px rgba(192,38,211,0.6));line-height:1;">INVOICE</div>
+      <div style="font-size:6px;color:#c026d3;font-family:monospace;margin-top:2px;">INV-2026-0041</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(192,38,211,0.3),rgba(6,182,212,0.3));border:1px solid #c026d3;border-radius:3px;padding:3px 6px;box-shadow:0 0 4px rgba(192,38,211,0.3);">
+      <div style="font-size:5px;color:#22d3ee;font-weight:700;">INVOICE DATE</div>
+      <div style="font-size:6.5px;color:#fff;font-weight:600;">Feb 8, 2026</div>
+      <div style="font-size:5px;color:#c026d3;margin-top:1px;">Due: Mar 10, 2026</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:5px;margin-bottom:0.5rem;">
+    <div style="flex:1;border:1.5px solid #c026d3;border-radius:3px;padding:4px 6px;background:linear-gradient(135deg,rgba(192,38,211,0.12),rgba(6,182,212,0.08));box-shadow:0 0 5px rgba(192,38,211,0.2);">
+      <div style="font-size:5px;font-weight:900;color:#c026d3;">&#x1F4E4; FROM</div>
+      <div style="font-size:6.5px;color:rgba(255,255,255,0.9);font-weight:600;margin-top:2px;">Pixel &amp; Flow Studio</div>
+      <div style="font-size:5.5px;color:rgba(255,255,255,0.5);margin-top:2px;">742 Evergreen Terrace, Austin TX 78701</div>
+    </div>
+    <div style="flex:1;border:1.5px solid #06b6d4;border-radius:3px;padding:4px 6px;background:linear-gradient(135deg,rgba(6,182,212,0.12),rgba(192,38,211,0.08));box-shadow:0 0 5px rgba(6,182,212,0.2);">
+      <div style="font-size:5px;font-weight:900;color:#06b6d4;">&#x1F4E5; TO</div>
+      <div style="font-size:6.5px;color:rgba(255,255,255,0.9);font-weight:600;margin-top:2px;">Sarah Chen</div>
+      <div style="font-size:5.5px;color:rgba(255,255,255,0.5);margin-top:2px;">Lumina Startups</div>
+    </div>
+  </div>
+  <div style="border:2px solid #c026d3;border-radius:3px;overflow:hidden;flex:1;box-shadow:0 0 6px rgba(192,38,211,0.2);">
+    <div style="display:flex;background:linear-gradient(90deg,rgba(192,38,211,0.25),rgba(26,10,46,0.8));padding:3px 6px;border-bottom:2px solid #c026d3;">
+      <div style="flex:3;font-size:5px;font-weight:900;color:#c026d3;">DESCRIPTION</div>
+      <div style="flex:0.5;font-size:5px;font-weight:900;color:#06b6d4;text-align:center;">QTY</div>
+      <div style="flex:1;font-size:5px;font-weight:900;color:#22d3ee;text-align:right;">RATE</div>
+      <div style="flex:1;font-size:5px;font-weight:900;color:#c026d3;text-align:right;">AMOUNT</div>
+    </div>
+    <div style="display:flex;padding:3px 6px;border-bottom:1px solid rgba(192,38,211,0.25);background:rgba(26,10,46,0.5);"><div style="flex:3;font-size:6px;color:rgba(255,255,255,0.7);">Brand Identity Package</div><div style="flex:0.5;font-size:6px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:6px;color:#06b6d4;text-align:right;">$2,400.00</div><div style="flex:1;font-size:6px;color:#c026d3;text-align:right;font-weight:700;">$2,400.00</div></div>
+    <div style="display:flex;padding:3px 6px;border-bottom:1px solid rgba(6,182,212,0.25);background:rgba(10,22,40,0.5);"><div style="flex:3;font-size:6px;color:rgba(255,255,255,0.7);">UI/UX Design — Website Redesign</div><div style="flex:0.5;font-size:6px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:6px;color:#06b6d4;text-align:right;">$3,200.00</div><div style="flex:1;font-size:6px;color:#c026d3;text-align:right;font-weight:700;">$3,200.00</div></div>
+    <div style="display:flex;padding:3px 6px;border-bottom:1px solid rgba(192,38,211,0.25);background:rgba(26,10,46,0.5);"><div style="flex:3;font-size:6px;color:rgba(255,255,255,0.7);">Frontend Development</div><div style="flex:0.5;font-size:6px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:6px;color:#06b6d4;text-align:right;">$4,800.00</div><div style="flex:1;font-size:6px;color:#c026d3;text-align:right;font-weight:700;">$4,800.00</div></div>
+    <div style="display:flex;padding:3px 6px;background:rgba(10,22,40,0.5);"><div style="flex:3;font-size:6px;color:rgba(255,255,255,0.7);">Design Consultation (2 hrs)</div><div style="flex:0.5;font-size:6px;color:#22d3ee;text-align:center;">2</div><div style="flex:1;font-size:6px;color:#06b6d4;text-align:right;">$150.00</div><div style="flex:1;font-size:6px;color:#c026d3;text-align:right;font-weight:700;">$300.00</div></div>
+  </div>
+  <div style="padding:4px 4px 0;">
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:2px;"><div style="font-size:6px;color:#c026d3;">Subtotal</div><div style="font-size:6px;color:#22d3ee;font-weight:600;">$10,700.00</div></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;"><div style="font-size:6px;color:#c026d3;">Tax (8.25%)</div><div style="font-size:6px;color:#22d3ee;font-weight:600;">$882.75</div></div>
+  </div>
+  <div style="margin-top:4px;background:linear-gradient(90deg,#c026d3,#06b6d4,#22d3ee);border-radius:3px;padding:4px 8px;display:flex;justify-content:center;gap:12px;box-shadow:0 0 10px rgba(192,38,211,0.4);">
+    <div style="font-size:7px;font-weight:900;color:#000;">TOTAL</div>
+    <div style="font-size:7px;font-weight:900;color:#000;">$11,582.75</div>
+  </div>
+  <div style="margin-top:4px;text-align:center;">
+    <div style="font-size:5px;font-weight:900;color:#c026d3;letter-spacing:0.1em;text-shadow:0 0 4px rgba(192,38,211,0.5);">POWERED BY CHAOS</div>
+  </div>
+</div>
+                <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;">Wild</h3>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Bold & expressive</p>
+              </div>
             </div>
-            <!-- Notes hint -->
-            <div style="margin-top:4px;border-top:1px solid #f0f0f0;padding-top:3px;">
-              <div style="font-size:3.5px;color:var(--accent-500);font-weight:700;margin-bottom:1px;">NOTES</div>
-              <div style="height:2px;background:#eee;width:70%;border-radius:1px;"></div>
-            </div>
-          </div>
-            <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;margin-top:1rem;">Modern</h3>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Contemporary & clean</p>
           </div>
         </div>
 
-        <div class="template-panel" id="templatePanel1" style="display:none;">
-          <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;text-align:center;">
-          <div style="background:#fff;border-radius:0.5rem;height:28rem;margin-bottom:1rem;overflow:hidden;border:1px solid #d1d5db;padding:0;position:relative;display:flex;flex-direction:column;">
-            <!-- Header: company left, centered INVOICE -->
-            <div style="padding:0.4rem 0.5rem 0.3rem;border-bottom:1px solid #d1d5db;display:flex;align-items:center;">
-              <div style="font-size:4px;color:#666;flex:1;">Pixel &amp; Flow Studio</div>
-              <div style="font-size:11px;font-weight:800;color:#1f2937;letter-spacing:0.02em;">INVOICE</div>
-              <div style="flex:1;"></div>
-            </div>
-            <!-- Info boxes: Invoice #, Date, Due Date -->
-            <div style="display:flex;border-bottom:1px solid #d1d5db;">
-              <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 5px;"><div style="font-size:3.5px;font-weight:700;color:#374151;">INVOICE #</div><div style="font-size:4px;color:#666;margin-top:1px;">INV-20260208-0041</div></div>
-              <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 5px;"><div style="font-size:3.5px;font-weight:700;color:#374151;">DATE</div><div style="font-size:4px;color:#666;margin-top:1px;">08/02/2026</div></div>
-              <div style="flex:1;padding:3px 5px;"><div style="font-size:3.5px;font-weight:700;color:#374151;">DUE DATE</div><div style="font-size:4px;color:#666;margin-top:1px;">10/03/2026</div></div>
-            </div>
-            <!-- FROM / BILL TO bordered -->
-            <div style="display:flex;border-bottom:1px solid #d1d5db;">
-              <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 5px;">
-                <div style="font-size:3.5px;font-weight:700;color:#374151;margin-bottom:2px;">FROM</div>
-                <div style="height:3px;background:#ccc;width:70%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#ddd;width:55%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div>
-              </div>
-              <div style="flex:1;padding:3px 5px;">
-                <div style="font-size:3.5px;font-weight:700;color:#374151;margin-bottom:2px;">BILL TO</div>
-                <div style="height:3px;background:#ccc;width:65%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#ddd;width:50%;border-radius:1px;margin-bottom:1.5px;"></div><div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div>
-              </div>
-            </div>
-            <!-- Dark table header -->
-            <div style="display:flex;background:#374151;padding:3px 5px;">
-              <div style="flex:3;font-size:3.5px;font-weight:700;color:#fff;">DESCRIPTION</div>
-              <div style="flex:0.5;font-size:3.5px;font-weight:700;color:#fff;text-align:center;">QTY</div>
-              <div style="flex:1;font-size:3.5px;font-weight:700;color:#fff;text-align:right;">RATE</div>
-              <div style="flex:1;font-size:3.5px;font-weight:700;color:#fff;text-align:right;">AMOUNT</div>
-            </div>
-            <!-- Alternating rows -->
-            <div style="display:flex;padding:3px 5px;background:#fff;border-bottom:1px solid #e5e7eb;"><div style="flex:3;height:3px;background:#ccc;width:55%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:50%;border-radius:1px;margin-left:auto;"></div></div>
-            <div style="display:flex;padding:3px 5px;background:#f9fafb;border-bottom:1px solid #e5e7eb;"><div style="flex:3;height:3px;background:#ccc;width:60%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:40%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:45%;border-radius:1px;margin-left:auto;"></div></div>
-            <div style="display:flex;padding:3px 5px;background:#fff;border-bottom:1px solid #e5e7eb;"><div style="flex:3;height:3px;background:#ccc;width:42%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
-            <!-- Subtotal/Tax rows -->
-            <div style="padding:2px 5px;">
-              <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:1px;"><div style="font-size:4px;color:#666;font-weight:600;">SUBTOTAL</div><div style="font-size:4px;color:#374151;font-weight:600;">$3,418.00</div></div>
-              <div style="display:flex;justify-content:flex-end;gap:8px;"><div style="font-size:4px;color:#666;">TAX (8.25%)</div><div style="font-size:4px;color:#374151;">$281.99</div></div>
-            </div>
-            <!-- Dark TOTAL bar at bottom -->
-            <div style="background:#374151;margin-top:auto;padding:4px 6px;display:flex;justify-content:space-between;">
-              <div style="font-size:5px;font-weight:800;color:#fff;">TOTAL</div>
-              <div style="font-size:5px;font-weight:800;color:#fff;">$3,699.99</div>
-            </div>
-          </div>
-            <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;margin-top:1rem;">Classic</h3>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Traditional & formal</p>
-          </div>
+        <!-- Dots -->
+        <div class="slider-dots" id="sliderDots" style="display:flex;justify-content:center;gap:0.5rem;margin-top:1.25rem;">
+          <button type="button" class="slider-dot active" onclick="goToSlide(0)" aria-label="Go to Modern template"></button>
+          <button type="button" class="slider-dot" onclick="goToSlide(1)" aria-label="Go to Classic template"></button>
+          <button type="button" class="slider-dot" onclick="goToSlide(2)" aria-label="Go to Minimal template"></button>
+          <button type="button" class="slider-dot" onclick="goToSlide(3)" aria-label="Go to Professional template"></button>
+          <button type="button" class="slider-dot" onclick="goToSlide(4)" aria-label="Go to Elegant template"></button>
+          <button type="button" class="slider-dot" onclick="goToSlide(5)" aria-label="Go to Wild template"></button>
         </div>
-
-        <div class="template-panel" id="templatePanel2" style="display:none;">
-          <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;text-align:center;">
-          <div style="background:#fff;border-radius:0.5rem;height:28rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0.75rem 0.8rem;display:flex;flex-direction:column;">
-            <!-- Header: "Invoice" left, inv# + dates right -->
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-              <div style="font-size:14px;font-weight:300;color:#374151;letter-spacing:-0.02em;line-height:1;">Invoice</div>
-              <div style="text-align:right;">
-                <div style="font-size:4px;color:#999;">INV-20260208-0041</div>
-                <div style="font-size:4px;color:#999;margin-top:1px;">08/02/2026</div>
-                <div style="font-size:4px;color:#999;margin-top:1px;">Due: 10/03/2026</div>
-              </div>
-            </div>
-            <!-- Thin separator -->
-            <div style="height:1px;background:#e5e7eb;margin-bottom:6px;"></div>
-            <!-- FROM / TO very minimal -->
-            <div style="display:flex;gap:1rem;margin-bottom:8px;">
-              <div style="flex:1;">
-                <div style="font-size:3px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px;">FROM</div>
-                <div style="font-size:4px;color:#555;font-weight:500;margin-bottom:1px;">Pixel &amp; Flow Studio</div>
-                <div style="height:2px;background:#eee;width:65%;border-radius:1px;margin-bottom:1px;"></div>
-                <div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div>
-              </div>
-              <div style="flex:1;">
-                <div style="font-size:3px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px;">TO</div>
-                <div style="font-size:4px;color:#555;font-weight:500;margin-bottom:1px;">Tyler Brooks</div>
-                <div style="height:2px;background:#eee;width:60%;border-radius:1px;margin-bottom:1px;"></div>
-                <div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div>
-              </div>
-            </div>
-            <!-- Items: description + qty x rate subtext, amount right -->
-            <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:5px;border-bottom:1px solid #f3f4f6;">
-                <div><div style="height:3px;background:#bbb;width:3.2rem;border-radius:1px;margin-bottom:2px;"></div><div style="font-size:3px;color:#ccc;">1 &times; $1,053.00</div></div>
-                <div style="font-size:4px;color:#555;">$1,053.00</div>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:5px;border-bottom:1px solid #f3f4f6;">
-                <div><div style="height:3px;background:#bbb;width:3.6rem;border-radius:1px;margin-bottom:2px;"></div><div style="font-size:3px;color:#ccc;">1 &times; $596.00</div></div>
-                <div style="font-size:4px;color:#555;">$596.00</div>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:5px;border-bottom:1px solid #f3f4f6;">
-                <div><div style="height:3px;background:#bbb;width:2.8rem;border-radius:1px;margin-bottom:2px;"></div><div style="font-size:3px;color:#ccc;">1 &times; $1,769.00</div></div>
-                <div style="font-size:4px;color:#555;">$1,769.00</div>
-              </div>
-            </div>
-            <!-- Totals: very clean, right-aligned -->
-            <div style="margin-top:auto;padding-top:4px;">
-              <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:1.5px;"><div style="font-size:4px;color:#bbb;">Subtotal</div><div style="font-size:4px;color:#666;">$3,418.00</div></div>
-              <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:2px;"><div style="font-size:4px;color:#bbb;">Tax 8.25%</div><div style="font-size:4px;color:#666;">$281.99</div></div>
-              <div style="height:1px;background:#e5e7eb;margin-bottom:3px;"></div>
-              <div style="display:flex;justify-content:flex-end;gap:12px;"><div style="font-size:5px;color:#374151;font-weight:400;">Total</div><div style="font-size:5px;color:#374151;font-weight:500;">$3,699.99</div></div>
-            </div>
-          </div>
-            <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;margin-top:1rem;">Minimal</h3>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Clean & spacious</p>
-          </div>
-        </div>
-
-        <div class="template-panel" id="templatePanel3" style="display:none;">
-          <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;text-align:center;">
-          <div style="background:#fff;border-radius:0.5rem;height:28rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0;display:flex;flex-direction:column;">
-            <!-- 4px accent top stripe -->
-            <div style="height:3px;background:var(--accent-500);flex-shrink:0;"></div>
-            <!-- Header: company info left, INVOICE + details right -->
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:0.4rem 0.5rem;">
-              <div>
-                <div style="font-size:5px;font-weight:700;color:#374151;">Pixel &amp; Flow Studio</div>
-                <div style="height:2px;background:#ddd;width:2.5rem;border-radius:1px;margin:2px 0;"></div>
-                <div style="height:2px;background:#eee;width:2rem;border-radius:1px;margin-bottom:1px;"></div>
-                <div style="height:2px;background:#eee;width:1.5rem;border-radius:1px;"></div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-size:10px;font-weight:800;color:#374151;">INVOICE</div>
-                <div style="font-size:3.5px;color:#666;margin-top:1px;">Invoice #: INV-20260208-0041</div>
-                <div style="font-size:3.5px;color:#666;margin-top:1px;">Date: 08/02/2026</div>
-                <div style="font-size:3.5px;color:var(--accent-500);font-weight:600;margin-top:1px;">Due Date: 10/03/2026</div>
-              </div>
-            </div>
-            <!-- BILL TO section -->
-            <div style="margin:0 0.5rem 0.3rem;border:1px solid #e5e7eb;border-radius:2px;padding:3px 5px;">
-              <div style="font-size:3.5px;font-weight:700;color:#374151;margin-bottom:2px;">BILL TO:</div>
-              <div style="font-size:4px;color:#555;font-weight:500;">Tyler Brooks</div>
-              <div style="height:2px;background:#eee;width:55%;border-radius:1px;margin-top:1px;"></div>
-            </div>
-            <!-- Table with accent-tinted header -->
-            <div style="margin:0 0.5rem;flex:1;display:flex;flex-direction:column;">
-              <div style="display:flex;background:rgba(var(--accent-rgb),0.08);padding:3px 4px;border-bottom:1px solid #e5e7eb;">
-                <div style="flex:3;font-size:3.5px;font-weight:700;color:#374151;">DESCRIPTION</div>
-                <div style="flex:0.5;font-size:3.5px;font-weight:700;color:#374151;text-align:center;">QTY</div>
-                <div style="flex:1;font-size:3.5px;font-weight:700;color:#374151;text-align:right;">RATE</div>
-                <div style="flex:1;font-size:3.5px;font-weight:700;color:#374151;text-align:right;">AMOUNT</div>
-              </div>
-              <div style="display:flex;padding:3px 4px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:58%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;font-size:4px;color:#374151;text-align:right;font-weight:600;">$1,053</div></div>
-              <div style="display:flex;padding:3px 4px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:65%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:38%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;font-size:4px;color:#374151;text-align:right;font-weight:600;">$596</div></div>
-              <div style="display:flex;padding:3px 4px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:45%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;font-size:4px;color:#374151;text-align:right;font-weight:600;">$1,769</div></div>
-              <!-- Subtotal / Tax -->
-              <div style="margin-top:auto;padding:3px 0;">
-                <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:1px;"><div style="font-size:4px;color:#666;">Subtotal</div><div style="font-size:4px;color:#374151;">$3,418.00</div></div>
-                <div style="display:flex;justify-content:flex-end;gap:8px;"><div style="font-size:4px;color:#666;">Tax (8.25%)</div><div style="font-size:4px;color:#374151;">$281.99</div></div>
-              </div>
-            </div>
-            <!-- Full-width accent TOTAL bar -->
-            <div style="background:var(--accent-500);padding:4px 8px;display:flex;justify-content:space-between;flex-shrink:0;">
-              <div style="font-size:5px;font-weight:800;color:#fff;">TOTAL</div>
-              <div style="font-size:5px;font-weight:800;color:#fff;">$3,699.99</div>
-            </div>
-          </div>
-            <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;margin-top:1rem;">Professional</h3>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Corporate & polished</p>
-          </div>
-        </div>
-
-        <div class="template-panel" id="templatePanel4" style="display:none;">
-          <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;text-align:center;">
-          <div style="background:linear-gradient(180deg, #f9fafb, #fff);border-radius:0.5rem;height:28rem;margin-bottom:1rem;overflow:hidden;border:1px solid var(--border);padding:0.6rem 0.7rem;display:flex;flex-direction:column;align-items:center;">
-            <!-- Centered large thin INVOICE -->
-            <div style="font-size:12px;font-weight:300;color:var(--accent-500);letter-spacing:0.2em;margin-bottom:2px;">INVOICE</div>
-            <div style="font-size:4px;color:#999;margin-bottom:4px;">INV-20260208-0041</div>
-            <!-- FROM / TO side by side -->
-            <div style="display:flex;gap:0.75rem;width:100%;margin-bottom:4px;">
-              <div style="flex:1;text-align:left;">
-                <div style="font-size:3.5px;color:var(--accent-500);font-weight:600;letter-spacing:0.1em;margin-bottom:2px;">FROM</div>
-                <div style="font-size:4px;color:#555;font-weight:500;">Pixel &amp; Flow Studio</div>
-                <div style="height:2px;background:#ddd;width:60%;border-radius:1px;margin-top:1px;margin-bottom:1px;"></div>
-                <div style="height:2px;background:#eee;width:45%;border-radius:1px;"></div>
-              </div>
-              <div style="flex:1;text-align:left;">
-                <div style="font-size:3.5px;color:var(--accent-500);font-weight:600;letter-spacing:0.1em;margin-bottom:2px;">TO</div>
-                <div style="font-size:4px;color:#555;font-weight:500;">Tyler Brooks</div>
-                <div style="height:2px;background:#ddd;width:55%;border-radius:1px;margin-top:1px;margin-bottom:1px;"></div>
-                <div style="height:2px;background:#eee;width:40%;border-radius:1px;"></div>
-              </div>
-            </div>
-            <!-- Bordered date/due/po section -->
-            <div style="display:flex;width:100%;background:#fff;border:1px solid rgba(var(--accent-rgb),0.15);border-radius:3px;margin-bottom:5px;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
-              <div style="flex:1;padding:3px 4px;text-align:center;border-right:1px solid rgba(var(--accent-rgb),0.1);"><div style="font-size:3px;color:#999;letter-spacing:0.05em;">DATE</div><div style="font-size:4px;color:#374151;font-weight:600;">08/02/2026</div></div>
-              <div style="flex:1;padding:3px 4px;text-align:center;border-right:1px solid rgba(var(--accent-rgb),0.1);"><div style="font-size:3px;color:#999;letter-spacing:0.05em;">DUE DATE</div><div style="font-size:4px;color:#374151;font-weight:600;">10/03/2026</div></div>
-              <div style="flex:1;padding:3px 4px;text-align:center;"><div style="font-size:3px;color:#999;letter-spacing:0.05em;">PO NUMBER</div><div style="font-size:4px;color:#999;">—</div></div>
-            </div>
-            <!-- Table with accent headers -->
-            <div style="width:100%;flex:1;">
-              <div style="display:flex;border-bottom:1.5px solid var(--accent-500);padding-bottom:2px;margin-bottom:2px;">
-                <div style="flex:3;font-size:3.5px;font-weight:600;color:var(--accent-500);letter-spacing:0.05em;">DESCRIPTION</div>
-                <div style="flex:0.5;font-size:3.5px;font-weight:600;color:var(--accent-500);text-align:center;">QTY</div>
-                <div style="flex:1;font-size:3.5px;font-weight:600;color:var(--accent-500);text-align:right;">RATE</div>
-                <div style="flex:1;font-size:3.5px;font-weight:600;color:var(--accent-500);text-align:right;">AMOUNT</div>
-              </div>
-              <div style="display:flex;padding:2px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:58%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:45%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:50%;border-radius:1px;margin-left:auto;"></div></div>
-              <div style="display:flex;padding:2px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:48%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:38%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:42%;border-radius:1px;margin-left:auto;"></div></div>
-              <div style="display:flex;padding:2px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;height:3px;background:#ccc;width:42%;border-radius:1px;"></div><div style="flex:0.5;font-size:4px;color:#666;text-align:center;">1</div><div style="flex:1;height:3px;background:#bbb;width:50%;border-radius:1px;margin-left:auto;"></div><div style="flex:1;height:3px;background:#999;width:55%;border-radius:1px;margin-left:auto;"></div></div>
-            </div>
-            <!-- Totals -->
-            <div style="width:100%;padding-top:2px;">
-              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:1px;"><div style="font-size:4px;color:#999;">Subtotal</div><div style="font-size:4px;color:#555;">$3,418.00</div></div>
-              <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:2px;"><div style="font-size:4px;color:#999;">Tax (8.25%)</div><div style="font-size:4px;color:#555;">$281.99</div></div>
-              <div style="border-top:1.5px solid var(--accent-500);padding-top:2px;display:flex;justify-content:flex-end;gap:10px;">
-                <div style="font-size:5px;font-weight:600;color:var(--accent-500);">TOTAL</div>
-                <div style="font-size:5px;font-weight:600;color:var(--accent-500);">$3,699.99</div>
-              </div>
-            </div>
-            <!-- Thank you footer -->
-            <div style="margin-top:4px;"><div style="font-size:3.5px;color:#bbb;font-style:italic;">Thank you for your business</div></div>
-          </div>
-            <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;margin-top:1rem;">Elegant</h3>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Refined & sophisticated</p>
-          </div>
-        </div>
-
-        <div class="template-panel" id="templatePanel5" style="display:none;">
-          <div class="card-glow" style="border-radius:0.75rem;padding:1.5rem;text-align:center;">
-          <div style="background:linear-gradient(135deg, #1a0a2e, #0a1628, #0e2a1a);border-radius:0.5rem;height:28rem;margin-bottom:1rem;overflow:hidden;border:3px solid #c026d3;padding:0.5rem;display:flex;flex-direction:column;box-shadow:0 0 20px rgba(192,38,211,0.3);">
-            <!-- Header: huge INVOICE skewed + date box top-right -->
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.3rem;">
-              <div>
-                <div style="font-size:10px;font-weight:900;font-style:italic;background:linear-gradient(135deg,#c026d3,#06b6d4,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;transform:skewX(-6deg);filter:drop-shadow(0 0 4px rgba(192,38,211,0.6));line-height:1;">INVOICE</div>
-                <div style="font-size:3.5px;color:#c026d3;font-family:monospace;margin-top:1px;">INV-20260208-0041</div>
-              </div>
-              <!-- Date info box with neon bg -->
-              <div style="background:linear-gradient(135deg,rgba(192,38,211,0.3),rgba(6,182,212,0.3));border:1px solid #c026d3;border-radius:2px;padding:2px 4px;box-shadow:0 0 4px rgba(192,38,211,0.3);">
-                <div style="font-size:3px;color:#22d3ee;font-weight:700;">INVOICE DATE &amp;</div>
-                <div style="font-size:3.5px;color:#fff;font-weight:600;">08/02/2026</div>
-                <div style="font-size:3px;color:#c026d3;">Due: 10/03/2026</div>
-              </div>
-            </div>
-            <!-- Neon FROM / TO boxes -->
-            <div style="display:flex;gap:3px;margin-bottom:0.3rem;">
-              <div style="flex:1;border:1.5px solid #c026d3;border-radius:2px;padding:2px 4px;background:linear-gradient(135deg,rgba(192,38,211,0.12),rgba(6,182,212,0.08));box-shadow:0 0 5px rgba(192,38,211,0.2);">
-                <div style="font-size:3px;font-weight:900;color:#c026d3;">&#x1F4E4; FROM</div>
-                <div style="font-size:3.5px;color:rgba(255,255,255,0.8);font-weight:600;margin-top:1px;">Pixel &amp; Flow Studio</div>
-                <div style="height:2px;background:rgba(255,255,255,0.2);width:65%;border-radius:1px;margin-top:1px;"></div>
-              </div>
-              <div style="flex:1;border:1.5px solid #06b6d4;border-radius:2px;padding:2px 4px;background:linear-gradient(135deg,rgba(6,182,212,0.12),rgba(192,38,211,0.08));box-shadow:0 0 5px rgba(6,182,212,0.2);">
-                <div style="font-size:3px;font-weight:900;color:#06b6d4;">&#x1F4E5; TO</div>
-                <div style="font-size:3.5px;color:rgba(255,255,255,0.8);font-weight:600;margin-top:1px;">Tyler Brooks</div>
-                <div style="height:2px;background:rgba(255,255,255,0.2);width:60%;border-radius:1px;margin-top:1px;"></div>
-              </div>
-            </div>
-            <!-- Neon table -->
-            <div style="border:2px solid #c026d3;border-radius:2px;overflow:hidden;flex:1;box-shadow:0 0 6px rgba(192,38,211,0.2);">
-              <div style="display:flex;background:linear-gradient(90deg,rgba(192,38,211,0.25),rgba(26,10,46,0.8));padding:2px 4px;border-bottom:2px solid #c026d3;">
-                <div style="flex:3;font-size:3px;font-weight:900;color:#c026d3;">&#x1F4CB; DESCRIPTION</div>
-                <div style="flex:0.5;font-size:3px;font-weight:900;color:#06b6d4;text-align:center;">QTY</div>
-                <div style="flex:1;font-size:3px;font-weight:900;color:#22d3ee;text-align:right;">RATE</div>
-                <div style="flex:1;font-size:3px;font-weight:900;color:#c026d3;text-align:right;">AMOUNT</div>
-              </div>
-              <div style="display:flex;padding:2px 4px;border-bottom:1px solid rgba(192,38,211,0.25);background:rgba(26,10,46,0.5);"><div style="flex:3;height:2px;background:rgba(255,255,255,0.25);width:58%;border-radius:1px;"></div><div style="flex:0.5;font-size:3.5px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:3.5px;color:#06b6d4;text-align:right;">$1,053</div><div style="flex:1;font-size:3.5px;color:#c026d3;text-align:right;font-weight:700;">$1,053</div></div>
-              <div style="display:flex;padding:2px 4px;border-bottom:1px solid rgba(6,182,212,0.25);background:rgba(10,22,40,0.5);"><div style="flex:3;height:2px;background:rgba(255,255,255,0.25);width:65%;border-radius:1px;"></div><div style="flex:0.5;font-size:3.5px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:3.5px;color:#06b6d4;text-align:right;">$596</div><div style="flex:1;font-size:3.5px;color:#c026d3;text-align:right;font-weight:700;">$596</div></div>
-              <div style="display:flex;padding:2px 4px;background:rgba(26,10,46,0.5);"><div style="flex:3;height:2px;background:rgba(255,255,255,0.25);width:42%;border-radius:1px;"></div><div style="flex:0.5;font-size:3.5px;color:#22d3ee;text-align:center;">1</div><div style="flex:1;font-size:3.5px;color:#06b6d4;text-align:right;">$1,769</div><div style="flex:1;font-size:3.5px;color:#c026d3;text-align:right;font-weight:700;">$1,769</div></div>
-            </div>
-            <!-- Subtotal/Tax -->
-            <div style="padding:2px 2px 0;">
-              <div style="display:flex;justify-content:flex-end;gap:6px;margin-bottom:1px;"><div style="font-size:3.5px;color:#c026d3;">Subtotal</div><div style="font-size:3.5px;color:#22d3ee;font-weight:600;">$3,418.00</div></div>
-              <div style="display:flex;justify-content:flex-end;gap:6px;"><div style="font-size:3.5px;color:#c026d3;">&#x1F4B0; Tax (8.25%)</div><div style="font-size:3.5px;color:#22d3ee;font-weight:600;">$281.99</div></div>
-            </div>
-            <!-- Neon gradient TOTAL bar -->
-            <div style="margin-top:3px;background:linear-gradient(90deg,#c026d3,#06b6d4,#22d3ee);border-radius:2px;padding:3px 5px;display:flex;justify-content:center;gap:8px;box-shadow:0 0 10px rgba(192,38,211,0.4);">
-              <div style="font-size:4px;font-weight:900;color:#000;">&#x2728; TOTAL</div>
-              <div style="font-size:4px;font-weight:900;color:#000;">$3,699.99</div>
-            </div>
-            <!-- POWERED BY CHAOS -->
-            <div style="margin-top:3px;text-align:center;">
-              <div style="font-size:3px;font-weight:900;color:#c026d3;letter-spacing:0.1em;text-shadow:0 0 4px rgba(192,38,211,0.5);">POWERED BY CHAOS</div>
-            </div>
-          </div>
-            <h3 style="font-weight:600;color:var(--text-primary);font-size:1rem;margin-top:1rem;">Wild</h3>
-            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.25rem;">Bold & expressive</p>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -1607,12 +1618,16 @@
       document.getElementById('mobileMenu').classList.toggle('open');
     }
 
-    function switchTemplate(idx) {
-      document.querySelectorAll('.template-panel').forEach(function(p) { p.style.display = 'none'; });
-      document.querySelectorAll('.template-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.getElementById('templatePanel' + idx).style.display = 'block';
-      document.querySelectorAll('.template-tab')[idx].classList.add('active');
+    var currentSlide = 0;
+    var totalSlides = 6;
+    function goToSlide(idx) {
+      currentSlide = ((idx % totalSlides) + totalSlides) % totalSlides;
+      document.getElementById('sliderTrack').style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+      document.querySelectorAll('.slider-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === currentSlide);
+      });
     }
+    function slideTemplate(dir) { goToSlide(currentSlide + dir); }
 
     function updateSwatches(theme) {
       // Nav dropdown swatches
