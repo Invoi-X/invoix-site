@@ -621,11 +621,11 @@
                       <!-- Invisible mouse tracking layer -->
                       <div id="chartMouseLayer" style="position:absolute;top:0;left:0;right:0;bottom:1.25rem;z-index:4;cursor:crosshair;"></div>
                       <!-- Bar layer -->
-                      <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;justify-content:space-around;padding:0 0.25rem;"></div>
+                      <div id="chartBars" style="position:relative;z-index:2;height:calc(100% - 1.25rem);display:flex;align-items:flex-end;gap:2px;padding:0;"></div>
                       <!-- SVG layer for line/area -->
                       <svg id="chartSvg" style="position:absolute;top:0;left:0;width:100%;height:calc(100% - 1.25rem);z-index:2;display:none;overflow:visible;"></svg>
                       <!-- X-axis -->
-                      <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;padding:0.25rem 0.25rem 0;"></div>
+                      <div id="chartXAxis" style="position:absolute;bottom:0;left:0;right:0;display:flex;gap:2px;padding:0.25rem 0 0;"></div>
                     </div>
                   </div>
                 </div>
@@ -1673,12 +1673,18 @@
         yAxis.appendChild(label);
       }
 
-      // X-axis labels
+      // X-axis labels — flex:1 so each label occupies same width as its bar
       xAxis.innerHTML = '';
-      data.forEach(function(d) {
+      var isMobile = window.innerWidth <= 768;
+      // Skip labels on mobile when too many to fit
+      var skipEvery = 1;
+      if (isMobile && data.length > 12) skipEvery = 3;
+      else if (isMobile && data.length > 6) skipEvery = 2;
+      data.forEach(function(d, i) {
         var lbl = document.createElement('span');
-        lbl.style.cssText = 'font-size:0.55rem;color:var(--text-muted);';
-        lbl.textContent = d.m;
+        var show = (i % skipEvery === 0) || i === data.length - 1;
+        lbl.style.cssText = 'flex:1;text-align:center;font-size:0.55rem;color:var(--text-muted);min-width:0;overflow:hidden;';
+        lbl.textContent = show ? d.m : '';
         xAxis.appendChild(lbl);
       });
 
@@ -1690,7 +1696,7 @@
           var pct = (d.v / ceil) * 100;
           var isSel = idx === sel;
           var bar = document.createElement('div');
-          bar.style.cssText = 'width:' + (100/data.length - 1.5) + '%;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease, background 0.2s;position:relative;min-width:4px;pointer-events:none;';
+          bar.style.cssText = 'flex:1;height:' + pct + '%;border-radius:0.2rem 0.2rem 0 0;transition:height 0.4s ease, background 0.2s;position:relative;min-width:0;pointer-events:none;';
           bar.style.background = isSel ? 'var(--accent-500)' : 'rgba(var(--accent-rgb),0.35)';
           barsEl.appendChild(bar);
         });
@@ -1699,9 +1705,9 @@
         svgEl.style.display = 'block';
         var w = svgEl.getBoundingClientRect().width || 300;
         var h = svgEl.getBoundingClientRect().height || 110;
-        var gap = w / (data.length - 1 || 1);
+        var slotW = w / data.length;
         var points = data.map(function(d, i) {
-          var x = i * gap;
+          var x = slotW * i + slotW / 2;
           var y = h - (d.v / ceil) * h;
           return {x: x, y: y, d: d, i: i};
         });
