@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoi.X — Professional Invoice Generator</title>
-  <meta name="description" content="Create, export, and send invoices from a clean desktop app. 6 templates, PDF export, email integration, and full analytics — no subscription required.">
+  <title>Invoi.Xyz — Professional Invoice Generator</title>
+  <meta name="description" content="Stop overpaying to get paid. 6 templates, PDF export, Gmail & Outlook integration — one price, forever. No subscription required.">
   <meta name="keywords" content="invoice generator, invoicing software, freelance invoices, small business invoicing, PDF invoices">
-  <meta property="og:title" content="Invoi.X — Professional Invoice Generator">
-  <meta property="og:description" content="Create, export, and send invoices from a clean desktop app. No subscription required.">
+  <meta property="og:title" content="Invoi.Xyz — Professional Invoice Generator">
+  <meta property="og:description" content="Most invoice tools charge monthly. This one doesn't. 6 templates, PDF export, Gmail & Outlook — one price, forever.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://invoix.xyz">
   <link rel="canonical" href="https://invoix.xyz">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* ══════════════════════════════════════════
        THEME VARIABLES — mirrors the app exactly
@@ -134,7 +134,7 @@
       text-transform: uppercase;
       padding: 0.1875rem 0.875rem;
       white-space: nowrap;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Outfit', system-ui, sans-serif;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -144,7 +144,7 @@
        BASE STYLES
        ══════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 20px; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--surface);
@@ -446,6 +446,12 @@
       .stats-bar { gap: 0.75rem !important; font-size: 0.75rem !important; }
       .stats-bar > span:nth-child(even) { display: none; }
 
+      /* Hero split — stack on mobile */
+      .hero-split { grid-template-columns: 1fr !important; text-align: center !important; }
+      .hero-split > div:first-child { display: flex; flex-direction: column; align-items: center; }
+      .hero-split > div:first-child > div:last-child { justify-content: center; }
+      .hero-mockup-wrapper > div:nth-child(2) { transform: none !important; }
+
       /* Grids */
       .dashboard-features-layout { grid-template-columns: 1fr !important; }
       .dashboard-col { position: static !important; }
@@ -511,6 +517,7 @@
       .faq-item summary { padding: 1rem !important; font-size: 0.875rem !important; }
       .faq-item > div { padding: 0 1rem 1rem !important; margin-left: 1.5rem !important; }
     }
+
   </style>
 </head>
 <body>
@@ -523,7 +530,7 @@
   <!-- Navigation -->
   <nav style="position:fixed;top:28px;width:100%;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:color-mix(in srgb, var(--surface) 80%, transparent);border-bottom:1px solid var(--border);">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;height:4rem;display:flex;align-items:center;justify-content:space-between;">
-      <a href="#" class="gradient-text" style="font-size:1.25rem;font-weight:700;text-decoration:none;letter-spacing:-0.025em;">Invoi.X</a>
+      <a href="#" class="gradient-text" style="font-size:1.25rem;font-weight:700;text-decoration:none;letter-spacing:-0.025em;">Invoi.Xyz</a>
       <div class="nav-links" style="display:flex;align-items:center;gap:2rem;">
         <a href="#templates" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Templates</a>
         <a href="#features" style="font-size:0.875rem;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">Features</a>
@@ -591,36 +598,163 @@
   </div>
 
   <!-- Hero -->
-  <section class="hero-gradient" style="padding-top:9.75rem;padding-bottom:3rem;position:relative;overflow:hidden;">
-    <div style="position:absolute;top:5rem;left:25%;width:24rem;height:24rem;background:rgba(var(--accent-rgb),0.08);border-radius:50%;filter:blur(80px);"></div>
-    <div style="position:absolute;bottom:2rem;right:25%;width:20rem;height:20rem;background:rgba(var(--accent-rgb),0.05);border-radius:50%;filter:blur(80px);"></div>
+  <section class="hero-gradient" style="padding-top:7rem;padding-bottom:1.25rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:3rem;left:10%;width:28rem;height:28rem;background:rgba(var(--accent-rgb),0.1);border-radius:50%;filter:blur(100px);"></div>
+    <div style="position:absolute;bottom:0;right:15%;width:22rem;height:22rem;background:rgba(var(--accent-rgb),0.06);border-radius:50%;filter:blur(80px);"></div>
 
-    <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;text-align:center;position:relative;z-index:10;">
-      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(var(--accent-rgb),0.06);border:1px solid rgba(var(--accent-rgb),0.12);border-radius:9999px;padding:0.375rem 1rem;margin-bottom:1.5rem;">
-        <span style="width:8px;height:8px;background:#4ade80;border-radius:50%;display:inline-block;"></span>
-        <span style="font-size:0.875rem;color:var(--text-muted);">v1.0 — Available Now</span>
+    <div class="hero-split" style="max-width:72rem;margin:0 auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 1.1fr;gap:2.5rem;align-items:center;position:relative;z-index:10;">
+      <!-- Left: Text -->
+      <div>
+        <h1 class="hero-title" style="font-size:3.75rem;font-weight:800;letter-spacing:-0.025em;line-height:1.1;margin-bottom:1.5rem;color:var(--text-primary);">
+          Stop overpaying<br>
+          <span class="gradient-text">to get paid.</span>
+        </h1>
+
+        <p class="hero-subtitle" style="font-size:1.1rem;color:var(--text-secondary);max-width:28rem;line-height:1.7;margin-bottom:1.75rem;">
+          Most invoice tools charge monthly. This one doesn't.
+          6 templates, PDF export, Gmail & Outlook — one price, forever.
+        </p>
+
+        <!-- Waitlist signup -->
+        <form id="waitlistForm" onsubmit="return submitWaitlist(event)" style="display:flex;gap:0.5rem;flex-wrap:wrap;max-width:28rem;">
+          <input type="email" id="waitlistEmail" placeholder="Enter your email" required
+            style="flex:1;min-width:12rem;padding:0.875rem 1.25rem;border-radius:0.75rem;border:1px solid var(--border);background:var(--surface-card);color:var(--text-primary);font-size:0.9rem;font-family:'Outfit',system-ui,sans-serif;outline:none;transition:border-color 0.2s;"
+            onfocus="this.style.borderColor='var(--accent-500)'" onblur="this.style.borderColor='var(--border)'" />
+          <button type="submit" class="btn-primary" style="font-weight:600;padding:0.875rem 1.75rem;border-radius:0.75rem;font-size:0.9rem;border:none;cursor:pointer;white-space:nowrap;font-family:'Outfit',system-ui,sans-serif;">
+            Get Notified
+          </button>
+        </form>
+        <p id="waitlistMsg" style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem;min-height:1.2em;"></p>
       </div>
 
-      <h1 class="hero-title" style="font-size:3.75rem;font-weight:800;letter-spacing:-0.025em;line-height:1.1;margin-bottom:1.5rem;color:var(--text-primary);">
-        Professional invoices.<br>
-        <span class="gradient-text">Zero friction.</span>
-      </h1>
-
-      <p class="hero-subtitle" style="font-size:1.25rem;color:var(--text-secondary);max-width:42rem;margin:0 auto;line-height:1.7;">
-        Create, export, and send invoices from a clean desktop app.<br>
-        6 templates, PDF export, email integration, and full analytics.<br>
-        No subscription required.
-      </p>
+      <!-- Right: Dashboard mockup at angle -->
+      <div class="hero-mockup-wrapper" style="position:relative;">
+        <!-- Glow behind the mockup -->
+        <div style="position:absolute;inset:-1.5rem;background:rgba(var(--accent-rgb),0.08);border-radius:1.5rem;filter:blur(40px);z-index:0;"></div>
+        <div style="position:relative;z-index:1;transform:perspective(1200px) rotateY(-8deg) rotateX(2deg);transition:transform 0.4s ease;">
+          <div style="background:var(--surface-card);border:1px solid var(--border);border-radius:1rem;padding:0.5rem;box-shadow:0 25px 60px rgba(var(--accent-rgb),0.12), 0 0 0 1px rgba(var(--accent-rgb),0.06);">
+            <div style="background:var(--surface);border-radius:0.75rem;overflow:hidden;">
+              <!-- Window chrome -->
+              <div style="display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);">
+                <div style="width:10px;height:10px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
+                <div style="width:10px;height:10px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
+                <span style="font-size:0.6rem;color:var(--text-muted);margin-left:0.5rem;">Invoi.Xyz — Dashboard</span>
+              </div>
+              <!-- Mockup content -->
+              <div style="padding:1rem 1.25rem;">
+                <!-- Mini chart — monthly revenue Apr 2025 → Jan 2026 -->
+                <div style="background:var(--surface-card);border-radius:0.5rem;border:1px solid var(--border);padding:0.75rem 1rem;margin-bottom:1rem;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                    <p style="font-size:0.5rem;font-weight:400;color:var(--text-muted);">Revenue Overview</p>
+                    <p style="font-size:0.5rem;color:var(--text-muted);">Last 10 months</p>
+                  </div>
+                  <!-- Y-axis + bars -->
+                  <div style="display:flex;gap:0.3rem;">
+                    <!-- Y-axis labels -->
+                    <div style="display:flex;flex-direction:column;justify-content:space-between;height:4.5rem;padding-bottom:1rem;">
+                      <span style="font-size:0.4rem;color:var(--text-muted);text-align:right;">£3k</span>
+                      <span style="font-size:0.4rem;color:var(--text-muted);text-align:right;">£2k</span>
+                      <span style="font-size:0.4rem;color:var(--text-muted);text-align:right;">£1k</span>
+                      <span style="font-size:0.4rem;color:var(--text-muted);text-align:right;">£0</span>
+                    </div>
+                    <!-- Bars with month labels -->
+                    <div style="flex:1;display:flex;flex-direction:column;">
+                      <div style="display:flex;align-items:flex-end;gap:3px;height:4.5rem;padding-bottom:1rem;position:relative;">
+                        <!-- Grid lines -->
+                        <div style="position:absolute;top:0;left:0;right:0;bottom:1rem;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;">
+                          <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.08);"></div>
+                          <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.08);"></div>
+                          <div style="border-bottom:1px dashed rgba(var(--accent-rgb),0.08);"></div>
+                          <div style="border-bottom:1px solid var(--border);"></div>
+                        </div>
+                        <!-- Apr: £820 → 27% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.2);border-radius:2px 2px 0 0;height:27%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Apr</span>
+                        </div>
+                        <!-- May: £1,240 → 41% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.25);border-radius:2px 2px 0 0;height:41%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">May</span>
+                        </div>
+                        <!-- Jun: £950 → 32% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.22);border-radius:2px 2px 0 0;height:32%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Jun</span>
+                        </div>
+                        <!-- Jul: £1,680 → 56% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.3);border-radius:2px 2px 0 0;height:56%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Jul</span>
+                        </div>
+                        <!-- Aug: £1,450 → 48% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.28);border-radius:2px 2px 0 0;height:48%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Aug</span>
+                        </div>
+                        <!-- Sep: £2,100 → 70% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.38);border-radius:2px 2px 0 0;height:70%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Sep</span>
+                        </div>
+                        <!-- Oct: £1,890 → 63% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.35);border-radius:2px 2px 0 0;height:63%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Oct</span>
+                        </div>
+                        <!-- Nov: £2,580 → 86% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.45);border-radius:2px 2px 0 0;height:86%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Nov</span>
+                        </div>
+                        <!-- Dec: £2,270 → 76% -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:rgba(var(--accent-rgb),0.4);border-radius:2px 2px 0 0;height:76%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Dec</span>
+                        </div>
+                        <!-- Jan: £2,990 → 100% (current) -->
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative;z-index:1;">
+                          <div style="width:100%;background:var(--accent-500);border-radius:2px 2px 0 0;height:100%;"></div>
+                          <span style="font-size:0.35rem;color:var(--text-muted);margin-top:3px;">Jan</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Stats row -->
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;">
+                  <div style="background:var(--surface-card);border-radius:0.375rem;padding:0.6rem;border:1px solid var(--border);">
+                    <p style="font-size:0.55rem;color:var(--text-muted);margin-bottom:0.15rem;">Revenue</p>
+                    <p style="font-size:0.9rem;font-weight:700;color:var(--text-primary);">£12,480</p>
+                    <p style="font-size:0.55rem;color:#4ade80;margin-top:0.15rem;">+23%</p>
+                  </div>
+                  <div style="background:var(--surface-card);border-radius:0.375rem;padding:0.6rem;border:1px solid var(--border);">
+                    <p style="font-size:0.55rem;color:var(--text-muted);margin-bottom:0.15rem;">Outstanding</p>
+                    <p style="font-size:0.9rem;font-weight:700;color:var(--text-primary);">£3,240</p>
+                    <p style="font-size:0.55rem;color:#facc15;margin-top:0.15rem;">4 pending</p>
+                  </div>
+                  <div style="background:var(--surface-card);border-radius:0.375rem;padding:0.6rem;border:1px solid var(--border);">
+                    <p style="font-size:0.55rem;color:var(--text-muted);margin-bottom:0.15rem;">Paid</p>
+                    <p style="font-size:0.9rem;font-weight:700;color:var(--text-primary);">£9,240</p>
+                    <p class="accent-text" style="font-size:0.55rem;margin-top:0.15rem;">18 invoices</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <div class="construction-tape-divider"></div>
 
   <!-- Dashboard + Features -->
-  <section id="features" style="padding:3.5rem 0 4.5rem;">
+  <section id="features" style="padding:1.25rem 0 1.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
       <div style="text-align:center;margin-bottom:2rem;">
-        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:0.75rem;color:var(--text-primary);">Everything you need to <span class="gradient-text">get paid</span></h2>
+        <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:0.75rem;color:var(--text-primary);">Invoicing <span class="gradient-text">without the overhead</span></h2>
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Built for freelancers and small businesses who don't want to pay monthly just to get paid.</p>
       </div>
 
@@ -633,7 +767,7 @@
                   <div style="width:12px;height:12px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
                   <div style="width:12px;height:12px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
                   <div style="width:12px;height:12px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
-                  <span style="font-size:0.75rem;color:var(--text-muted);margin-left:0.75rem;">Invoi.X — Dashboard</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);margin-left:0.75rem;">Invoi.Xyz — Dashboard</span>
                 </div>
                 <div class="hero-mockup-inner" style="padding:1.5rem 2rem;">
                   <div class="hero-chart" style="background:var(--surface-card);border-radius:0.5rem;border:1px solid var(--border);padding:1rem 1.25rem;margin-bottom:1.5rem;">
@@ -724,7 +858,7 @@
               </div>
               <div>
                 <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">6 Professional Templates</h3>
-                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Modern, Classic, Minimal, Professional, Elegant, and Wild. Match your brand with custom accent colours.</p>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Modern, Classic, Minimal, Professional, Elegant, and Wild. Pick any accent colour to match your brand.</p>
               </div>
             </div>
 
@@ -794,7 +928,7 @@
               </div>
               <div>
                 <h3 style="font-size:0.875rem;font-weight:600;color:var(--text-primary);margin-bottom:0.125rem;">Fully Customisable</h3>
-                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Logo, accent colours, dark mode, light mode, 4 colour themes. Make it yours.</p>
+                <p style="font-size:0.8rem;color:var(--text-secondary);line-height:1.4;">Logo, any accent colour you want, dark mode, light mode, 4 UI themes. Make it yours.</p>
               </div>
             </div>
 
@@ -816,11 +950,11 @@
   <div class="construction-tape-divider"></div>
 
   <!-- Templates & Themes -->
-  <section id="templates" style="padding:3.5rem 0 4.5rem;">
+  <section id="templates" style="padding:1.25rem 0 1.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
       <div style="text-align:center;margin-bottom:2rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Templates that <span class="gradient-text">match the work you do.</span></h2>
-        <p style="color:var(--text-secondary);max-width:40rem;margin:0 auto;">Six clean designs, 4 colour themes, light and dark mode. Pick one and make it yours.</p>
+        <p style="color:var(--text-secondary);max-width:40rem;margin:0 auto;">Six clean designs, any accent colour, light and dark mode. Pick a template and make it yours.</p>
       </div>
 
       <div class="templates-themes-grid" style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:stretch;max-width:52rem;margin:0 auto;">
@@ -1147,7 +1281,7 @@
               <div style="width:8px;height:8px;border-radius:50%;background:rgba(239,68,68,0.5);"></div>
               <div style="width:8px;height:8px;border-radius:50%;background:rgba(234,179,8,0.5);"></div>
               <div style="width:8px;height:8px;border-radius:50%;background:rgba(34,197,94,0.5);"></div>
-              <span style="font-size:0.6rem;color:var(--text-muted);margin-left:0.3rem;">Invoi.X — Preview</span>
+              <span style="font-size:0.6rem;color:var(--text-muted);margin-left:0.3rem;">Invoi.Xyz — Preview</span>
             </div>
 
             <!-- Mock invoice -->
@@ -1249,9 +1383,9 @@
   <div class="construction-tape-divider"></div>
 
   <!-- Pricing -->
-  <section id="pricing" style="padding:3.5rem 0 4.5rem;">
+  <section id="pricing" style="padding:1.25rem 0 1.5rem;">
     <div style="max-width:72rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:2.5rem;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">One price. <span class="gradient-text">No surprises.</span></h2>
         <p style="color:var(--text-secondary);max-width:32rem;margin:0 auto;">Start free. Pay once when you're ready. No subscriptions, no hidden fees.</p>
       </div>
@@ -1279,7 +1413,7 @@
               PDF export with watermark
             </li>
           </ul>
-          <a href="#" class="btn-secondary" style="text-align:center;font-weight:500;padding:0.75rem 1.5rem;border-radius:0.75rem;text-decoration:none;">Get Started</a>
+          <span class="btn-secondary" style="text-align:center;font-weight:500;padding:0.75rem 1.5rem;border-radius:0.75rem;opacity:0.7;cursor:default;">Coming Soon</span>
         </div>
 
         <!-- Desktop -->
@@ -1321,7 +1455,7 @@
               1 year of free updates
             </li>
           </ul>
-          <a href="#" class="btn-primary" style="text-align:center;font-weight:600;padding:0.75rem 1.5rem;border-radius:0.75rem;text-decoration:none;">Buy Now — £29.99</a>
+          <span class="btn-primary" style="text-align:center;font-weight:600;padding:0.75rem 1.5rem;border-radius:0.75rem;opacity:0.7;cursor:default;">Coming Soon</span>
         </div>
 
       </div>
@@ -1331,9 +1465,9 @@
   <div class="construction-tape-divider"></div>
 
   <!-- FAQ -->
-  <section id="faq" style="padding:3.5rem 0 4.5rem;">
+  <section id="faq" style="padding:1.25rem 0 1.5rem;">
     <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;">
-      <div style="text-align:center;margin-bottom:2.5rem;">
+      <div style="text-align:center;margin-bottom:1.5rem;">
         <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);"><span class="gradient-text">Questions</span></h2>
       </div>
 
@@ -1355,7 +1489,7 @@
         <details class="faq-item card-glow" style="border-radius:0.75rem;">
           <summary style="padding:1.25rem;color:var(--text-primary);font-weight:500;display:flex;align-items:center;">What currencies are supported?</summary>
           <div style="padding:0 1.25rem 1.25rem;font-size:0.875rem;color:var(--text-secondary);line-height:1.6;margin-left:2rem;">
-            USD, EUR, GBP, CAD, AUD, JPY, and INR. Set a default or change per invoice.
+            5 built-in currencies (USD, EUR, GBP, JPY, CHF) plus support for custom currencies. Set a default or change per invoice.
           </div>
         </details>
 
@@ -1379,12 +1513,12 @@
   <div class="construction-tape-divider"></div>
 
   <!-- CTA -->
-  <section style="padding:3.5rem 0 4.5rem;">
+  <section style="padding:1.25rem 0 1.5rem;">
     <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
-      <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Get paid without the overhead.</h2>
-      <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:1.125rem;">Download Invoi.X and send your first invoice in under a minute.</p>
-      <a href="#pricing" class="btn-primary" style="font-weight:600;padding:1rem 2.5rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
-        Get Started Free
+      <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Ready to own your invoicing?</h2>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:1.125rem;">Be the first to know when we launch.</p>
+      <a href="#" onclick="document.getElementById('waitlistEmail').focus();return false;" class="btn-primary" style="font-weight:600;padding:1rem 2.5rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
+        Get Notified
       </a>
     </div>
   </section>
@@ -1396,7 +1530,7 @@
       <div class="stats-bar" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.6rem 1.5rem;color:var(--text-muted);font-size:0.8rem;line-height:1.6;">
         <span>6 Invoice Templates</span>
         <span style="color:var(--border);">·</span>
-        <span>7 Currencies</span>
+        <span>Multi-Currency</span>
         <span style="color:var(--border);">·</span>
         <span>PDF Export</span>
         <span style="color:var(--border);">·</span>
@@ -1416,7 +1550,7 @@
       </div>
       <!-- Bottom row -->
       <div class="footer-bottom" style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem;">
-        <p style="font-size:0.7rem;color:var(--text-muted);">&copy; 2026 Invoi.X. All rights reserved.</p>
+        <p style="font-size:0.7rem;color:var(--text-muted);">&copy; 2026 Invoi.Xyz. All rights reserved.</p>
         <div style="display:flex;align-items:center;gap:1.25rem;">
           <a href="#" style="font-size:0.7rem;color:var(--text-muted);text-decoration:none;">Privacy</a>
           <a href="#" style="font-size:0.7rem;color:var(--text-muted);text-decoration:none;">Terms</a>
@@ -1432,6 +1566,42 @@
 
   <!-- Theme Toggle Script -->
   <script>
+    // Waitlist form
+    async function submitWaitlist(e) {
+      e.preventDefault();
+      const email = document.getElementById('waitlistEmail').value;
+      const msg = document.getElementById('waitlistMsg');
+      const btn = e.target.querySelector('button');
+      const origText = btn.textContent;
+
+      btn.textContent = 'Joining...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('https://invoix-backend.azurewebsites.net/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (data.success) {
+          msg.style.color = '#4ade80';
+          msg.textContent = "You're in! We'll notify you when we launch.";
+          document.getElementById('waitlistEmail').value = '';
+        } else {
+          msg.style.color = '#ef4444';
+          msg.textContent = data.error || 'Something went wrong. Try again.';
+        }
+      } catch {
+        msg.style.color = '#ef4444';
+        msg.textContent = 'Connection error. Try again later.';
+      }
+
+      btn.textContent = origText;
+      btn.disabled = false;
+      return false;
+    }
+
     // Load saved preferences
     const savedMode = localStorage.getItem('ix-mode') || 'dark';
     const savedTheme = localStorage.getItem('ix-theme') || 'amethyst';
