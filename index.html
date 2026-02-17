@@ -438,6 +438,7 @@
       .hero-split { grid-template-columns: 1fr !important; text-align: center !important; gap: 1.5rem !important; }
       .hero-split > div:first-child { display: flex; flex-direction: column; align-items: center; }
       .hero-mockup-wrapper > div:nth-child(2) { transform: none !important; }
+      .hero-mockup-wrapper { display: none !important; }
       #waitlistForm { justify-content: center; max-width: none !important; }
       #waitlistForm input { min-width: 0 !important; }
 
@@ -1524,7 +1525,7 @@
     <div style="max-width:48rem;margin:0 auto;padding:0 1.5rem;text-align:center;">
       <h2 style="font-size:2.25rem;font-weight:700;margin-bottom:1rem;color:var(--text-primary);">Ready to own your invoicing?</h2>
       <p style="color:var(--text-secondary);margin-bottom:1.5rem;font-size:1.125rem;">Be the first to know when we launch.</p>
-      <a href="#" onclick="document.getElementById('waitlistEmail').focus();return false;" class="btn-primary" style="font-weight:600;padding:1rem 2.5rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
+      <a href="#" onclick="document.getElementById('waitlistEmail').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>document.getElementById('waitlistEmail').focus(),500);return false;" class="btn-primary" style="font-weight:600;padding:1rem 2.5rem;border-radius:0.75rem;font-size:1rem;text-decoration:none;">
         Get Notified
       </a>
     </div>
