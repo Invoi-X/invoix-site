@@ -425,32 +425,39 @@
       .theme-dropdown-label { font-size: 10px !important; margin-bottom: 6px !important; }
       .theme-dropdown-divider { margin: 8px 0 !important; }
 
+      /* Base font size reset for mobile */
+      html { font-size: 16px !important; }
+
       /* Hero */
-      .hero-gradient { padding-top: 6rem !important; padding-bottom: 2rem !important; }
-      .hero-title { font-size: 2.25rem !important; }
-      .hero-subtitle { font-size: 1.1rem !important; }
+      .hero-gradient { padding-top: 5.5rem !important; padding-bottom: 1.5rem !important; }
+      .hero-title { font-size: 2rem !important; }
+      .hero-subtitle { font-size: 0.95rem !important; }
       .hero-mockup-inner { padding: 1rem !important; }
 
+      /* Hero split — stack on mobile */
+      .hero-split { grid-template-columns: 1fr !important; text-align: center !important; gap: 1.5rem !important; }
+      .hero-split > div:first-child { display: flex; flex-direction: column; align-items: center; }
+      .hero-mockup-wrapper > div:nth-child(2) { transform: none !important; }
+      #waitlistForm { justify-content: center; max-width: none !important; }
+      #waitlistForm input { min-width: 0 !important; }
+
       /* General sections */
-      h2 { font-size: 1.75rem !important; }
-      section:not(.hero-gradient) { padding-top: 2.5rem !important; padding-bottom: 3rem !important; }
+      h2 { font-size: 1.5rem !important; }
+      section:not(.hero-gradient) { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
 
       /* Tighter section headers */
       #features > div > div:first-child,
       #templates > div > div:first-child,
       #customise > div > div:first-child,
       #pricing > div > div:first-child,
-      #faq > div > div:first-child { margin-bottom: 2rem !important; }
+      #faq > div > div:first-child { margin-bottom: 1.25rem !important; }
+
+      /* Features grid — single column on mobile */
+      .features-grid { grid-template-columns: 1fr !important; }
 
       /* Stats bar */
-      .stats-bar { gap: 0.75rem !important; font-size: 0.75rem !important; }
+      .stats-bar { gap: 0.5rem 1rem !important; font-size: 0.7rem !important; }
       .stats-bar > span:nth-child(even) { display: none; }
-
-      /* Hero split — stack on mobile */
-      .hero-split { grid-template-columns: 1fr !important; text-align: center !important; }
-      .hero-split > div:first-child { display: flex; flex-direction: column; align-items: center; }
-      .hero-split > div:first-child > div:last-child { justify-content: center; }
-      .hero-mockup-wrapper > div:nth-child(2) { transform: none !important; }
 
       /* Grids */
       .dashboard-features-layout { grid-template-columns: 1fr !important; }
