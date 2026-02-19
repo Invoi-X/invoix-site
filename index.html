@@ -473,7 +473,7 @@
       .dashboard-col { position: static !important; }
       .features-grid { gap: 0.5rem !important; }
       .features-grid > .card-glow { padding: 0.625rem 0.875rem !important; }
-      .pricing-grid { grid-template-columns: 1fr 1fr !important; max-width: 36rem; margin-left: auto !important; margin-right: auto !important; }
+      .pricing-grid { grid-template-columns: 1fr !important; max-width: 28rem; margin-left: auto !important; margin-right: auto !important; }
 
       /* Templates & Themes — stack on tablet */
       .templates-themes-grid { grid-template-columns: 1fr !important; max-width: 24rem; margin: 0 auto !important; }
@@ -525,7 +525,7 @@
       .slider-arrow { width: 2rem !important; height: 2rem !important; }
 
       /* Pricing — full width on small phones */
-      .pricing-grid { grid-template-columns: 1fr !important; max-width: 22rem !important; }
+      .pricing-grid { max-width: none !important; }
       .pricing-grid > .card-glow,
       .pricing-grid > .pricing-popular { padding: 1.5rem !important; }
 
@@ -1407,162 +1407,130 @@
         <p style="color:var(--text-secondary);max-width:36rem;margin:0 auto;">The desktop app is yours with a single payment — no subscriptions, no hidden fees. Prefer the cloud? We've got a web plan too.</p>
       </div>
 
-      <div class="pricing-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;max-width:72rem;margin:0 auto;">
+      <div class="pricing-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:56rem;margin:0 auto;">
         <!-- Free -->
-        <div class="card-glow" style="border-radius:1rem;padding:1.75rem;display:flex;flex-direction:column;">
+        <div class="card-glow" style="border-radius:1rem;padding:2rem;display:flex;flex-direction:column;">
           <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Free</h3>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">Try it out, no commitment</p>
-          <div style="margin-bottom:1.25rem;">
-            <span style="font-size:2.25rem;font-weight:700;color:var(--text-primary);">£0</span>
-            <span style="font-size:0.8rem;color:var(--text-muted);"> / forever</span>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem;">Try it out, no commitment</p>
+          <div style="margin-bottom:1.5rem;">
+            <span style="font-size:2.5rem;font-weight:700;color:var(--text-primary);">£0</span>
+            <span style="font-size:0.875rem;color:var(--text-muted);"> / forever</span>
           </div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.625rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;flex:1;">
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               10 invoices per month
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              2 templates
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              2 templates (Modern + Classic)
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              PDF with watermark
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              PDF export with watermark
             </li>
           </ul>
-          <span class="btn-secondary" style="text-align:center;font-weight:500;padding:0.625rem 1.25rem;border-radius:0.75rem;font-size:0.85rem;opacity:0.7;cursor:default;">Coming Soon</span>
+          <span class="btn-secondary" style="text-align:center;font-weight:500;padding:0.75rem 1.5rem;border-radius:0.75rem;opacity:0.7;cursor:default;">Coming Soon</span>
         </div>
 
         <!-- Desktop — the star -->
-        <div class="pricing-popular" style="border-radius:1rem;padding:1.75rem;display:flex;flex-direction:column;position:relative;">
-          <div style="position:absolute;top:-0.75rem;left:50%;transform:translateX(-50%);background:var(--accent-500);color:#fff;font-size:0.7rem;font-weight:600;padding:0.25rem 0.875rem;border-radius:9999px;white-space:nowrap;">Best Value</div>
+        <div class="pricing-popular" style="border-radius:1rem;padding:2rem;display:flex;flex-direction:column;position:relative;">
+          <div style="position:absolute;top:-0.75rem;left:50%;transform:translateX(-50%);background:var(--accent-500);color:#fff;font-size:0.75rem;font-weight:600;padding:0.25rem 1rem;border-radius:9999px;white-space:nowrap;">Best Value</div>
           <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Desktop</h3>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">You buy it, it's yours</p>
-          <div style="margin-bottom:1.25rem;">
-            <span style="font-size:2.25rem;font-weight:700;color:var(--text-primary);">£29.99</span>
-            <span style="font-size:0.8rem;color:var(--text-muted);"> / one-time</span>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1.5rem;">You buy it, it's yours</p>
+          <div style="margin-bottom:1.5rem;">
+            <span style="font-size:2.5rem;font-weight:700;color:var(--text-primary);">£29.99</span>
+            <span style="font-size:0.875rem;color:var(--text-muted);"> / one-time</span>
           </div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.625rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;flex:1;">
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               Unlimited invoices
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               All 6 templates
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Clean PDFs — no watermark
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Clean PDF export — no watermark
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               Windows desktop app
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Gmail & Outlook
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Gmail & Outlook integration
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Analytics
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Dashboard analytics
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               100% offline & private
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               Free updates forever
             </li>
           </ul>
-          <span class="btn-primary" style="text-align:center;font-weight:600;padding:0.625rem 1.25rem;border-radius:0.75rem;font-size:0.85rem;opacity:0.7;cursor:default;">Coming Soon</span>
+          <span class="btn-primary" style="text-align:center;font-weight:600;padding:0.75rem 1.5rem;border-radius:0.75rem;opacity:0.7;cursor:default;">Coming Soon</span>
         </div>
 
-        <!-- Web Pro -->
-        <div class="card-glow" style="border-radius:1rem;padding:1.75rem;display:flex;flex-direction:column;">
-          <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Web Pro</h3>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">Cloud access, any device</p>
-          <div style="margin-bottom:1.25rem;">
-            <span style="font-size:2.25rem;font-weight:700;color:var(--text-primary);">£4.99</span>
-            <span style="font-size:0.8rem;color:var(--text-muted);"> / month</span>
-          </div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.625rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              50 invoices per month
-            </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              All 6 templates
-            </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Clean PDFs — no watermark
-            </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Any browser
-            </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Gmail & Outlook
-            </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Cloud sync & backup
-            </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Analytics
-            </li>
-          </ul>
-          <span class="btn-secondary" style="text-align:center;font-weight:500;padding:0.625rem 1.25rem;border-radius:0.75rem;font-size:0.85rem;opacity:0.7;cursor:default;">Coming Soon</span>
-        </div>
+        <!-- Web (Pro / Pro Max toggle) -->
+        <div class="card-glow" style="border-radius:1rem;padding:2rem;display:flex;flex-direction:column;">
+          <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Web</h3>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin-bottom:1rem;">Cloud access, any device</p>
 
-        <!-- Web Pro Max -->
-        <div class="card-glow" style="border-radius:1rem;padding:1.75rem;display:flex;flex-direction:column;position:relative;">
-          <h3 style="font-weight:600;color:var(--text-primary);font-size:1.125rem;margin-bottom:0.25rem;">Web Pro Max</h3>
-          <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:1.25rem;">Unlimited cloud invoicing</p>
-          <div style="margin-bottom:0.5rem;">
-            <span style="font-size:2.25rem;font-weight:700;color:var(--text-primary);">£9.99</span>
-            <span style="font-size:0.8rem;color:var(--text-muted);"> / month</span>
+          <!-- Plan toggle -->
+          <div style="display:flex;border-radius:0.5rem;overflow:hidden;border:1px solid var(--border);margin-bottom:1.25rem;">
+            <button type="button" id="webProBtn" onclick="setWebPlan('pro')" style="flex:1;padding:0.4rem 0;font-size:0.75rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;background:rgba(var(--accent-rgb),0.15);color:var(--accent-400);">Pro</button>
+            <button type="button" id="webMaxBtn" onclick="setWebPlan('max')" style="flex:1;padding:0.4rem 0;font-size:0.75rem;font-weight:600;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;background:transparent;color:var(--text-muted);">Pro Max</button>
           </div>
-          <div style="margin-bottom:1.25rem;">
-            <span style="font-size:0.8rem;font-weight:600;color:var(--accent-400);">or £50/year</span>
-            <span style="font-size:0.7rem;color:var(--text-muted);"> — save 58%</span>
+
+          <!-- Price area -->
+          <div id="webPriceArea" style="margin-bottom:1.5rem;">
+            <span id="webPrice" style="font-size:2.5rem;font-weight:700;color:var(--text-primary);">£4.99</span>
+            <span id="webPriceSuffix" style="font-size:0.875rem;color:var(--text-muted);"> / month</span>
+            <div id="webAnnualNote" style="display:none;margin-top:0.25rem;">
+              <span style="font-size:0.8rem;font-weight:600;color:var(--accent-400);">or £50/year</span>
+              <span style="font-size:0.7rem;color:var(--text-muted);"> — save 58%</span>
+            </div>
           </div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.625rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              <strong style="color:var(--text-primary);">Unlimited</strong>&nbsp;invoices
+
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem;flex:1;">
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              <span id="webInvoiceLimit">50 invoices per month</span>
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               All 6 templates
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Clean PDFs — no watermark
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Clean PDF export — no watermark
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Any browser
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Access from any browser
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Gmail & Outlook
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Gmail & Outlook integration
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               Cloud sync & backup
             </li>
-            <li style="display:flex;align-items:flex-start;gap:0.625rem;font-size:0.8rem;color:var(--text-secondary);">
-              <svg class="check-icon" style="width:1.125rem;height:1.125rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-              Analytics
+            <li style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+              <svg class="check-icon" style="width:1.25rem;height:1.25rem;flex-shrink:0;margin-top:0.125rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Dashboard analytics
             </li>
           </ul>
-          <span class="btn-secondary" style="text-align:center;font-weight:500;padding:0.625rem 1.25rem;border-radius:0.75rem;font-size:0.85rem;opacity:0.7;cursor:default;">Coming Soon</span>
+          <span class="btn-secondary" style="text-align:center;font-weight:500;padding:0.75rem 1.5rem;border-radius:0.75rem;opacity:0.7;cursor:default;">Coming Soon</span>
         </div>
 
       </div>
@@ -1664,7 +1632,7 @@
       </div>
       <!-- Bottom row -->
       <div class="footer-bottom" style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem;">
-        <p style="font-size:0.7rem;color:var(--text-muted);">&copy; 2026 Invoi.Xyz. All rights reserved. &middot; b1</p>
+        <p style="font-size:0.7rem;color:var(--text-muted);">&copy; 2026 Invoi.Xyz. All rights reserved. &middot; b2</p>
         <div style="display:flex;align-items:center;gap:1.25rem;">
           <a href="#" style="font-size:0.7rem;color:var(--text-muted);text-decoration:none;">Privacy</a>
           <a href="#" style="font-size:0.7rem;color:var(--text-muted);text-decoration:none;">Terms</a>
@@ -1748,6 +1716,35 @@
         }
       });
     })();
+
+    // Web pricing toggle
+    function setWebPlan(plan) {
+      var proBtn = document.getElementById('webProBtn');
+      var maxBtn = document.getElementById('webMaxBtn');
+      var price = document.getElementById('webPrice');
+      var suffix = document.getElementById('webPriceSuffix');
+      var annual = document.getElementById('webAnnualNote');
+      var limit = document.getElementById('webInvoiceLimit');
+      if (plan === 'max') {
+        maxBtn.style.background = 'rgba(var(--accent-rgb),0.15)';
+        maxBtn.style.color = 'var(--accent-400)';
+        proBtn.style.background = 'transparent';
+        proBtn.style.color = 'var(--text-muted)';
+        price.textContent = '£9.99';
+        suffix.textContent = ' / month';
+        annual.style.display = 'block';
+        limit.innerHTML = '<strong style="color:var(--text-primary);">Unlimited</strong>\u00a0invoices';
+      } else {
+        proBtn.style.background = 'rgba(var(--accent-rgb),0.15)';
+        proBtn.style.color = 'var(--accent-400)';
+        maxBtn.style.background = 'transparent';
+        maxBtn.style.color = 'var(--text-muted)';
+        price.textContent = '£4.99';
+        suffix.textContent = ' / month';
+        annual.style.display = 'none';
+        limit.textContent = '50 invoices per month';
+      }
+    }
 
     function setMode(mode, init) {
       const html = document.documentElement;
