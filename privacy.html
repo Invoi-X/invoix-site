@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Invoi.Xyz</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Outfit', system-ui, sans-serif; background: #0a0a12; color: #c8c8d0; line-height: 1.7; padding: 3rem 1.5rem; }
+    .container { max-width: 48rem; margin: 0 auto; }
+    h1 { font-size: 2rem; font-weight: 700; color: #f0f0f5; margin-bottom: 0.5rem; }
+    .updated { font-size: 0.85rem; color: #888; margin-bottom: 2.5rem; }
+    h2 { font-size: 1.25rem; font-weight: 600; color: #e0e0e8; margin: 2rem 0 0.75rem; }
+    p, li { font-size: 0.95rem; margin-bottom: 0.75rem; }
+    ul { padding-left: 1.25rem; }
+    a { color: #a78bfa; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-block; margin-bottom: 2rem; font-size: 0.85rem; color: #888; }
+    .back:hover { color: #c8c8d0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back">&larr; Back to Invoi.Xyz</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: February 20, 2026</p>
+
+    <h2>Overview</h2>
+    <p>Invoi.Xyz is designed with privacy at its core. Your invoices, client data, and business information are stored locally on your device (desktop app) or in your personal browser storage (web app). We do not sell, share, or monetize your data.</p>
+
+    <h2>What We Collect</h2>
+    <ul>
+      <li><strong>Email address</strong> — only if you sign up for an account (web app) or join the waitlist.</li>
+      <li><strong>OAuth tokens</strong> — if you connect Gmail or Outlook for email sending. Tokens are AES-256-GCM encrypted at rest.</li>
+      <li><strong>Basic analytics</strong> — we may collect anonymous usage metrics (page views, feature usage) to improve the product. No personal data is included.</li>
+    </ul>
+
+    <h2>What We Don't Collect</h2>
+    <ul>
+      <li>Your invoice content, line items, or financial data</li>
+      <li>Your client names, addresses, or contact details</li>
+      <li>Your business information or logo</li>
+      <li>Payment card details (payments handled by LemonSqueezy)</li>
+    </ul>
+
+    <h2>Data Storage</h2>
+    <p><strong>Desktop app:</strong> All data is stored locally on your machine in the app's data directory. Nothing is sent to our servers unless you explicitly use the email feature.</p>
+    <p><strong>Web app:</strong> Invoice data is stored in your browser's local storage and optionally synced to your Supabase-backed account. OAuth tokens are stored encrypted on our backend.</p>
+
+    <h2>Third-Party Services</h2>
+    <ul>
+      <li><strong>Supabase</strong> — authentication and encrypted token storage (web app)</li>
+      <li><strong>Google OAuth</strong> — Gmail email integration (only if you connect it)</li>
+      <li><strong>Microsoft OAuth</strong> — Outlook email integration (only if you connect it)</li>
+      <li><strong>LemonSqueezy</strong> — payment processing for desktop licence purchases</li>
+      <li><strong>Vercel</strong> — web app and landing page hosting</li>
+    </ul>
+
+    <h2>Your Rights</h2>
+    <p>You can disconnect email integrations at any time from Settings. You can delete your account and all associated data by contacting us. Desktop app data can be deleted by uninstalling the application.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? Reach out at <a href="mailto:hello@invoix.xyz">hello@invoix.xyz</a>.</p>
+  </div>
+</body>
+</html>
