@@ -319,25 +319,27 @@
     .feature-card p { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; }
 
     /* ── Templates ── */
-    .tpl-slider-wrap { position: relative; max-width: 56rem; margin: 0 auto; }
+    .tpl-slider-wrap { position: relative; max-width: 42rem; margin: 0 auto; padding: 0 3rem; }
     .tpl-slider { overflow: hidden; }
     .tpl-track { display: flex; transition: transform 0.4s ease; }
-    .tpl-slide { min-width: 100%; display: flex; gap: 1.5rem; justify-content: center; padding: 0 1rem; }
-    .tpl-card {
-      background: #fff; border: 1px solid #e5e7eb; width: 280px; flex-shrink: 0;
-      font-family: 'Inter', system-ui, sans-serif; font-size: 6.5px; color: #555;
-      display: flex; flex-direction: column;
+    .tpl-slide { min-width: 100%; display: flex; justify-content: center; padding: 0 0.5rem; }
+    .tpl-page {
+      background: #fff; width: 100%; max-width: 580px;
+      font-family: 'Inter', system-ui, sans-serif; color: #374151;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
     }
+    .tpl-page table { width: 100%; border-collapse: collapse; }
+    .tpl-page th, .tpl-page td { text-align: left; }
     .tpl-arrow {
       position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
-      width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
       background: var(--surface-card); border: 1px solid var(--border);
       cursor: pointer; color: var(--text-muted); transition: all 0.15s;
     }
     .tpl-arrow:hover { border-color: var(--accent-500); color: var(--text-primary); }
-    .tpl-prev { left: -1.5rem; }
-    .tpl-next { right: -1.5rem; }
-    .tpl-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+    .tpl-prev { left: 0; }
+    .tpl-next { right: 0; }
+    .tpl-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; flex-wrap: wrap; }
     .tpl-dot {
       padding: 0.3rem 0.75rem; font-size: 0.7rem; font-weight: 500; cursor: pointer;
       background: transparent; border: 1px solid var(--border); color: var(--text-muted);
@@ -345,6 +347,10 @@
     }
     .tpl-dot.active { background: rgba(var(--accent-rgb), 0.12); border-color: var(--accent-500); color: var(--accent-400); }
     .tpl-dot:hover:not(.active) { border-color: var(--accent-500); color: var(--text-primary); }
+    @media (max-width: 640px) {
+      .tpl-slider-wrap { padding: 0 2.5rem; }
+      .tpl-page { font-size: 0.8em; }
+    }
 
     /* ── How It Works ── */
     .how-grid {
@@ -873,197 +879,322 @@
 
         <div class="tpl-slider">
           <div class="tpl-track" id="tplTrack">
-            <!-- Slide 1: Modern -->
-            <div class="tpl-slide">
-              <div class="tpl-card">
-                <div style="padding:0.6rem 0.8rem 0.3rem;display:flex;justify-content:space-between;align-items:flex-start;">
-                  <div><div style="font-size:13px;font-weight:800;color:var(--accent-500);">INVOICE</div><div style="font-size:6px;color:#999;margin-top:2px;">INV-2026-0041</div></div>
-                  <div style="text-align:right;"><div style="font-size:6px;color:#666;">Feb 8, 2026</div><div style="font-size:6px;color:#666;margin-top:1px;">Due: Mar 10, 2026</div></div>
+
+            <!-- ══ MODERN ══ -->
+            <div class="tpl-slide"><div class="tpl-page" style="padding:2.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;">
+                <div>
+                  <div style="font-size:28px;font-weight:700;color:#7c3aed;">INVOICE</div>
+                  <div style="font-size:12px;color:#6b7280;margin-top:4px;">INV-20260125-0039</div>
                 </div>
-                <div style="height:2px;background:var(--accent-500);margin:0.3rem 0.8rem;"></div>
-                <div style="display:flex;gap:0.8rem;padding:0 0.8rem 0.3rem;">
-                  <div style="flex:1;"><div style="font-size:5px;color:var(--accent-500);font-weight:700;">FROM</div><div style="font-size:6.5px;color:#333;font-weight:600;margin-top:2px;">Acme Services Ltd</div><div style="font-size:5.5px;color:#888;margin-top:1px;">742 Evergreen Terrace</div></div>
-                  <div style="flex:1;"><div style="font-size:5px;color:var(--accent-500);font-weight:700;">BILL TO</div><div style="font-size:6.5px;color:#333;font-weight:600;margin-top:2px;">Alex Johnson</div><div style="font-size:5.5px;color:#888;margin-top:1px;">Bright Co</div></div>
-                </div>
-                <div style="margin:0 0.8rem;display:flex;border-bottom:2px solid var(--accent-500);padding-bottom:2px;margin-bottom:2px;">
-                  <div style="flex:3;font-size:5.5px;font-weight:700;color:var(--accent-500);">DESCRIPTION</div><div style="flex:0.5;font-size:5.5px;font-weight:700;color:#999;text-align:center;">QTY</div><div style="flex:1;font-size:5.5px;font-weight:700;color:#999;text-align:right;">RATE</div><div style="flex:1;font-size:5.5px;font-weight:700;color:var(--accent-500);text-align:right;">AMOUNT</div>
-                </div>
-                <div style="margin:0 0.8rem;display:flex;flex-direction:column;gap:0;">
-                  <div style="display:flex;padding:2.5px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;">Website Redesign</div><div style="flex:0.5;text-align:center;color:#999;">1</div><div style="flex:1;text-align:right;color:#888;">$2,400</div><div style="flex:1;text-align:right;color:#444;font-weight:600;">$2,400</div></div>
-                  <div style="display:flex;padding:2.5px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;">Monthly Retainer</div><div style="flex:0.5;text-align:center;color:#999;">1</div><div style="flex:1;text-align:right;color:#888;">$3,200</div><div style="flex:1;text-align:right;color:#444;font-weight:600;">$3,200</div></div>
-                  <div style="display:flex;padding:2.5px 0;border-bottom:1px solid #f0f0f0;"><div style="flex:3;">Social Media Mgmt</div><div style="flex:0.5;text-align:center;color:#999;">1</div><div style="flex:1;text-align:right;color:#888;">$4,800</div><div style="flex:1;text-align:right;color:#444;font-weight:600;">$4,800</div></div>
-                  <div style="display:flex;padding:2.5px 0;"><div style="flex:3;">Consulting (2 hrs)</div><div style="flex:0.5;text-align:center;color:#999;">2</div><div style="flex:1;text-align:right;color:#888;">$150</div><div style="flex:1;text-align:right;color:#444;font-weight:600;">$300</div></div>
-                </div>
-                <div style="margin:0.3rem 0.8rem 0;padding-top:4px;">
-                  <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:1px;"><span style="color:#999;">Subtotal</span><span style="color:#666;">$10,700.00</span></div>
-                  <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:2px;"><span style="color:#999;">Tax (8.25%)</span><span style="color:#666;">$882.75</span></div>
-                  <div style="height:2px;background:var(--accent-500);margin-bottom:2px;"></div>
-                  <div style="display:flex;justify-content:flex-end;gap:12px;"><span style="font-size:8px;font-weight:700;color:var(--accent-500);">Total</span><span style="font-size:8px;font-weight:800;color:var(--accent-500);">$11,582.75</span></div>
-                </div>
-                <div style="margin:0.3rem 0.8rem 0.5rem;border-top:1px solid #f0f0f0;padding-top:3px;">
-                  <div style="font-size:5.5px;color:#999;">Payment due within 30 days. Thank you!</div>
+                <div style="text-align:right;font-size:12px;color:#6b7280;">
+                  <div><span style="font-weight:500;">Date:</span> 25/01/2026</div>
+                  <div><span style="font-weight:500;">Due:</span> 24/02/2026</div>
                 </div>
               </div>
-            </div>
-
-            <!-- Slide 2: Classic -->
-            <div class="tpl-slide">
-              <div class="tpl-card">
-                <div style="padding:0.5rem 0.8rem 0.3rem;border-bottom:1px solid #d1d5db;display:flex;align-items:center;">
-                  <div style="font-size:6.5px;color:#666;flex:1;">Acme Services Ltd</div>
-                  <div style="font-size:13px;font-weight:800;color:#1f2937;">INVOICE</div>
-                  <div style="flex:1;"></div>
+              <div style="height:3px;background:#7c3aed;margin-bottom:1.5rem;"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem;font-size:12px;">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">From</div>
+                  <div style="font-weight:600;">Pixel &amp; Flow Studio</div>
+                  <div style="color:#6b7280;">234 Creative Blvd, Suite 100</div>
+                  <div style="color:#6b7280;">Austin, TX 78701</div>
+                  <div style="color:#6b7280;">hello@pixelflow.studio</div>
+                  <div style="color:#6b7280;">(512) 555-0100</div>
+                  <div style="color:#6b7280;margin-top:4px;">Tax ID: 82-1234567</div>
                 </div>
-                <div style="display:flex;border-bottom:1px solid #d1d5db;">
-                  <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 6px;"><div style="font-size:5px;font-weight:700;color:#374151;">INVOICE #</div><div style="color:#666;margin-top:1px;">INV-2026-0041</div></div>
-                  <div style="flex:1;border-right:1px solid #d1d5db;padding:3px 6px;"><div style="font-size:5px;font-weight:700;color:#374151;">DATE</div><div style="color:#666;margin-top:1px;">Feb 8, 2026</div></div>
-                  <div style="flex:1;padding:3px 6px;"><div style="font-size:5px;font-weight:700;color:#374151;">DUE DATE</div><div style="color:#666;margin-top:1px;">Mar 10, 2026</div></div>
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Bill To</div>
+                  <div style="font-weight:600;">Emma Thornton</div>
+                  <div style="color:#6b7280;">350 Fifth Avenue, 59th Floor</div>
+                  <div style="color:#6b7280;">New York, NY 10118</div>
+                  <div style="color:#6b7280;">emma@thorntonlaw.com</div>
                 </div>
-                <div style="display:flex;border-bottom:1px solid #d1d5db;">
-                  <div style="flex:1;border-right:1px solid #d1d5db;padding:4px 6px;">
-                    <div style="font-size:5px;font-weight:700;color:#374151;">FROM</div>
-                    <div style="color:#555;font-weight:500;margin-top:2px;">Acme Services Ltd</div><div style="font-size:5.5px;color:#888;margin-top:1px;">742 Evergreen Terrace</div>
-                  </div>
-                  <div style="flex:1;padding:4px 6px;">
-                    <div style="font-size:5px;font-weight:700;color:#374151;">BILL TO</div>
-                    <div style="color:#555;font-weight:500;margin-top:2px;">Alex Johnson — Bright Co</div><div style="font-size:5.5px;color:#888;margin-top:1px;">200 Main St, New York</div>
+              </div>
+              <table style="margin-bottom:1.5rem;">
+                <thead><tr style="border-bottom:2px solid #7c3aed;">
+                  <th style="padding:8px 6px;font-size:10px;font-weight:600;text-transform:uppercase;color:#374151;">Description</th>
+                  <th style="padding:8px 6px;font-size:10px;font-weight:600;text-transform:uppercase;color:#374151;text-align:right;width:50px;">Qty</th>
+                  <th style="padding:8px 6px;font-size:10px;font-weight:600;text-transform:uppercase;color:#374151;text-align:right;width:90px;">Rate</th>
+                  <th style="padding:8px 6px;font-size:10px;font-weight:600;text-transform:uppercase;color:#374151;text-align:right;width:100px;">Amount</th>
+                </tr></thead>
+                <tbody style="font-size:12px;">
+                  <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 6px;">Design System Creation</td><td style="padding:10px 6px;text-align:right;color:#6b7280;">1</td><td style="padding:10px 6px;text-align:right;color:#6b7280;">$5,175.00</td><td style="padding:10px 6px;text-align:right;font-weight:500;">$5,175.00</td></tr>
+                  <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 6px;">Brand Guidelines (40 pages)</td><td style="padding:10px 6px;text-align:right;color:#6b7280;">1</td><td style="padding:10px 6px;text-align:right;color:#6b7280;">$2,400.00</td><td style="padding:10px 6px;text-align:right;font-weight:500;">$2,400.00</td></tr>
+                  <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 6px;">Icon Set Design (48 icons)</td><td style="padding:10px 6px;text-align:right;color:#6b7280;">1</td><td style="padding:10px 6px;text-align:right;color:#6b7280;">$1,680.00</td><td style="padding:10px 6px;text-align:right;font-weight:500;">$1,680.00</td></tr>
+                </tbody>
+              </table>
+              <div style="display:flex;justify-content:flex-end;margin-bottom:2rem;">
+                <div style="width:240px;font-size:12px;">
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#6b7280;">Subtotal</span><span>$9,255.00</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#6b7280;">Tax (8.25%)</span><span>$763.54</span></div>
+                  <div style="border-top:2px solid #7c3aed;margin-top:8px;padding-top:8px;display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:#7c3aed;">
+                    <span>TOTAL</span><span>$10,018.54</span>
                   </div>
                 </div>
-                <div style="display:flex;background:#374151;padding:3px 6px;">
-                  <div style="flex:3;font-size:5.5px;font-weight:700;color:#fff;">DESCRIPTION</div><div style="flex:0.5;font-size:5.5px;font-weight:700;color:#fff;text-align:center;">QTY</div><div style="flex:1;font-size:5.5px;font-weight:700;color:#fff;text-align:right;">RATE</div><div style="flex:1;font-size:5.5px;font-weight:700;color:#fff;text-align:right;">AMOUNT</div>
+              </div>
+              <div style="margin-bottom:1rem;"><div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;margin-bottom:4px;">Notes</div><div style="font-size:11px;color:#6b7280;">Thank you for choosing Pixel &amp; Flow Studio! We loved working on this project.</div></div>
+              <div style="margin-bottom:1rem;"><div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;margin-bottom:4px;">Terms &amp; Conditions</div><div style="font-size:11px;color:#6b7280;">Payment is due within the stated terms. A late fee of 1.5% per month applies to overdue balances.</div></div>
+              <div><div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;margin-bottom:4px;">Payment Instructions</div><div style="font-size:11px;color:#6b7280;white-space:pre-line;">Bank Transfer:
+Pixel &amp; Flow Studio
+Routing: 021000021
+Account: 485729103
+Ref: Invoice number</div></div>
+            </div></div>
+
+            <!-- ══ CLASSIC ══ -->
+            <div class="tpl-slide"><div class="tpl-page" style="border:3px solid #1f2937;">
+              <div style="border-bottom:3px solid #1f2937;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;">
+                <div style="font-size:13px;font-weight:600;">Pixel &amp; Flow Studio</div>
+                <div style="font-size:28px;font-weight:700;color:#1f2937;">INVOICE</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;font-size:12px;border-bottom:1px solid #d1d5db;">
+                <div style="padding:10px 16px;border-right:1px solid #d1d5db;"><div style="font-weight:700;color:#374151;font-size:10px;margin-bottom:4px;">INVOICE #</div><div>INV-20260125-0039</div></div>
+                <div style="padding:10px 16px;border-right:1px solid #d1d5db;"><div style="font-weight:700;color:#374151;font-size:10px;margin-bottom:4px;">DATE</div><div>25/01/2026</div></div>
+                <div style="padding:10px 16px;"><div style="font-weight:700;color:#374151;font-size:10px;margin-bottom:4px;">DUE DATE</div><div>24/02/2026</div></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #d1d5db;">
+                <div style="padding:12px 16px;border-right:1px solid #d1d5db;">
+                  <div style="font-weight:700;font-size:10px;color:#374151;margin-bottom:6px;border-bottom:1px solid #d1d5db;padding-bottom:4px;">FROM</div>
+                  <div style="font-size:12px;"><div style="font-weight:600;">Pixel &amp; Flow Studio</div><div style="color:#6b7280;">234 Creative Blvd, Suite 100</div><div style="color:#6b7280;">Austin, TX 78701</div><div style="color:#6b7280;">hello@pixelflow.studio</div></div>
                 </div>
-                <div style="display:flex;padding:3px 6px;border-bottom:1px solid #e5e7eb;"><div style="flex:3;">Website Redesign</div><div style="flex:0.5;text-align:center;color:#666;">1</div><div style="flex:1;text-align:right;color:#888;">$2,400</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$2,400</div></div>
-                <div style="display:flex;padding:3px 6px;background:#f9fafb;border-bottom:1px solid #e5e7eb;"><div style="flex:3;">Monthly Retainer</div><div style="flex:0.5;text-align:center;color:#666;">1</div><div style="flex:1;text-align:right;color:#888;">$3,200</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$3,200</div></div>
-                <div style="display:flex;padding:3px 6px;border-bottom:1px solid #e5e7eb;"><div style="flex:3;">Social Media Mgmt</div><div style="flex:0.5;text-align:center;color:#666;">1</div><div style="flex:1;text-align:right;color:#888;">$4,800</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$4,800</div></div>
-                <div style="display:flex;padding:3px 6px;border-bottom:1px solid #e5e7eb;"><div style="flex:3;">Consulting (2 hrs)</div><div style="flex:0.5;text-align:center;color:#666;">2</div><div style="flex:1;text-align:right;color:#888;">$150</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$300</div></div>
-                <div style="padding:3px 6px;">
-                  <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:1px;"><span style="font-weight:600;color:#666;">SUBTOTAL</span><span style="font-weight:600;color:#374151;">$10,700.00</span></div>
-                  <div style="display:flex;justify-content:flex-end;gap:10px;"><span style="color:#666;">TAX (8.25%)</span><span style="color:#374151;">$882.75</span></div>
-                </div>
-                <div style="background:#374151;padding:5px 8px;display:flex;justify-content:space-between;margin-top:auto;">
-                  <span style="font-size:8px;font-weight:800;color:#fff;">TOTAL</span><span style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</span>
+                <div style="padding:12px 16px;">
+                  <div style="font-weight:700;font-size:10px;color:#374151;margin-bottom:6px;border-bottom:1px solid #d1d5db;padding-bottom:4px;">BILL TO</div>
+                  <div style="font-size:12px;"><div style="font-weight:600;">Emma Thornton</div><div style="color:#6b7280;">350 Fifth Avenue, 59th Floor</div><div style="color:#6b7280;">New York, NY 10118</div></div>
                 </div>
               </div>
-            </div>
-
-            <!-- Slide 3: Minimal -->
-            <div class="tpl-slide">
-              <div class="tpl-card">
-                <div style="padding:0.6rem 0.8rem 0.4rem;display:flex;justify-content:space-between;align-items:flex-start;">
-                  <div style="font-size:16px;font-weight:300;color:#374151;line-height:1;">Invoice</div>
-                  <div style="text-align:right;"><div style="color:#999;">INV-2026-0041</div><div style="color:#999;margin-top:1px;">Feb 8, 2026</div><div style="color:#999;margin-top:1px;">Due: Mar 10</div></div>
-                </div>
-                <div style="height:1px;background:#e5e7eb;margin:0 0.8rem 0.35rem;"></div>
-                <div style="display:flex;gap:1.5rem;padding:0 0.8rem 0.35rem;">
-                  <div style="flex:1;"><div style="font-size:5px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;">FROM</div><div style="color:#555;font-weight:500;margin-top:2px;">Acme Services Ltd</div><div style="font-size:5.5px;color:#999;margin-top:1px;">742 Evergreen Terrace</div></div>
-                  <div style="flex:1;"><div style="font-size:5px;color:#bbb;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;">TO</div><div style="color:#555;font-weight:500;margin-top:2px;">Alex Johnson</div><div style="font-size:5.5px;color:#999;margin-top:1px;">Bright Co</div></div>
-                </div>
-                <div style="margin:0 0.8rem;display:flex;flex-direction:column;gap:3px;">
-                  <div style="display:flex;justify-content:space-between;padding-bottom:3px;border-bottom:1px solid #f3f4f6;"><div><div style="color:#444;">Website Redesign</div><div style="font-size:5px;color:#ccc;margin-top:1px;">1 x $2,400</div></div><div style="color:#555;">$2,400</div></div>
-                  <div style="display:flex;justify-content:space-between;padding-bottom:3px;border-bottom:1px solid #f3f4f6;"><div><div style="color:#444;">Monthly Retainer</div><div style="font-size:5px;color:#ccc;margin-top:1px;">1 x $3,200</div></div><div style="color:#555;">$3,200</div></div>
-                  <div style="display:flex;justify-content:space-between;padding-bottom:3px;border-bottom:1px solid #f3f4f6;"><div><div style="color:#444;">Social Media Mgmt</div><div style="font-size:5px;color:#ccc;margin-top:1px;">1 x $4,800</div></div><div style="color:#555;">$4,800</div></div>
-                  <div style="display:flex;justify-content:space-between;padding-bottom:3px;border-bottom:1px solid #f3f4f6;"><div><div style="color:#444;">Consulting (2 hrs)</div><div style="font-size:5px;color:#ccc;margin-top:1px;">2 x $150</div></div><div style="color:#555;">$300</div></div>
-                </div>
-                <div style="margin:0.3rem 0.8rem 0.5rem;padding-top:4px;">
-                  <div style="display:flex;justify-content:flex-end;gap:16px;margin-bottom:1px;"><span style="color:#bbb;">Subtotal</span><span style="color:#666;">$10,700.00</span></div>
-                  <div style="display:flex;justify-content:flex-end;gap:16px;margin-bottom:3px;"><span style="color:#bbb;">Tax 8.25%</span><span style="color:#666;">$882.75</span></div>
-                  <div style="height:1px;background:#e5e7eb;margin-bottom:3px;"></div>
-                  <div style="display:flex;justify-content:flex-end;gap:16px;"><span style="font-size:8px;color:#374151;">Total</span><span style="font-size:8px;color:#374151;font-weight:500;">$11,582.75</span></div>
+              <table>
+                <thead><tr style="background:#1f2937;color:#fff;">
+                  <th style="padding:10px 16px;font-size:11px;font-weight:700;">DESCRIPTION</th>
+                  <th style="padding:10px 16px;font-size:11px;font-weight:700;text-align:center;width:50px;">QTY</th>
+                  <th style="padding:10px 16px;font-size:11px;font-weight:700;text-align:right;width:90px;">RATE</th>
+                  <th style="padding:10px 16px;font-size:11px;font-weight:700;text-align:right;width:100px;">AMOUNT</th>
+                </tr></thead>
+                <tbody style="font-size:12px;">
+                  <tr style="background:#f9fafb;border-bottom:1px solid #e5e7eb;"><td style="padding:10px 16px;">Design System Creation</td><td style="padding:10px 16px;text-align:center;color:#6b7280;">1</td><td style="padding:10px 16px;text-align:right;color:#6b7280;">$5,175.00</td><td style="padding:10px 16px;text-align:right;font-weight:600;">$5,175.00</td></tr>
+                  <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 16px;">Brand Guidelines (40 pages)</td><td style="padding:10px 16px;text-align:center;color:#6b7280;">1</td><td style="padding:10px 16px;text-align:right;color:#6b7280;">$2,400.00</td><td style="padding:10px 16px;text-align:right;font-weight:600;">$2,400.00</td></tr>
+                  <tr style="background:#f9fafb;border-bottom:1px solid #e5e7eb;"><td style="padding:10px 16px;">Icon Set Design (48 icons)</td><td style="padding:10px 16px;text-align:center;color:#6b7280;">1</td><td style="padding:10px 16px;text-align:right;color:#6b7280;">$1,680.00</td><td style="padding:10px 16px;text-align:right;font-weight:600;">$1,680.00</td></tr>
+                </tbody>
+              </table>
+              <div style="display:flex;justify-content:flex-end;padding:0 16px;">
+                <div style="width:260px;border:2px solid #1f2937;">
+                  <div style="display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #d1d5db;font-size:12px;"><span style="font-weight:600;">SUBTOTAL</span><span>$9,255.00</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #d1d5db;font-size:12px;"><span style="font-weight:600;">TAX (8.25%)</span><span>$763.54</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:10px 12px;background:#1f2937;color:#fff;font-size:15px;font-weight:700;"><span>TOTAL</span><span>$10,018.54</span></div>
                 </div>
               </div>
-            </div>
+              <div style="padding:1rem 16px 1.5rem;">
+                <div style="border:1px solid #d1d5db;padding:10px 12px;font-size:11px;color:#6b7280;"><span style="font-weight:700;color:#374151;">NOTES:</span> Thank you for choosing Pixel &amp; Flow Studio! We loved working on this project.</div>
+              </div>
+            </div></div>
 
-            <!-- Slide 4: Professional -->
-            <div class="tpl-slide">
-              <div class="tpl-card">
-                <div style="height:4px;background:var(--accent-500);flex-shrink:0;"></div>
-                <div style="display:flex;justify-content:space-between;padding:0.5rem 0.8rem;">
-                  <div><div style="font-size:7.5px;font-weight:700;color:#374151;">Acme Services Ltd</div><div style="font-size:5.5px;color:#888;margin-top:1px;">742 Evergreen Terrace</div><div style="font-size:5.5px;color:#888;margin-top:1px;">hello@acmeservices.com</div></div>
-                  <div style="text-align:right;"><div style="font-size:13px;font-weight:800;color:#374151;">INVOICE</div><div style="font-size:5.5px;color:#666;margin-top:1px;"># INV-2026-0041</div><div style="font-size:5.5px;color:var(--accent-500);font-weight:600;margin-top:1px;">Due: Mar 10, 2026</div></div>
+            <!-- ══ MINIMAL ══ -->
+            <div class="tpl-slide"><div class="tpl-page" style="padding:3rem;">
+              <div style="margin-bottom:2.5rem;">
+                <div style="font-size:32px;font-weight:300;color:#374151;margin-bottom:8px;">Invoice</div>
+                <div style="height:1px;background:#e5e7eb;margin-bottom:12px;"></div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:#9ca3af;">
+                  <div>INV-20260125-0039</div>
+                  <div style="text-align:right;"><div>25/01/2026</div><div>Due 24/02/2026</div></div>
                 </div>
-                <div style="margin:0 0.8rem 0.3rem;border:1px solid #e5e7eb;padding:4px 6px;">
-                  <div style="font-size:5px;font-weight:700;color:#374151;">BILL TO:</div>
-                  <div style="color:#555;font-weight:500;margin-top:1px;">Alex Johnson — Bright Co</div><div style="font-size:5.5px;color:#888;margin-top:1px;">200 Main St, New York</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:2.5rem;font-size:12px;">
+                <div>
+                  <div style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px;">From</div>
+                  <div style="font-weight:500;">Pixel &amp; Flow Studio</div>
+                  <div style="color:#6b7280;">234 Creative Blvd, Suite 100</div>
+                  <div style="color:#6b7280;">Austin, TX 78701</div>
+                  <div style="color:#6b7280;">hello@pixelflow.studio</div>
                 </div>
-                <div style="margin:0 0.8rem;">
-                  <div style="display:flex;background:rgba(var(--accent-rgb),0.08);padding:3px 6px;border-bottom:1px solid #e5e7eb;">
-                    <div style="flex:3;font-size:5.5px;font-weight:700;color:#374151;">DESCRIPTION</div><div style="flex:0.5;font-size:5.5px;font-weight:700;color:#374151;text-align:center;">QTY</div><div style="flex:1;font-size:5.5px;font-weight:700;color:#374151;text-align:right;">RATE</div><div style="flex:1;font-size:5.5px;font-weight:700;color:#374151;text-align:right;">AMOUNT</div>
+                <div>
+                  <div style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px;">To</div>
+                  <div style="font-weight:500;">Emma Thornton</div>
+                  <div style="color:#6b7280;">350 Fifth Avenue, 59th Floor</div>
+                  <div style="color:#6b7280;">New York, NY 10118</div>
+                </div>
+              </div>
+              <div style="margin-bottom:2rem;">
+                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:12px;"><div><div style="font-weight:500;color:#374151;">Design System Creation</div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">1 &times; $5,175.00</div></div><div style="font-weight:500;">$5,175.00</div></div>
+                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:12px;"><div><div style="font-weight:500;color:#374151;">Brand Guidelines (40 pages)</div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">1 &times; $2,400.00</div></div><div style="font-weight:500;">$2,400.00</div></div>
+                <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:12px;"><div><div style="font-weight:500;color:#374151;">Icon Set Design (48 icons)</div><div style="font-size:11px;color:#9ca3af;margin-top:2px;">1 &times; $1,680.00</div></div><div style="font-weight:500;">$1,680.00</div></div>
+              </div>
+              <div style="display:flex;justify-content:flex-end;margin-bottom:2.5rem;">
+                <div style="width:220px;font-size:12px;">
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;color:#6b7280;"><span>Subtotal</span><span>$9,255.00</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;color:#6b7280;"><span>Tax 8.25%</span><span>$763.54</span></div>
+                  <div style="height:1px;background:#e5e7eb;margin:8px 0;"></div>
+                  <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:300;color:#374151;"><span>Total</span><span>$10,018.54</span></div>
+                </div>
+              </div>
+              <div style="font-size:11px;color:#6b7280;">
+                <div style="margin-bottom:12px;"><div style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:4px;">Notes</div>Thank you for choosing Pixel &amp; Flow Studio! We loved working on this project.</div>
+                <div><div style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:4px;">Payment</div>Bank Transfer: Routing 021000021 &middot; Account 485729103 &middot; Ref: Invoice number</div>
+              </div>
+            </div></div>
+
+            <!-- ══ PROFESSIONAL ══ -->
+            <div class="tpl-slide"><div class="tpl-page">
+              <div style="border-bottom:4px solid #7c3aed;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:flex-start;">
+                <div style="font-size:12px;">
+                  <div style="font-weight:700;font-size:14px;color:#1f2937;">Pixel &amp; Flow Studio</div>
+                  <div style="color:#6b7280;margin-top:2px;">234 Creative Blvd, Suite 100</div>
+                  <div style="color:#6b7280;">Austin, TX 78701</div>
+                  <div style="color:#6b7280;">hello@pixelflow.studio</div>
+                  <div style="color:#6b7280;">(512) 555-0100</div>
+                  <div style="color:#6b7280;margin-top:2px;">Tax ID: 82-1234567</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:26px;font-weight:700;color:#1f2937;">INVOICE</div>
+                  <div style="font-size:12px;color:#6b7280;margin-top:2px;"><span style="font-weight:600;">Invoice #:</span> INV-20260125-0039</div>
+                  <div style="font-size:12px;color:#6b7280;"><span style="font-weight:600;">Date:</span> 25/01/2026</div>
+                  <div style="font-size:12px;color:#6b7280;"><span style="font-weight:600;">Due Date:</span> 24/02/2026</div>
+                </div>
+              </div>
+              <div style="margin:1rem 2rem;background:#f9fafb;border:1px solid #e5e7eb;padding:10px 14px;font-size:12px;">
+                <div style="font-weight:700;font-size:10px;text-transform:uppercase;color:#374151;margin-bottom:4px;">Bill To:</div>
+                <div style="font-weight:600;">Emma Thornton</div>
+                <div style="color:#6b7280;">350 Fifth Avenue, 59th Floor</div>
+                <div style="color:#6b7280;">New York, NY 10118</div>
+                <div style="color:#6b7280;">emma@thorntonlaw.com</div>
+              </div>
+              <div style="margin:0 2rem;">
+                <table style="border:1px solid #e5e7eb;">
+                  <thead><tr style="background:rgba(124,58,237,0.06);">
+                    <th style="padding:8px 12px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:2px solid #e5e7eb;">Description</th>
+                    <th style="padding:8px 12px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:2px solid #e5e7eb;text-align:right;width:50px;">Qty</th>
+                    <th style="padding:8px 12px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:2px solid #e5e7eb;text-align:right;width:90px;">Rate</th>
+                    <th style="padding:8px 12px;font-size:10px;font-weight:700;text-transform:uppercase;border-bottom:2px solid #e5e7eb;text-align:right;width:100px;">Amount</th>
+                  </tr></thead>
+                  <tbody style="font-size:12px;">
+                    <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 12px;">Design System Creation</td><td style="padding:10px 12px;text-align:right;color:#6b7280;">1</td><td style="padding:10px 12px;text-align:right;color:#6b7280;">$5,175.00</td><td style="padding:10px 12px;text-align:right;font-weight:600;">$5,175.00</td></tr>
+                    <tr style="background:#f9fafb;border-bottom:1px solid #e5e7eb;"><td style="padding:10px 12px;">Brand Guidelines (40 pages)</td><td style="padding:10px 12px;text-align:right;color:#6b7280;">1</td><td style="padding:10px 12px;text-align:right;color:#6b7280;">$2,400.00</td><td style="padding:10px 12px;text-align:right;font-weight:600;">$2,400.00</td></tr>
+                    <tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:10px 12px;">Icon Set Design (48 icons)</td><td style="padding:10px 12px;text-align:right;color:#6b7280;">1</td><td style="padding:10px 12px;text-align:right;color:#6b7280;">$1,680.00</td><td style="padding:10px 12px;text-align:right;font-weight:600;">$1,680.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="display:flex;justify-content:flex-end;padding:0 2rem;margin:1rem 0;">
+                <div style="width:240px;border:1px solid #e5e7eb;">
+                  <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f9fafb;border-bottom:1px solid #e5e7eb;font-size:12px;"><span style="font-weight:600;color:#374151;">Subtotal</span><span>$9,255.00</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;"><span style="color:#374151;">Tax (8.25%)</span><span>$763.54</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:10px 12px;background:#7c3aed;color:#fff;font-size:14px;font-weight:700;"><span>TOTAL</span><span>$10,018.54</span></div>
+                </div>
+              </div>
+              <div style="padding:0 2rem 1.5rem;font-size:11px;">
+                <div style="border-left:3px solid #7c3aed;padding-left:12px;color:#6b7280;"><span style="font-weight:700;font-size:10px;text-transform:uppercase;color:#374151;">Notes</span><br>Thank you for choosing Pixel &amp; Flow Studio! We loved working on this project.</div>
+              </div>
+            </div></div>
+
+            <!-- ══ ELEGANT ══ -->
+            <div class="tpl-slide"><div class="tpl-page" style="background:linear-gradient(to bottom right,#fafafa,#fff);">
+              <div style="text-align:center;padding:2rem 2rem 1.5rem;border-bottom:2px solid rgba(124,58,237,0.2);">
+                <div style="font-size:30px;font-weight:300;letter-spacing:0.15em;color:#7c3aed;">INVOICE</div>
+                <div style="font-size:12px;color:#9ca3af;letter-spacing:0.05em;margin-top:4px;">INV-20260125-0039</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:1.5rem 2rem;font-size:12px;">
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px;">From</div>
+                  <div style="font-weight:600;font-size:13px;">Pixel &amp; Flow Studio</div>
+                  <div style="color:#6b7280;">234 Creative Blvd, Suite 100</div>
+                  <div style="color:#6b7280;">Austin, TX 78701</div>
+                  <div style="color:#6b7280;">hello@pixelflow.studio</div>
+                </div>
+                <div>
+                  <div style="font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:6px;">To</div>
+                  <div style="font-weight:600;font-size:13px;">Emma Thornton</div>
+                  <div style="color:#6b7280;">350 Fifth Avenue, 59th Floor</div>
+                  <div style="color:#6b7280;">New York, NY 10118</div>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;margin:0 2rem 1rem;padding:8px 0;border:1px solid rgba(124,58,237,0.15);font-size:11px;text-align:center;">
+                <div><div style="font-size:9px;color:#9ca3af;text-transform:uppercase;margin-bottom:2px;">Date</div><div style="font-weight:500;">25/01/2026</div></div>
+                <div style="border-left:1px solid rgba(124,58,237,0.1);border-right:1px solid rgba(124,58,237,0.1);"><div style="font-size:9px;color:#9ca3af;text-transform:uppercase;margin-bottom:2px;">Due Date</div><div style="font-weight:500;">24/02/2026</div></div>
+                <div><div style="font-size:9px;color:#9ca3af;text-transform:uppercase;margin-bottom:2px;">PO Number</div><div style="font-weight:500;">&mdash;</div></div>
+              </div>
+              <div style="margin:0 2rem;">
+                <table>
+                  <thead><tr style="border-bottom:2px solid #7c3aed;">
+                    <th style="padding:8px 4px;font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.1em;">Description</th>
+                    <th style="padding:8px 4px;font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.1em;text-align:right;width:50px;">Qty</th>
+                    <th style="padding:8px 4px;font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.1em;text-align:right;width:90px;">Rate</th>
+                    <th style="padding:8px 4px;font-size:10px;font-weight:600;color:#7c3aed;text-transform:uppercase;letter-spacing:0.1em;text-align:right;width:100px;">Amount</th>
+                  </tr></thead>
+                  <tbody style="font-size:12px;">
+                    <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:12px 4px;">Design System Creation</td><td style="padding:12px 4px;text-align:right;color:#9ca3af;">1</td><td style="padding:12px 4px;text-align:right;color:#9ca3af;">$5,175.00</td><td style="padding:12px 4px;text-align:right;font-weight:500;">$5,175.00</td></tr>
+                    <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:12px 4px;">Brand Guidelines (40 pages)</td><td style="padding:12px 4px;text-align:right;color:#9ca3af;">1</td><td style="padding:12px 4px;text-align:right;color:#9ca3af;">$2,400.00</td><td style="padding:12px 4px;text-align:right;font-weight:500;">$2,400.00</td></tr>
+                    <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:12px 4px;">Icon Set Design (48 icons)</td><td style="padding:12px 4px;text-align:right;color:#9ca3af;">1</td><td style="padding:12px 4px;text-align:right;color:#9ca3af;">$1,680.00</td><td style="padding:12px 4px;text-align:right;font-weight:500;">$1,680.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="display:flex;justify-content:flex-end;padding:1rem 2rem;">
+                <div style="width:240px;font-size:12px;">
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#9ca3af;">Subtotal</span><span>$9,255.00</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span style="color:#9ca3af;">Tax (8.25%)</span><span>$763.54</span></div>
+                  <div style="border-top:2px solid #7c3aed;margin-top:8px;padding-top:8px;display:flex;justify-content:space-between;font-size:16px;font-weight:600;color:#7c3aed;letter-spacing:0.03em;">
+                    <span>TOTAL</span><span>$10,018.54</span>
                   </div>
-                  <div style="display:flex;padding:3px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;">Website Redesign</div><div style="flex:0.5;text-align:center;color:#999;">1</div><div style="flex:1;text-align:right;color:#888;">$2,400</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$2,400</div></div>
-                  <div style="display:flex;padding:3px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;">Monthly Retainer</div><div style="flex:0.5;text-align:center;color:#999;">1</div><div style="flex:1;text-align:right;color:#888;">$3,200</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$3,200</div></div>
-                  <div style="display:flex;padding:3px 6px;border-bottom:1px solid #f0f0f0;"><div style="flex:3;">Social Media Mgmt</div><div style="flex:0.5;text-align:center;color:#999;">1</div><div style="flex:1;text-align:right;color:#888;">$4,800</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$4,800</div></div>
-                  <div style="display:flex;padding:3px 6px;"><div style="flex:3;">Consulting (2 hrs)</div><div style="flex:0.5;text-align:center;color:#999;">2</div><div style="flex:1;text-align:right;color:#888;">$150</div><div style="flex:1;text-align:right;color:#374151;font-weight:600;">$300</div></div>
-                </div>
-                <div style="margin:0.2rem 0.8rem 0;padding-top:3px;">
-                  <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:1px;"><span style="color:#666;">Subtotal</span><span style="color:#374151;">$10,700.00</span></div>
-                  <div style="display:flex;justify-content:flex-end;gap:10px;margin-bottom:2px;"><span style="color:#666;">Tax (8.25%)</span><span style="color:#374151;">$882.75</span></div>
-                </div>
-                <div style="background:var(--accent-500);padding:5px 8px;display:flex;justify-content:space-between;margin:0.2rem 0.8rem 0.5rem;">
-                  <span style="font-size:8px;font-weight:800;color:#fff;">TOTAL DUE</span><span style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</span>
                 </div>
               </div>
-            </div>
+              <div style="text-align:center;padding:1rem 2rem;border-top:1px solid rgba(124,58,237,0.1);">
+                <div style="font-size:10px;color:#9ca3af;letter-spacing:0.15em;">Thank you for your business</div>
+              </div>
+            </div></div>
 
-            <!-- Slide 5: Elegant -->
-            <div class="tpl-slide">
-              <div class="tpl-card" style="border-color:#d4d4d8;">
-                <div style="background:linear-gradient(135deg,#1f2937,#374151);padding:0.6rem 0.8rem;display:flex;justify-content:space-between;align-items:center;">
-                  <div style="font-size:8px;font-weight:700;color:#fff;letter-spacing:0.05em;">Acme Services Ltd</div>
-                  <div style="font-size:11px;font-weight:300;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">INVOICE</div>
-                </div>
-                <div style="display:flex;gap:1rem;padding:0.4rem 0.8rem;">
-                  <div style="flex:1;"><div style="font-size:5px;color:#a1a1aa;font-weight:600;letter-spacing:0.1em;">FROM</div><div style="color:#555;font-weight:500;margin-top:2px;">Acme Services Ltd</div><div style="font-size:5.5px;color:#888;margin-top:1px;">742 Evergreen Terrace</div></div>
-                  <div style="flex:1;"><div style="font-size:5px;color:#a1a1aa;font-weight:600;letter-spacing:0.1em;">BILL TO</div><div style="color:#555;font-weight:500;margin-top:2px;">Alex Johnson</div><div style="font-size:5.5px;color:#888;margin-top:1px;">Bright Co</div></div>
-                  <div><div style="font-size:5px;color:#a1a1aa;font-weight:600;letter-spacing:0.1em;">DATE</div><div style="color:#555;margin-top:2px;">Feb 8, 2026</div><div style="font-size:5.5px;color:var(--accent-500);margin-top:1px;">Due: Mar 10</div></div>
-                </div>
-                <div style="margin:0.2rem 0.8rem;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;">
-                  <div style="display:flex;padding:3px 0;"><div style="flex:3;font-size:5.5px;color:#a1a1aa;font-weight:600;letter-spacing:0.05em;">ITEM</div><div style="flex:0.5;font-size:5.5px;color:#a1a1aa;text-align:center;">QTY</div><div style="flex:1;font-size:5.5px;color:#a1a1aa;text-align:right;">RATE</div><div style="flex:1;font-size:5.5px;color:#a1a1aa;text-align:right;">AMOUNT</div></div>
-                </div>
-                <div style="margin:0 0.8rem;">
-                  <div style="display:flex;padding:3px 0;border-bottom:1px solid #f4f4f5;"><div style="flex:3;color:#444;">Website Redesign</div><div style="flex:0.5;text-align:center;color:#a1a1aa;">1</div><div style="flex:1;text-align:right;color:#a1a1aa;">$2,400</div><div style="flex:1;text-align:right;color:#374151;font-weight:500;">$2,400</div></div>
-                  <div style="display:flex;padding:3px 0;border-bottom:1px solid #f4f4f5;"><div style="flex:3;color:#444;">Monthly Retainer</div><div style="flex:0.5;text-align:center;color:#a1a1aa;">1</div><div style="flex:1;text-align:right;color:#a1a1aa;">$3,200</div><div style="flex:1;text-align:right;color:#374151;font-weight:500;">$3,200</div></div>
-                  <div style="display:flex;padding:3px 0;border-bottom:1px solid #f4f4f5;"><div style="flex:3;color:#444;">Social Media Mgmt</div><div style="flex:0.5;text-align:center;color:#a1a1aa;">1</div><div style="flex:1;text-align:right;color:#a1a1aa;">$4,800</div><div style="flex:1;text-align:right;color:#374151;font-weight:500;">$4,800</div></div>
-                  <div style="display:flex;padding:3px 0;"><div style="flex:3;color:#444;">Consulting (2 hrs)</div><div style="flex:0.5;text-align:center;color:#a1a1aa;">2</div><div style="flex:1;text-align:right;color:#a1a1aa;">$150</div><div style="flex:1;text-align:right;color:#374151;font-weight:500;">$300</div></div>
-                </div>
-                <div style="margin:0.3rem 0.8rem 0;padding-top:3px;border-top:1px solid #e5e7eb;">
-                  <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:1px;"><span style="color:#a1a1aa;">Subtotal</span><span style="color:#555;">$10,700.00</span></div>
-                  <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:3px;"><span style="color:#a1a1aa;">Tax</span><span style="color:#555;">$882.75</span></div>
-                </div>
-                <div style="background:linear-gradient(135deg,#1f2937,#374151);padding:5px 10px;display:flex;justify-content:space-between;margin-top:auto;">
-                  <span style="font-size:7px;color:rgba(255,255,255,0.6);letter-spacing:0.1em;">TOTAL DUE</span><span style="font-size:9px;font-weight:700;color:#fff;">$11,582.75</span>
+            <!-- ══ WILD ══ -->
+            <div class="tpl-slide"><div class="tpl-page" style="background:linear-gradient(to bottom right,#1a1040,#0f2847,#0a3235);color:#e2e8f0;border:3px solid #a855f7;padding:1.5rem 2rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+                <div style="font-size:32px;font-weight:900;font-style:italic;background:linear-gradient(to right,#a855f7,#ec4899,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">INVOICE</div>
+                <div style="background:rgba(0,0,0,0.4);border:2px solid #ec4899;padding:8px 12px;text-align:right;font-size:11px;font-family:'JetBrains Mono',monospace;">
+                  <div style="color:#ec4899;font-size:9px;font-weight:700;">INVOICE DATA</div>
+                  <div style="color:#a855f7;">INV-20260125-0039</div>
+                  <div style="color:#f59e0b;">Due: 24/02/2026</div>
                 </div>
               </div>
-            </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem;">
+                <div style="background:rgba(168,85,247,0.08);border:2px solid rgba(168,85,247,0.3);padding:10px 12px;font-size:12px;">
+                  <div style="font-size:10px;font-weight:900;color:#a855f7;text-transform:uppercase;margin-bottom:4px;">From</div>
+                  <div style="font-weight:700;">Pixel &amp; Flow Studio</div>
+                  <div style="color:#94a3b8;">234 Creative Blvd, Suite 100</div>
+                  <div style="color:#ec4899;">hello@pixelflow.studio</div>
+                </div>
+                <div style="background:rgba(236,72,153,0.08);border:2px solid rgba(236,72,153,0.3);padding:10px 12px;font-size:12px;">
+                  <div style="font-size:10px;font-weight:900;color:#ec4899;text-transform:uppercase;margin-bottom:4px;">To</div>
+                  <div style="font-weight:700;">Emma Thornton</div>
+                  <div style="color:#94a3b8;">350 Fifth Avenue, 59th Floor</div>
+                  <div style="color:#a855f7;">emma@thorntonlaw.com</div>
+                </div>
+              </div>
+              <div style="border:3px solid #a855f7;margin-bottom:1.5rem;">
+                <table>
+                  <thead><tr style="background:linear-gradient(to right,#1a1040,#0f2847);border-bottom:3px solid #a855f7;">
+                    <th style="padding:8px 10px;font-size:10px;font-weight:900;color:#a855f7;text-transform:uppercase;">Description</th>
+                    <th style="padding:8px 10px;font-size:10px;font-weight:900;color:#a855f7;text-align:right;width:50px;">Qty</th>
+                    <th style="padding:8px 10px;font-size:10px;font-weight:900;color:#a855f7;text-align:right;width:90px;">Rate</th>
+                    <th style="padding:8px 10px;font-size:10px;font-weight:900;color:#a855f7;text-align:right;width:100px;">Amount</th>
+                  </tr></thead>
+                  <tbody style="font-size:12px;">
+                    <tr style="background:rgba(168,85,247,0.05);border-bottom:1px solid rgba(168,85,247,0.15);"><td style="padding:10px;font-weight:600;">Design System Creation</td><td style="padding:10px;text-align:right;color:#ec4899;font-weight:700;">1</td><td style="padding:10px;text-align:right;color:#ec4899;font-weight:700;">$5,175.00</td><td style="padding:10px;text-align:right;color:#a855f7;font-weight:900;">$5,175.00</td></tr>
+                    <tr style="background:rgba(236,72,153,0.05);border-bottom:1px solid rgba(168,85,247,0.15);"><td style="padding:10px;font-weight:600;">Brand Guidelines (40 pages)</td><td style="padding:10px;text-align:right;color:#ec4899;font-weight:700;">1</td><td style="padding:10px;text-align:right;color:#ec4899;font-weight:700;">$2,400.00</td><td style="padding:10px;text-align:right;color:#a855f7;font-weight:900;">$2,400.00</td></tr>
+                    <tr style="background:rgba(168,85,247,0.05);"><td style="padding:10px;font-weight:600;">Icon Set Design (48 icons)</td><td style="padding:10px;text-align:right;color:#ec4899;font-weight:700;">1</td><td style="padding:10px;text-align:right;color:#ec4899;font-weight:700;">$1,680.00</td><td style="padding:10px;text-align:right;color:#a855f7;font-weight:900;">$1,680.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="display:flex;justify-content:flex-end;margin-bottom:1.5rem;">
+                <div style="width:250px;background:rgba(0,0,0,0.4);border:3px solid #a855f7;overflow:hidden;">
+                  <div style="padding:8px 12px;">
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="color:#94a3b8;">Subtotal</span><span style="font-weight:700;">$9,255.00</span></div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:#94a3b8;">Tax (8.25%)</span><span style="font-weight:700;color:#a855f7;">$763.54</span></div>
+                  </div>
+                  <div style="background:linear-gradient(to right,#a855f7,#ec4899,#f59e0b);padding:10px 12px;display:flex;justify-content:space-between;font-size:15px;font-weight:900;color:#000;">
+                    <span>TOTAL</span><span>$10,018.54</span>
+                  </div>
+                </div>
+              </div>
+              <div style="background:rgba(168,85,247,0.08);border-left:3px solid #a855f7;padding:10px 12px;font-size:11px;color:#94a3b8;">
+                <span style="font-weight:900;font-size:10px;color:#a855f7;">NOTES</span><br>
+                Thank you for choosing Pixel &amp; Flow Studio! We loved working on this project.
+              </div>
+            </div></div>
 
-            <!-- Slide 6: Wild -->
-            <div class="tpl-slide">
-              <div class="tpl-card" style="background:#0f172a;border-color:#1e293b;color:#94a3b8;">
-                <div style="padding:0.5rem 0.8rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e293b;">
-                  <div style="font-size:12px;font-weight:900;color:var(--accent-400);letter-spacing:-0.02em;">INVOICE</div>
-                  <div style="font-size:5.5px;color:#64748b;"># INV-2026-0041</div>
-                </div>
-                <div style="display:flex;gap:0.8rem;padding:0.4rem 0.8rem;">
-                  <div style="flex:1;"><div style="font-size:5px;color:var(--accent-400);font-weight:700;">FROM</div><div style="font-size:6.5px;color:#e2e8f0;font-weight:600;margin-top:2px;">Acme Services Ltd</div><div style="font-size:5.5px;color:#64748b;margin-top:1px;">742 Evergreen Terrace</div></div>
-                  <div style="flex:1;"><div style="font-size:5px;color:var(--accent-400);font-weight:700;">BILL TO</div><div style="font-size:6.5px;color:#e2e8f0;font-weight:600;margin-top:2px;">Alex Johnson</div><div style="font-size:5.5px;color:#64748b;margin-top:1px;">Bright Co</div></div>
-                </div>
-                <div style="margin:0.2rem 0.8rem;display:flex;border-bottom:1px solid var(--accent-500);padding-bottom:2px;">
-                  <div style="flex:3;font-size:5.5px;font-weight:700;color:var(--accent-400);">ITEM</div><div style="flex:0.5;font-size:5.5px;color:#64748b;text-align:center;">QTY</div><div style="flex:1;font-size:5.5px;color:#64748b;text-align:right;">RATE</div><div style="flex:1;font-size:5.5px;font-weight:700;color:var(--accent-400);text-align:right;">AMOUNT</div>
-                </div>
-                <div style="margin:0 0.8rem;">
-                  <div style="display:flex;padding:2.5px 0;border-bottom:1px solid #1e293b;"><div style="flex:3;color:#cbd5e1;">Website Redesign</div><div style="flex:0.5;text-align:center;">1</div><div style="flex:1;text-align:right;">$2,400</div><div style="flex:1;text-align:right;color:#e2e8f0;font-weight:600;">$2,400</div></div>
-                  <div style="display:flex;padding:2.5px 0;border-bottom:1px solid #1e293b;"><div style="flex:3;color:#cbd5e1;">Monthly Retainer</div><div style="flex:0.5;text-align:center;">1</div><div style="flex:1;text-align:right;">$3,200</div><div style="flex:1;text-align:right;color:#e2e8f0;font-weight:600;">$3,200</div></div>
-                  <div style="display:flex;padding:2.5px 0;border-bottom:1px solid #1e293b;"><div style="flex:3;color:#cbd5e1;">Social Media Mgmt</div><div style="flex:0.5;text-align:center;">1</div><div style="flex:1;text-align:right;">$4,800</div><div style="flex:1;text-align:right;color:#e2e8f0;font-weight:600;">$4,800</div></div>
-                  <div style="display:flex;padding:2.5px 0;"><div style="flex:3;color:#cbd5e1;">Consulting (2 hrs)</div><div style="flex:0.5;text-align:center;">2</div><div style="flex:1;text-align:right;">$150</div><div style="flex:1;text-align:right;color:#e2e8f0;font-weight:600;">$300</div></div>
-                </div>
-                <div style="margin:0.3rem 0.8rem 0;padding-top:3px;">
-                  <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:1px;"><span style="color:#64748b;">Subtotal</span><span style="color:#cbd5e1;">$10,700.00</span></div>
-                  <div style="display:flex;justify-content:flex-end;gap:12px;margin-bottom:2px;"><span style="color:#64748b;">Tax</span><span style="color:#cbd5e1;">$882.75</span></div>
-                </div>
-                <div style="background:var(--accent-500);padding:5px 8px;display:flex;justify-content:space-between;margin:0.2rem 0.8rem 0.5rem;">
-                  <span style="font-size:8px;font-weight:800;color:#fff;">TOTAL</span><span style="font-size:8px;font-weight:800;color:#fff;">$11,582.75</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
