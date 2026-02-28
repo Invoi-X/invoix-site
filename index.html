@@ -352,8 +352,14 @@
       .tpl-page { zoom: 0.55; }
     }
     @media (max-width: 640px) {
-      .tpl-slider-wrap { padding: 0 2.5rem; }
-      .tpl-page { zoom: 0.45; }
+      .tpl-slider-wrap { padding: 0 2rem; }
+      .tpl-page {
+        zoom: 1;
+        transform: scale(0.5);
+        transform-origin: top center;
+        margin-bottom: -420px;
+      }
+      .tpl-slide { gap: 0; }
     }
 
     /* ── How It Works ── */
