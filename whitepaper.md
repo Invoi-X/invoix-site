@@ -1,4 +1,4 @@
-# Invoi.Xyz — Product Whitepaper
+# Invoix.Xyz — Product Whitepaper
 
 **Version 1.0.0 | February 2026**
 
@@ -43,11 +43,11 @@
 
 ## Executive Summary
 
-Invoi.Xyz is a professional invoice generator built for freelancers and small businesses who want beautiful, functional invoices without the complexity of enterprise software or the limitations of free tools. It runs as a native Windows desktop application — fully offline, fully private, with zero recurring costs after purchase.
+Invoix.Xyz is a professional invoice generator built for freelancers and small businesses who want beautiful, functional invoices without the complexity of enterprise software or the limitations of free tools. It runs as a native Windows desktop application — fully offline, fully private, with zero recurring costs after purchase.
 
 The app ships with 6 professionally designed invoice templates, 7 currency options, a full analytics dashboard with 5 chart types, Gmail and Outlook email integration, and a deeply customisable theme system with 4 colour palettes and light/dark modes.
 
-Invoi.Xyz is not a SaaS product. It's software you own. Your data stays on your machine. There are no accounts to create, no servers to depend on, and no monthly fees.
+Invoix.Xyz is not a SaaS product. It's software you own. Your data stays on your machine. There are no accounts to create, no servers to depend on, and no monthly fees.
 
 ---
 
@@ -64,7 +64,7 @@ Functional but limited. Templates are generic, customisation is minimal, and the
 **3. Manual methods (Word, Excel, Google Docs)**
 Maximum control, zero automation. No calculations, no status tracking, no analytics, no PDF consistency. Every invoice is built from scratch.
 
-Invoi.Xyz fills the gap: a one-time purchase desktop app that offers professional-grade invoicing with full control over data, branding, and workflow — at a fraction of the cost of subscription software.
+Invoix.Xyz fills the gap: a one-time purchase desktop app that offers professional-grade invoicing with full control over data, branding, and workflow — at a fraction of the cost of subscription software.
 
 ---
 
@@ -72,7 +72,7 @@ Invoi.Xyz fills the gap: a one-time purchase desktop app that offers professiona
 
 | Attribute | Detail |
 |---|---|
-| **Product** | Invoi.Xyz |
+| **Product** | Invoix.Xyz |
 | **Version** | 1.0.0 |
 | **Platform** | Windows (desktop application) |
 | **Architecture** | Electron + React + TypeScript |
@@ -113,7 +113,7 @@ All values are rounded to 2 decimal places. The engine handles edge cases includ
 
 ### Templates
 
-Invoi.Xyz ships with 6 invoice templates, each designed for a different aesthetic:
+Invoix.Xyz ships with 6 invoice templates, each designed for a different aesthetic:
 
 | Template | Style | Character |
 |---|---|---|
@@ -216,7 +216,7 @@ Multi-currency invoices are handled gracefully — the analytics display totals 
 
 ### Email Integration
 
-Invoi.Xyz integrates with Gmail and Outlook for one-click invoice delivery:
+Invoix.Xyz integrates with Gmail and Outlook for one-click invoice delivery:
 
 - **OAuth 2.0 authentication** — Secure connection, no passwords stored locally
 - **One-click send** — From the invoice preview page, click Send and the PDF is attached and delivered
@@ -274,7 +274,7 @@ Shortcuts are disabled when focus is inside an input field to prevent conflicts.
 
 ### Themes & Appearance
 
-Invoi.Xyz offers a comprehensive theming system:
+Invoix.Xyz offers a comprehensive theming system:
 
 **Light/Dark mode** — A single toggle switches the entire application between light and dark palettes. The mode persists across sessions and applies before the first frame renders (no flash of incorrect theme).
 
@@ -373,7 +373,7 @@ Currency formatting respects regional conventions via `Intl.NumberFormat`. Each 
 
 ### Local-First Architecture
 
-Invoi.Xyz is built on a local-first principle. All data — invoices, clients, settings, preferences — is stored on the user's machine. There is no cloud database, no user accounts, no telemetry, and no analytics collection.
+Invoix.Xyz is built on a local-first principle. All data — invoices, clients, settings, preferences — is stored on the user's machine. There is no cloud database, no user accounts, no telemetry, and no analytics collection.
 
 This means:
 - **No internet required** for core functionality
@@ -410,7 +410,7 @@ The export/import system provides full data portability:
 
 ### Storage
 
-- **Location:** `%APPDATA%\Invoi.Xyz\invoix-data.json` (Windows)
+- **Location:** `%APPDATA%\Invoix.Xyz\invoix-data.json` (Windows)
 - **Format:** JSON (human-readable)
 - **Write strategy:** Atomic (temp file + rename) to prevent corruption on crash
 - **Persistence:** Zustand state synced to filesystem via custom Electron storage adapter
@@ -500,7 +500,7 @@ All stores persist to the Electron filesystem via a custom storage adapter that 
 | `app:setThemeIcon` | Update app icon based on colour theme |
 
 **Build output:**
-- Windows NSIS installer (`Invoi.Xyz Setup 1.0.0.exe`)
+- Windows NSIS installer (`Invoix.Xyz Setup 1.0.0.exe`)
 - User-customisable install directory
 - Desktop and Start Menu shortcuts
 
@@ -551,11 +551,11 @@ The wizard features animated transitions (Framer Motion), clickable progress dot
 
 ## Pricing Model
 
-Invoi.Xyz uses a straightforward pricing structure:
+Invoix.Xyz uses a straightforward pricing structure:
 
 | Tier | Price | Features |
 |---|---|---|
-| **Free** | £0 forever | 5 invoices/month, all 6 templates, PDF export, Invoi.Xyz watermark |
+| **Free** | £0 forever | 5 invoices/month, all 6 templates, PDF export, Invoix.Xyz watermark |
 | **Desktop** | £29.99 one-time | Unlimited invoices, no watermark, email integration, analytics, free updates forever |
 | **Cloud Pro** | £4.99/month | Everything in Desktop + cloud storage, cross-device sync, automatic backups, priority support, all future updates |
 
@@ -603,7 +603,7 @@ The Desktop tier is the primary offering — a one-time purchase with no recurri
 
 ## Summary
 
-Invoi.Xyz is professional invoicing software that respects its users. It's fast, private, offline-capable, and beautifully designed. It doesn't ask for a monthly subscription to do something as fundamental as sending an invoice.
+Invoix.Xyz is professional invoicing software that respects its users. It's fast, private, offline-capable, and beautifully designed. It doesn't ask for a monthly subscription to do something as fundamental as sending an invoice.
 
 For freelancers and small businesses, it offers everything the enterprise tools provide — templates, analytics, email integration, client management — without the complexity, the recurring cost, or the data concerns.
 
@@ -611,5 +611,5 @@ One purchase. Your data. Your invoices. Done.
 
 ---
 
-*Invoi.Xyz v1.0.0 — Built in Austin, TX*
+*Invoix.Xyz v1.0.0 — Built in Austin, TX*
 *https://invoix.xyz*
