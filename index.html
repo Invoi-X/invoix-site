@@ -327,48 +327,7 @@
 
     /* Main content area */
     .app-mock-main { flex: 1; background: var(--surface); overflow: hidden; }
-    .app-mock-topbar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px; border-bottom: 1px solid var(--border);
-    }
-    .app-mock-topbar-title { font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
-
-    /* Stats row */
-    .app-mock-stats {
-      display: flex; gap: 12px; padding: 16px 20px;
-    }
-    .app-mock-stat-card {
-      flex: 1; background: var(--surface-card); border: 1px solid var(--border); padding: 12px 16px;
-    }
-    .app-mock-stat-label {
-      font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
-      color: var(--text-muted); margin-bottom: 4px;
-    }
-    .app-mock-stat-val {
-      font-size: 1.1rem; font-weight: 700; color: var(--text-primary);
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-    }
-    .app-mock-stat-sub { font-size: 0.6rem; margin-top: 2px; }
-
-    /* Chart + table side by side */
-    .app-mock-content { display: flex; gap: 0; }
-    .app-mock-chart-col { flex: 1; padding: 0 20px 16px; }
-    .app-mock-chart-box {
-      background: var(--surface-card); border: 1px solid var(--border); padding: 12px 16px;
-    }
-    .app-mock-chart-title { font-size: 0.65rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; }
-    .app-mock-bars { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
-    .app-mock-bar { flex: 1; }
-
-    .app-mock-table-col { flex: 1.2; padding: 0 20px 16px 0; }
-    .app-mock-table {
-      background: var(--surface-card); border: 1px solid var(--border);
-    }
-    .app-mock-table-head {
-      display: flex; padding: 8px 12px; border-bottom: 1px solid var(--border);
-      font-size: 0.55rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
-      color: var(--text-muted);
-    }
+    /* Invoice list rows */
     .app-mock-table-row {
       display: flex; padding: 8px 12px; border-bottom: 1px solid var(--border);
       font-size: 0.65rem; align-items: center;
@@ -755,107 +714,103 @@
           </div>
         </div>
 
-        <!-- Main area -->
+        <!-- Main area — List view (matches actual app) -->
         <div class="app-mock-main">
-          <!-- Stats -->
-          <div class="app-mock-stats">
-            <div class="app-mock-stat-card">
-              <p class="app-mock-stat-label">Total Revenue</p>
-              <p class="app-mock-stat-val">£12,480</p>
-              <p class="app-mock-stat-sub" style="color:#4ade80">+23%</p>
+          <!-- Filters -->
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 20px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:6px;flex:0 0 auto;width:160px;padding:5px 10px;border:1px solid var(--border);font-size:0.6rem;color:var(--text-muted)">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              Search invoices...
             </div>
-            <div class="app-mock-stat-card">
-              <p class="app-mock-stat-label">Outstanding</p>
-              <p class="app-mock-stat-val">£3,240</p>
-              <p class="app-mock-stat-sub" style="color:#facc15">4 pending</p>
+            <div style="display:flex;gap:3px;font-size:0.55rem;">
+              <span style="padding:3px 8px;background:rgba(var(--accent-rgb),0.15);color:var(--accent-400);border:1px solid rgba(var(--accent-rgb),0.3)">All 10</span>
+              <span style="padding:3px 8px;color:#71717a;border:1px solid var(--border)">Draft 2</span>
+              <span style="padding:3px 8px;color:#3b82f6;border:1px solid var(--border)">Sent 3</span>
+              <span style="padding:3px 8px;color:#22c55e;border:1px solid var(--border)">Paid 4</span>
+              <span style="padding:3px 8px;color:#ef4444;border:1px solid var(--border)">Overdue 1</span>
             </div>
-            <div class="app-mock-stat-card">
-              <p class="app-mock-stat-label">Overdue</p>
-              <p class="app-mock-stat-val" style="color:#ef4444">1</p>
-            </div>
-            <div class="app-mock-stat-card">
-              <p class="app-mock-stat-label">Total Invoices</p>
-              <p class="app-mock-stat-val">48</p>
-            </div>
+            <span style="margin-left:auto;font-size:0.55rem;color:var(--text-muted)">10 invoices</span>
           </div>
 
-          <!-- Chart + Table -->
-          <div class="app-mock-content">
-            <div class="app-mock-chart-col">
-              <div class="app-mock-chart-box">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                  <span class="app-mock-chart-title" style="margin:0">Revenue (30D)</span>
-                  <div style="display:flex;gap:2px;">
-                    <span style="font-size:0.55rem;padding:2px 6px;background:var(--accent-600);color:#fff">D</span>
-                    <span style="font-size:0.55rem;padding:2px 6px;color:var(--text-muted);border:1px solid var(--border)">W</span>
-                    <span style="font-size:0.55rem;padding:2px 6px;color:var(--text-muted);border:1px solid var(--border)">M</span>
-                  </div>
-                </div>
-                <div class="app-mock-bars">
-                  <div class="app-mock-bar" style="height:12%;background:rgba(var(--accent-rgb),0.25)"></div>
-                  <div class="app-mock-bar" style="height:8%;background:rgba(var(--accent-rgb),0.2)"></div>
-                  <div class="app-mock-bar" style="height:15%;background:rgba(var(--accent-rgb),0.25)"></div>
-                  <div class="app-mock-bar" style="height:5%;background:rgba(var(--accent-rgb),0.18)"></div>
-                  <div class="app-mock-bar" style="height:10%;background:rgba(var(--accent-rgb),0.22)"></div>
-                  <div class="app-mock-bar" style="height:18%;background:rgba(var(--accent-rgb),0.28)"></div>
-                  <div class="app-mock-bar" style="height:6%;background:rgba(var(--accent-rgb),0.18)"></div>
-                  <div class="app-mock-bar" style="height:22%;background:rgba(var(--accent-rgb),0.3)"></div>
-                  <div class="app-mock-bar" style="height:8%;background:rgba(var(--accent-rgb),0.2)"></div>
-                  <div class="app-mock-bar" style="height:14%;background:rgba(var(--accent-rgb),0.25)"></div>
-                  <div class="app-mock-bar" style="height:100%;background:var(--accent-500)"></div>
-                  <div class="app-mock-bar" style="height:9%;background:rgba(var(--accent-rgb),0.2)"></div>
-                  <div class="app-mock-bar" style="height:7%;background:rgba(var(--accent-rgb),0.18)"></div>
-                  <div class="app-mock-bar" style="height:11%;background:rgba(var(--accent-rgb),0.22)"></div>
-                  <div class="app-mock-bar" style="height:5%;background:rgba(var(--accent-rgb),0.18)"></div>
-                </div>
-              </div>
-            </div>
-            <div class="app-mock-table-col">
-              <div class="app-mock-table">
-                <div class="app-mock-table-head">
-                  <span style="flex:0.8">Status</span>
-                  <span style="flex:1.5">Invoice #</span>
-                  <span style="flex:1.2">Client</span>
-                  <span style="flex:1;text-align:right">Amount</span>
-                </div>
-                <div class="app-mock-table-row">
-                  <span style="flex:0.8"><span class="status-dot" style="background:#71717a"></span><span class="status-text" style="color:#71717a">Draft</span></span>
-                  <span style="flex:1.5" class="mono" style="color:var(--text-primary)">INV/15</span>
-                  <span style="flex:1.2;color:var(--text-secondary)">Tyler Brooks</span>
-                  <span style="flex:1;text-align:right;color:var(--text-primary)" class="mono">£3,699.99</span>
-                </div>
-                <div class="app-mock-table-row">
-                  <span style="flex:0.8"><span class="status-dot" style="background:#22c55e"></span><span class="status-text" style="color:#22c55e">Paid</span></span>
-                  <span style="flex:1.5" class="mono" style="color:var(--text-primary)">INV/08</span>
-                  <span style="flex:1.2;color:var(--text-secondary)">Sarah Chen</span>
-                  <span style="flex:1;text-align:right;color:var(--text-primary)" class="mono">£216.00</span>
-                </div>
-                <div class="app-mock-table-row">
-                  <span style="flex:0.8"><span class="status-dot" style="background:#71717a"></span><span class="status-text" style="color:#71717a">Draft</span></span>
-                  <span style="flex:1.5;color:var(--text-primary)" class="mono">INV-20260215</span>
-                  <span style="flex:1.2;color:var(--text-muted)">—</span>
-                  <span style="flex:1;text-align:right;color:var(--text-primary)" class="mono">£10.00</span>
-                </div>
-                <div class="app-mock-table-row">
-                  <span style="flex:0.8"><span class="status-dot" style="background:#3b82f6"></span><span class="status-text" style="color:#3b82f6">Sent</span></span>
-                  <span style="flex:1.5;color:var(--text-primary)" class="mono">INV-20260124</span>
-                  <span style="flex:1.2;color:var(--text-secondary)">Nathan Park</span>
-                  <span style="flex:1;text-align:right;color:var(--text-primary)" class="mono">£12,232.25</span>
-                </div>
-                <div class="app-mock-table-row">
-                  <span style="flex:0.8"><span class="status-dot" style="background:#ef4444"></span><span class="status-text" style="color:#ef4444">Overdue</span></span>
-                  <span style="flex:1.5;color:var(--text-primary)" class="mono">INV-20250716</span>
-                  <span style="flex:1.2;color:var(--text-secondary)">Tyler Brooks</span>
-                  <span style="flex:1;text-align:right;color:var(--text-primary)" class="mono">£872.58</span>
-                </div>
-                <div class="app-mock-table-row">
-                  <span style="flex:0.8"><span class="status-dot" style="background:#22c55e"></span><span class="status-text" style="color:#22c55e">Paid</span></span>
-                  <span style="flex:1.5;color:var(--text-primary)" class="mono">INV-20260208</span>
-                  <span style="flex:1.2;color:var(--text-secondary)">Sarah Chen</span>
-                  <span style="flex:1;text-align:right;color:var(--text-primary)" class="mono">£3,699.99</span>
-                </div>
-              </div>
-            </div>
+          <!-- Column headers -->
+          <div style="display:flex;padding:6px 20px;border-bottom:1px solid var(--border);font-size:0.5rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)">
+            <span style="flex:0.6">Status</span>
+            <span style="flex:1.2">Invoice #</span>
+            <span style="flex:1.2">Client</span>
+            <span style="flex:1">Date</span>
+            <span style="flex:0.8;text-align:right">Amount</span>
+          </div>
+
+          <!-- Invoice rows -->
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#71717a"></span><span class="status-text" style="color:#71717a">Draft</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.013</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Nathan Park</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Feb 28, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£2,250.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#71717a"></span><span class="status-text" style="color:#71717a">Draft</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.012</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Olivia Martinez</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Feb 25, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£4,640.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#3b82f6"></span><span class="status-text" style="color:#3b82f6">Sent</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.011</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Emma Thornton</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Feb 18, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£6,855.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#3b82f6"></span><span class="status-text" style="color:#3b82f6">Sent</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.010</span>
+            <span style="flex:1.2;color:var(--text-secondary)">James Wilson</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Feb 12, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£2,400.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#3b82f6"></span><span class="status-text" style="color:#3b82f6">Sent</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.009</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Nathan Park</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Feb 05, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£4,150.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#22c55e"></span><span class="status-text" style="color:#22c55e">Paid</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.007</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Tyler Brooks</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Jan 20, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£4,400.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#22c55e"></span><span class="status-text" style="color:#22c55e">Paid</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.005</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Olivia Martinez</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Jan 10, 2026</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£2,700.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#22c55e"></span><span class="status-text" style="color:#22c55e">Paid</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.003</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Sarah Chen</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Dec 01, 2025</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£9,700.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#ef4444"></span><span class="status-text" style="color:#ef4444">Overdue</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.002</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Tyler Brooks</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Nov 20, 2025</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£1,200.00</span>
+          </div>
+          <div class="app-mock-table-row" style="padding:7px 20px">
+            <span style="flex:0.6"><span class="status-dot" style="background:#22c55e"></span><span class="status-text" style="color:#22c55e">Paid</span></span>
+            <span style="flex:1.2;color:var(--text-primary)" class="mono">INV-2026.001</span>
+            <span style="flex:1.2;color:var(--text-secondary)">Emma Thornton</span>
+            <span style="flex:1;color:var(--text-muted);font-size:0.6rem">Nov 15, 2025</span>
+            <span style="flex:0.8;text-align:right;color:var(--text-primary)" class="mono">£4,850.00</span>
           </div>
         </div>
       </div>
