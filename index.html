@@ -82,7 +82,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--surface);
@@ -107,7 +107,11 @@
       font-size: 1rem; font-weight: 700; color: var(--text-primary);
       letter-spacing: -0.025em; text-decoration: none;
     }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      position: fixed; left: 50%; transform: translateX(-50%);
+      top: 0; height: 3.5rem;
+    }
     .nav-links a {
       font-size: 0.8125rem; color: var(--text-muted); text-decoration: none;
       transition: color 0.15s; font-weight: 500;
@@ -187,17 +191,57 @@
     .btn-outline:hover { border-color: var(--accent-500); color: var(--text-primary); }
 
     /* ── Sections ── */
-    section { padding: 5rem 0; }
+    section { padding: 1rem 0; }
     .container { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
     .section-label {
       font-size: 0.6875rem; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.1em; color: var(--accent-400); margin-bottom: 0.75rem;
     }
     h1, h2, h3 { color: var(--text-primary); }
-    .divider { height: 1px; background: var(--border); }
+    /* ── Divider: Constellation ── */
+    .divider {
+      position: relative;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 72rem;
+      margin: 0 auto;
+    }
+    .divider .div-line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+    }
+    .divider .div-glow {
+      position: absolute;
+      width: 200px;
+      height: 1px;
+      background: var(--accent-500);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.4), 0 0 4px rgba(var(--accent-rgb), 0.2);
+    }
+    .divider .div-stars {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1;
+    }
+    .divider .div-star {
+      width: 2px; height: 2px; border-radius: 50%;
+      background: var(--accent-500);
+      box-shadow: 0 0 4px rgba(var(--accent-rgb), 0.5);
+    }
+    .divider .div-star:nth-child(odd) { opacity: 0.4; }
+    .divider .div-star:nth-child(3) { width: 3px; height: 3px; opacity: 1; }
+    .divider .div-star:nth-child(5) { width: 4px; height: 4px; opacity: 1; background: var(--accent-400); box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.7); }
+    .divider .div-star:nth-child(7) { width: 3px; height: 3px; opacity: 1; }
+    .divider .div-star:nth-child(2),
+    .divider .div-star:nth-child(8) { opacity: 0.25; }
 
     /* ── Hero ── */
-    .hero { padding-top: 7.5rem; padding-bottom: 4rem; }
+    .hero { padding-top: 5rem; padding-bottom: 1.5rem; }
     .hero-center { text-align: center; max-width: 48rem; margin: 0 auto; }
     .hero h1 {
       font-size: 4rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
@@ -208,12 +252,12 @@
       font-size: 1.1rem; color: var(--text-secondary); max-width: 34rem; margin: 0 auto 2rem;
       line-height: 1.7;
     }
-    .hero-cta { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+    .hero-cta { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
     .hero-cta .btn-flat { padding: 0.8rem 2.25rem; font-size: 0.9rem; }
     .hero-cta .btn-outline { padding: 0.8rem 2.25rem; font-size: 0.9rem; }
     .hero-pills {
       display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
-      margin-bottom: 3rem; color: var(--text-muted); font-size: 0.8rem;
+      margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.8rem;
     }
     .hero-pill {
       display: flex; align-items: center; gap: 0.4rem;
@@ -496,7 +540,7 @@
   <!-- Nav -->
   <nav>
     <div class="nav-inner">
-      <a href="#" class="nav-logo">Invoi.Xyz</a>
+      <a href="/" class="nav-logo">Invoi.Xyz</a>
       <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#templates">Templates</a>
@@ -761,7 +805,15 @@
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-glow"></div>
+    <div class="div-stars">
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+    </div>
+  </div>
 
   <!-- Features -->
   <section id="features">
@@ -867,7 +919,15 @@
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-glow"></div>
+    <div class="div-stars">
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+    </div>
+  </div>
 
   <!-- Templates -->
   <section id="templates">
@@ -985,7 +1045,15 @@
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-glow"></div>
+    <div class="div-stars">
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+    </div>
+  </div>
 
   <!-- How It Works -->
   <section id="how-it-works">
@@ -1068,7 +1136,15 @@
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-glow"></div>
+    <div class="div-stars">
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+    </div>
+  </div>
 
   <!-- Pricing -->
   <section id="pricing">
@@ -1144,7 +1220,7 @@
               Free updates forever
             </li>
           </ul>
-          <a href="#" class="btn-flat" style="width:100%;text-align:center;padding:0.75rem">Buy Now — £29.99</a>
+          <span class="btn-flat" style="width:100%;text-align:center;padding:0.75rem;opacity:0.5;cursor:default">Coming Soon</span>
         </div>
 
         <!-- Web -->
@@ -1177,13 +1253,21 @@
               Cloud sync & backup
             </li>
           </ul>
-          <a href="#" class="btn-outline" style="width:100%;text-align:center;padding:0.75rem">Get Started</a>
+          <span class="btn-outline" style="width:100%;text-align:center;padding:0.75rem;opacity:0.5;cursor:default">Coming Soon</span>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-glow"></div>
+    <div class="div-stars">
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+    </div>
+  </div>
 
   <!-- FAQ -->
   <section id="faq">
@@ -1238,7 +1322,15 @@
     </div>
   </section>
 
-  <div class="divider"></div>
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-glow"></div>
+    <div class="div-stars">
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+      <span class="div-star"></span><span class="div-star"></span><span class="div-star"></span>
+    </div>
+  </div>
 
   <!-- CTA -->
   <section class="cta-section">
@@ -1270,8 +1362,8 @@
       <div class="footer-bottom">
         <p>&copy; 2026 Invoi.Xyz. All rights reserved.</p>
         <div style="display:flex;gap:1.25rem;">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
         </div>
       </div>
     </div>
